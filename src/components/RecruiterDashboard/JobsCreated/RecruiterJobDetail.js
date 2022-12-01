@@ -1,0 +1,272 @@
+import React from 'react'
+import IconButton from '@mui/material/IconButton';
+import MenuIcon from '@mui/icons-material/Menu';
+import RecruiterDashhead from '../RecruiterDashhead';
+import axios from 'axios'
+import {connect} from 'react-redux'
+import {storeUserInfo} from '../../redux/user/userActions'
+import HeaderDash from '../../Header/HeaderDash';
+import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
+import Rating from '@mui/material/Rating';
+import WorkIcon from '@mui/icons-material/Work';
+import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
+import FmdGoodIcon from '@mui/icons-material/FmdGood';
+import ArticleIcon from '@mui/icons-material/Article';
+import DescriptionIcon from '@mui/icons-material/Description';
+import Inventory2Icon from '@mui/icons-material/Inventory2';
+import Chip from '@mui/material/Chip';
+import SearchIcon from '@mui/icons-material/Search';
+import {useParams} from 'react-router-dom'
+import { Link } from 'react-router-dom';
+import "./JobsCreated.scss"
+import Tooltip from '@mui/material/Tooltip';
+import Fab from '@mui/material/Fab';
+import BookmarkIcon from '@mui/icons-material/Bookmark';
+import AddIcon from '@mui/icons-material/Add';
+import Box from '@mui/material/Box';
+import Tab from '@mui/material/Tab';
+import TabContext from '@mui/lab/TabContext';
+import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
+import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+import TabList from '@mui/lab/TabList';
+import TabPanel from '@mui/lab/TabPanel';
+import { Button } from '@mui/material';
+function RecruiterJobDetail(props) {
+    const [display,setDisplay]=React.useState(false)
+    const [singleJob,setSingleJob] = React.useState(null)
+    const [value, setValue] = React.useState('1');
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
+    let params = useParams();
+    console.log(params)
+
+  const getSingleJob = ()=>{
+    axios.post(`${process.env.REACT_APP_DEVELOPMENT}/api/job/singleJob`,{jobId:params.id})
+        .then(res=>{
+            console.log(res)
+            if(res.data.msg==="success"){
+                setSingleJob(res.data.result)
+                // if(props.user.userInfo.bookmarks.jobs.includes(res.data.result._id)){
+                //     setBookmarked(true)
+                // }
+            }
+        })
+        .catch(err=>{
+            console.log(err)
+        })
+  }
+
+    React.useEffect(()=>{
+        getSingleJob()
+    },[])
+
+    const handleHire = (candidateObjectId,userId)=>{
+        axios.post(`${process.env.REACT_APP_DEVELOPMENT}/api/job/hireCandidate`,{jobId:singleJob._id,candidateObjectId,userId,title:singleJob.title},{headers:{token:props.user.user}})
+        .then(res=>{
+            console.log(res)
+            getSingleJob()
+        })
+        .catch(err=>{
+            console.log(err)
+        })
+    }
+
+    const handleReject = (candidateObjectId,userId)=>{
+        axios.post(`${process.env.REACT_APP_DEVELOPMENT}/api/job/rejectCandidate`,{jobId:singleJob._id,candidateObjectId,userId,title:singleJob.title},{headers:{token:props.user.user}})
+        .then(res=>{
+            console.log(res)
+            getSingleJob()
+        })
+        .catch(err=>{
+            console.log(err)
+        })
+    }
+
+
+
+    return (
+        <>
+
+            <HeaderDash />
+        
+        <div className="row">
+            <div className="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 p-0">
+            <RecruiterDashhead margin={0} id={2} display={display} />
+            </div>
+
+            <div className="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-xl-10 dashboard-container scroll" onClick={()=>display&&setDisplay(false)}>
+            <span className="iconbutton display-mobile">
+            <IconButton  size="large" aria-label="Menu" onClick={()=>setDisplay(true)}>
+            <MenuIcon fontSize="inherit" />
+             </IconButton>
+             </span>
+
+             <TabContext value={value}>
+        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+          <TabList onChange={handleChange} aria-label="lab API tabs example">
+            <Tab label="Job Info" value="1" />
+            <Tab label="Applicants" value="2" />
+          </TabList>
+        </Box>
+        <TabPanel value="1" className="m-0 p-0">
+        {
+                    singleJob&&<section className="shadow-sm single-job row m-auto">
+                    <div className='img-div col-12 col-sm-12 col-md-1 col-lg-1 col-xl-1'>
+                        <img src={`${process.env.REACT_APP_DEVELOPMENT}/api/image/${singleJob.createdBy.companyImg}`} alt="logo1" />
+                    </div>
+                    <div className='content-div col-12 col-sm-12 col-md-9 col-lg-9 col-xl-9'>
+                        <h3>{singleJob.title}</h3>
+                        <p className="company-name m-0">{singleJob.createdBy.companyName}</p>
+                        <h4 className="m-0">{singleJob.product}</h4>
+                            <div className='row m-auto align-items-center'>
+                                <div>
+                                <Rating name="read-only" value={3} readOnly />
+                                </div>
+                                <div>
+                                <p className="total-reviews">(47 Reviews)</p>
+                                </div>
+                            </div>
+                        <div className="row my-2 mx-auto key-features">
+                            <div className="m-1">
+                                <WorkIcon />
+                                <span className='key-headline m-2'>{singleJob.experience.min} - {singleJob.experience.max} Yrs</span>
+                            </div>
+                            <div className="m-1">
+                                <CurrencyRupeeIcon />
+                                <span className='key-headline m-2'>{singleJob.ctc.min} - {singleJob.ctc.max} P.A</span>
+                            </div>
+                            <div className="m-1">
+                                <FmdGoodIcon />
+                                <span className='key-headline m-2'>{singleJob.jobLocation.city} | {singleJob.jobLocation.state} | {singleJob.jobLocation.country}</span>
+                            </div>
+                        </div>
+                        <div className="row my-2 mx-auto key-features">
+                            <div className="m-1">
+                                <ArticleIcon />
+                                <span className='key-headline m-2'>{singleJob.qualification.ug} in CSE</span>
+                            </div>
+                            <div className="m-1">
+                                <DescriptionIcon />
+                                <span className='key-headline m-2'>{singleJob.qualification.pg} in Finance</span>
+                            </div>
+                            <div className="m-1">
+                                <Inventory2Icon />
+                                <span className='key-headline m-2'>{singleJob.industry}</span>
+                            </div>
+                        </div>
+
+                        <div className="description">
+                            <h2 className="pt-2">Job Description</h2>
+                            <p>
+                            {singleJob.jobDescription}
+                            </p>
+                        </div>
+
+                        <div className="keys">
+                        {singleJob.tags.map((tag,index)=><Chip color="primary" key={index} className="m-3" label={tag} />)}
+                        </div>
+
+                        <div className="description">
+                            <h2 className="pt-2">Roles and Responsibilities</h2>
+                            <ul>
+                            {
+                                singleJob.roleResp.map((item,index)=><li key={index}>{item}</li>)
+                            }
+                            </ul>
+                        </div>
+
+                        <div className="description">
+                            <h2 className="pt-2">Desired Candidate Profile</h2>
+                            <p>
+                                {singleJob.desiredProfile}
+                            </p>
+                            
+                        </div>
+
+                    </div>
+                    <div className="bookmark-div col-2">
+                        <h2>{singleJob.jobCandidates.length} Applied</h2>
+                    </div>
+                </section>
+
+                }
+        </TabPanel>
+        <TabPanel value="2">
+                {
+                    singleJob&&singleJob.jobCandidates.length>0?singleJob.jobCandidates.map((item,index)=><section className="candidate-single-job shadow-sm" key={index}>
+                        <div className="row m-auto">
+                            <div className="col-1">
+                            <img src={`${process.env.REACT_APP_DEVELOPMENT}/api/image/${item.user.profilePicture}`} alt="logo1" />
+                            </div>
+                            <div className="col-5">
+                                <h2>{item.user.fullName}</h2>
+                                {item.user.workExperience.length>0&&item.user.workExperience.map(we=>we.current&&<p className="bold-text">{we.name} | {we.designation}</p>)}
+                                <p className="bold-text">{item.user.education.length>0?`${item.user.education[0].name}, ${item.user.education[0].universityName}`:""}</p>
+                            </div>
+                            <div className="col-5">
+                            {item.user.resume.length>0&&<div onClick={()=>{
+                                window.open(`${process.env.REACT_APP_DEVELOPMENT}/api/pdf/${item.user.resume}`, '_blank');
+                                //window.location.href=`${process.env.REACT_APP_DEVELOPMENT}/api/pdf/${item.user.resume}`
+                                //window.location.href()
+                            }} className="resume-cont row m-auto align-items-center shadow-sm">
+                                <div className="">
+                                    <DescriptionIcon sx={{fontSize:25}} color="primary" />
+                                </div>
+                                <div className="ml-3">
+                                    <h5>{item.user.fullName}'s Resume</h5>
+                                    <p>Updated on : 25/04/2022</p>
+                                </div>
+                            </div>}
+                            </div>
+                        </div>
+                        <div className="row mt-4 mx-auto sub-info">
+                            <p className="mx-2"><LocalPhoneIcon sx={{marginRight:.1}} /> <b>{item.user.mobileNo}</b></p>
+                            <p className="mx-2"><AlternateEmailIcon sx={{marginRight:.1}} /> <b>{item.user.email}</b></p>
+                            <p className="mx-2"><LocationOnIcon sx={{marginRight:.1}} /> <b>{item.user.userLocation.city}, {item.user.userLocation.state}</b></p>
+                        </div>
+                        <p>{item.user.resumeTagline}</p>
+                        {
+                            item.user.skills.map((i,index)=><Chip label={i} key={index} color="primary" className="m-2" />)
+                        }
+                        <div style={{textAlign:"right"}}>
+                            {item.status==="Pending"?<>
+                            <Button onClick={()=>handleReject(item._id,item.user._id)}>Reject</Button>
+                            <Button onClick={()=>handleHire(item._id,item.user._id)} variant="contained">Hire</Button>
+                            </>:<span className={item.status==="Hired"?"hired-status px-3 py-2":"rejected-status px-3 py-2"}>{item.status}</span>}
+                        </div>
+                    </section>):null
+                }
+        </TabPanel>
+      </TabContext>
+
+
+            <div  style={{position:"fixed",bottom:"5%",right:"5%",zIndex:5}}>
+                    <Tooltip title="Add Services">
+                    <Fab variant="extended" onClick={()=>props.history.push("/createjob")} color="primary" aria-label="add">
+                        <AddIcon sx={{ mr: 1 }} />
+                        Create Job
+                    </Fab>
+                    </Tooltip>
+                    </div>
+             </div>
+    </div>
+    </>
+    )
+}
+
+const mapStateToProps = ({banksterUser})=>{    
+    return {
+        user:banksterUser
+    }
+}
+
+const mapDispatchToProps = (dispatch)=>{    
+    return {
+        storeUserInfo:(userInfo)=>dispatch(storeUserInfo(userInfo))
+    }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(RecruiterJobDetail)

@@ -1,0 +1,202 @@
+@import "../App.scss";
+
+
+.gradient-home{
+    background: #FFE7F0;
+background: -webkit-linear-gradient(top left, #FFE7F0, #FFFFFF);
+background: -moz-linear-gradient(top left, #FFE7F0, #FFFFFF);
+background: linear-gradient(to bottom right, #FFE7F0, #FFFFFF);
+}
+
+.home-section{
+    /* Created with https://www.css-gradient.com */
+/* Created with https://www.css-gradient.com */
+
+    h1{
+        text-align: center;
+        font-size: 4em;
+        font-weight: 400;
+
+    }
+    h2{
+        text-align: center;
+        font-size: 6em;
+        background: -webkit-linear-gradient(#E77AA5, #9b144a);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+    h3{
+        text-align: center;
+        font-size: 3em;
+    }
+    .meta-row{
+        margin: 3% auto !important;
+        text-align: center;
+        width: 50%;
+        h3{
+            font-size: 3.5em;
+        }
+        p{
+            font-weight: bold;
+            font-size: 1.7em;
+        }
+    }
+    h3{
+        text-align: center;
+        font-size: 3em;
+    }
+    .partner-section{
+        margin: 5%;
+        text-align: center;
+        img{
+            width: 15%;
+            margin: 2% 3%;
+        }
+    }
+
+    .popular-role-head{
+        background-color: $secondary;
+        width: 60%;
+        border-radius: 30px;
+        padding: 2%;
+        .left{
+            h4{
+                font-size: 3em;
+            }
+        }
+        .right{
+            .single-card{
+                padding: 2%;
+                border-radius: 10px;
+                background-color: white;
+                margin: 2% auto !important;
+                h4{
+                    margin: 0;
+                    font-size: 1.4em;
+                    margin-bottom: 1%;
+                }
+                p{
+                    color: $tertiary;
+                    font-weight: bold;
+                }
+            }
+            .single-card:hover{
+                transform: scale(1.1);
+                cursor: pointer;
+                transition: .2s;
+                color: white;
+                background-color: $primary;
+                p{
+                    color: #f7f7f7;
+                }
+            }
+        }
+    }
+
+    .info-div{
+        margin: 8% auto !important;
+        padding: 5%;
+        width: 80%;
+        border-radius: 10px;
+        background-color: $secondary;
+        h4{
+            font-size: 2em;
+        }
+        p{
+            color: $tertiary;
+            line-height: 1.6;
+        }
+
+        img{
+            width: 100%;
+        }
+    }
+}
+
+
+@media (max-width: 992px) {
+
+}
+@media (max-width: 768px) {
+
+
+}
+@media (max-width: 576px) {
+    .home-section{
+        /* Created with https://www.css-gradient.com */
+    /* Created with https://www.css-gradient.com */
+    
+        h1{
+            font-size: 2em;
+    
+        }
+        h2{
+            font-size: 3em;
+        }
+        h3{
+            font-size: 2em;
+        }
+        .meta-row{
+            margin: 5% auto !important;
+            width: 90%;
+            h3{
+                font-size: 1.3em;
+            }
+            p{
+                font-size: 0.8em;
+            }
+        }
+        h3{
+            text-align: center;
+            font-size: 2em;
+        }
+        .partner-section{
+            margin: 25% 1%;
+            text-align: center;
+            img{
+                width: 15%;
+                margin: 2% 3%;
+            }
+        }
+
+
+        .popular-role-head{
+            width: 90%;
+            padding: 3%;
+            margin: 15% auto !important;
+            .left{
+                h4{
+                    font-size: 2em;
+                }
+            }
+            .right{
+                margin-top: 4% !important;
+                .single-card{
+                    padding: 2% 3%;
+                    h4{
+                        font-size: 1.2em;
+                    }
+                }
+
+            }
+        }
+
+        .info-div{
+            margin: 15% auto !important;
+            padding: 8% 5%;
+            width: 90%;
+            h4{
+                font-size: 2em;
+            }
+            p{
+                line-height: 1.6;
+            }
+    
+            img{
+                width: 100%;
+                margin-bottom: 10%;
+            }
+        }
+
+    }
+}

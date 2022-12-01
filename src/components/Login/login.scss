@@ -1,0 +1,49 @@
+@import  "../../App.scss";
+
+
+
+.main_cont{
+    background-color: $secondary;
+    padding: 3%;
+    border-radius: 3%;
+  
+}
+.main_dev{
+    background-color: white;
+    width: 80%;
+    padding: 1rem;
+    margin-top: 2rem;
+    border-radius: 1rem;
+  padding: 3rem 1rem;
+   box-shadow: 2rem black;
+   
+}
+
+
+@media (max-width: 992px) {
+    .logimg{
+        width: 100%;
+    }
+    .main_dev{
+        width: 80%;
+        
+    
+    }
+}
+@media (max-width: 768px) {
+
+    .main_dev{
+        width: 80%;
+      
+    }
+}
+@media (max-width: 576px) {
+    .logimg{
+        width: 100%;
+    }
+    .main_dev{
+        width: 100%;
+       
+    }
+  
+}

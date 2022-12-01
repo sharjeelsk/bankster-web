@@ -1,0 +1,126 @@
+@import  "../../App.scss";
+
+
+.job-card-head{
+    background-color: $secondary;
+    padding: 2%;
+    margin: 3% 0 !important;
+    
+    .job-card-item{
+        background-color: white;
+        margin: 2% 1%;
+        padding: 1%;
+        border-radius: 10px;
+        img{
+            width: 100%;
+        }
+        .companyname{
+            font-size: 1.2em;
+            margin: 0;
+        }
+        .companylocation{
+            color: $tertiary;
+            font-weight: bold;
+        }
+        .jobname{
+            font-size: 1.4em;
+            font-family: $primary-font;
+            margin-bottom: 0;
+            margin-top: 5%;
+        }
+        .product{
+            margin: 1% 0;
+            color: $tertiary;
+        }
+        .description{
+            margin: 6% 0;
+            color: $tertiary;
+        }
+        .ctc{
+            margin-bottom: 8%;
+
+        }
+        .amount{
+            font-size: 1.5em;
+            font-weight: bold;
+            color: $darkpink;
+        }
+        .apply{
+            margin-left: auto;
+            display: block;
+            
+        }
+        .apply-text{
+            font-weight: bold;
+            margin-top: 3%;
+            font-size: 1.1em;
+        }
+    }
+}
+
+@media (max-width: 992px) {
+
+}
+@media (max-width: 768px) {
+
+
+}
+@media (max-width: 576px) {
+    .job-card-head{
+        background-color: $secondary;
+        padding: 4%;
+        margin: 3% 0 !important;
+        
+        .job-card-item{
+            background-color: white;
+            margin: 4% 1%;
+            padding: 6%;
+            border-radius: 10px;
+            img{
+                width: 100%;
+            }
+            .companyname{
+                font-size: 1.2em;
+                margin: 0;
+            }
+            .companylocation{
+                color: $tertiary;
+                font-weight: bold;
+            }
+            .jobname{
+                font-size: 1.4em;
+                font-family: $primary-font;
+                margin-bottom: 0;
+                margin-top: 5%;
+            }
+            .product{
+                margin: 1% 0;
+                color: $tertiary;
+            }
+            .description{
+                margin: 6% 0;
+                color: $tertiary;
+            }
+            .ctc{
+                margin-bottom: 8%;
+    
+            }
+            .amount{
+                font-size: 1.5em;
+                font-weight: bold;
+                color: $darkpink;
+            }
+            .apply{
+                margin-left: auto;
+                display: block;
+                
+            }
+            .apply-text{
+                font-weight: bold;
+                margin-top: 3%;
+                font-size: 1.1em;
+            }
+        }
+    }
+    
+}

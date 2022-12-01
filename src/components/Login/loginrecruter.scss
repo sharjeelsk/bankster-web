@@ -1,0 +1,28 @@
+@import  "../../App.scss";
+
+
+
+.main_cont{
+    background-color: $secondary;
+    padding: 3%;
+    border-radius: 3%;
+  
+}
+
+
+@media (max-width: 992px) {
+    .logimg{
+        width: 100%;
+    }
+  
+}
+@media (max-width: 768px) {
+
+    
+}
+@media (max-width: 576px) {
+    .logimg{
+        width: 100%;
+    }
+  
+}

@@ -1,0 +1,53 @@
+@import  "../../App.scss";
+
+
+
+.main_cont{
+    background-color: $secondary;
+    padding: 3%;
+    border-radius: 3%;
+    .plan-auth-cont{
+        background-color: white;
+        padding: 4%;
+        margin: 4%;
+        border-radius: 10px;
+        text-align: center;
+        h1,h2{
+            margin: 0;
+        }
+        h1{
+
+        }
+        h2{
+            font-weight: 400;
+            padding: 3% 0;
+            background: -webkit-linear-gradient(#E77AA5, #ff3d8b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+
+        }
+        p{
+            font-weight: 400;
+            font-size: 1.1em;
+            color: #a1a1a1;
+        }
+    }
+}
+
+
+@media (max-width: 992px) {
+    .logimg{
+        width: 100%;
+    }
+  
+}
+@media (max-width: 768px) {
+
+    
+}
+@media (max-width: 576px) {
+    .logimg{
+        width: 100%;
+    }
+  
+}

@@ -1,0 +1,119 @@
+@import  "../../App.scss";
+
+.footer{
+    margin-top: 10% !important;
+    .newsletter{
+        width: 70%;
+        padding: 2%;
+        border-radius: 30px;
+        h3{
+            font-size: 2em;
+            text-align: left !important;
+        }
+        .input-div{
+            border: 1px solid rgb(224, 224, 224);
+            padding: 2% 1%;
+            border-radius: 10px;
+        }
+        input{
+            outline: none;
+            border: none;
+            width: 100%;
+            font-size: 1.1em;
+        }
+    }
+    .footer-main{
+        padding: 3%;
+        background-color: $secondary;
+        img{
+            width: 100%;
+        }
+        .content{
+            .link{
+                display: block;
+                color: $tertiary;
+                margin: 4% 0 !important;
+                font-size: 1.1em;
+            }
+        }
+        .footer-headline{
+            h3{
+                font-size: 2em;
+            }
+        }
+        .bottom-footer{
+            margin-top: 2% !important;
+            border-top: 1px solid #ccc;
+            padding: 1.5%;
+            color: $tertiary;
+        }
+    }
+    
+}
+
+
+@media (max-width: 992px) {
+
+}
+@media (max-width: 768px) {
+
+
+}
+@media (max-width: 576px) {
+    .footer{
+        margin-top: 10% !important;
+        .newsletter{
+            width: 95%;
+            padding: 2%;
+            border-radius: 30px;
+            h3{
+                font-size: 1.5em;
+                text-align: center !important;
+            }
+            .input-div{
+                margin-top: 5% !important;
+                border: 1px solid rgb(224, 224, 224);
+                padding: 2% 1%;
+                border-radius: 10px;
+            }
+            input{
+                outline: none;
+                border: none;
+                width: 100%;
+                font-size: 1.1em;
+            }
+        }
+        .footer-main{
+            padding: 3% 2%;
+            img{
+                width: 80%;
+                display: block;
+                margin: 5% auto;
+            }
+            .content{
+                margin: 5% 0 !important;
+                .link{
+                    display: block;
+                    color: $tertiary;
+                    margin: 10% 0 !important;
+                    font-size: 1.1em;
+                }
+            }
+            .footer-headline{
+                h3{
+                    font-size: 2em;
+                }
+            }
+            .bottom-footer{
+                margin-top: 2% !important;
+                border-top: 1px solid #ccc;
+                padding: 1.5%;
+                color: $tertiary;
+                text-align: center;
+            }
+        }
+        
+    }
+    
+    
+}

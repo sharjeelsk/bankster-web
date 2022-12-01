@@ -1,0 +1,58 @@
+@import "../../../App.scss";
+
+.create-job{
+    padding: 2%;
+    .job-form{
+        h2{
+            font-weight: 700;
+        }
+        .sub-heading{
+            font-weight: 400;
+            font-size: 2em;
+        }
+        .note-text{
+            font-weight: bold;
+            color: #a1a1a1;
+        }
+        .slider-info{
+            color: $primary;
+            font-weight: bold;
+        }
+    }
+    .sample-form{
+        .sample-form-main-heading{
+            font-weight: 300;
+            font-size: 2.5em;
+            text-align: center;
+        }
+    }
+}
+
+.candidate-single-job{
+    background-color: white;
+    padding: 2%;
+    border-radius: 10px;
+    margin-bottom: 2%;
+    img{
+        width: 100%;
+        border-radius: 100%;
+        display: block;
+        margin: auto;
+    }
+    .resume-cont{
+        background-color: $secondary;
+        border-radius: 5px;
+        padding: 2%;
+        h5{
+            margin: 4px 0;
+        }
+    }
+    .resume-cont:hover{
+        text-decoration: underline;
+        cursor: pointer;
+    }
+}
+
+.bold-text{
+    font-weight: bold;
+}

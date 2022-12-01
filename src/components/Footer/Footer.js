@@ -1,0 +1,75 @@
+import { Button,Icon,IconButton } from '@mui/material'
+import React from 'react'
+import { Link } from 'react-router-dom'
+import "./Footer.scss"
+import FacebookIcon from '@mui/icons-material/Facebook';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import InstagramIcon from '@mui/icons-material/Instagram';
+function Footer() {
+  return (
+    <div className="footer">
+        <section className="shadow row m-auto newsletter align-items-center">
+            <div className="col-12 col-sm-12 col-md-5 col-lg-5 col-xl-5">
+            <h3>Never Miss any update from <span className="primarycolorwh">Bankster</span></h3>
+            </div>
+            <div className="col-12 col-sm-12 col-md-7 col-lg-7 col-xl-7 row m-auto align-items-center input-div">
+                    <div className="col-7 col-sm-7 col-md-9 col-lg-9 col-xl-9">
+                    <input placeholder="Enter Email Address" />
+                    </div>
+                    <div className="col-5 col-sm-5 col-md-3 col-lg-3 col-xl-3">
+                    <Button fullWidth variant="contained">Subscribe</Button>
+                    </div>
+            </div>
+        </section>
+        <section className="footer-main row m-auto">
+            <div className="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 logo">
+                <img src="/banksterlogo.png" alt="banksterlogo" />
+            </div>
+            <div className="col-12 col-sm-12 col-md-7 col-lg-7 col-xl-7 content row m-auto">
+                <div className="col-4">
+                <Link className="link" to="#">About Us</Link>
+                <Link className="link" to="#">Career</Link>
+                <Link className="link" to="#">Employer Dashboard</Link>
+                <Link className="link" to="#">Terms and Conditions</Link>
+                </div>
+                <div className="col-4">
+                <Link className="link" to="#">About Us</Link>
+                <Link className="link" to="#">Career</Link>
+                <Link className="link" to="#">Employer Dashboard</Link>
+                <Link className="link" to="#">Terms and Conditions</Link>
+                </div>
+                <div className="col-4">
+                <Link className="link" to="#">About Us</Link>
+                <Link className="link" to="#">Career</Link>
+                <Link className="link" to="#">Employer Dashboard</Link>
+                <Link className="link" to="#">Terms and Conditions</Link>
+                </div>
+            </div>
+            <div className="col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 footer-headline">
+                <h3>Mobile App Coming Soon</h3>
+            </div>
+            <div className="bottom-footer col-10 row m-auto align-items-center">
+                <div className="col-12 col-sm-12 col-md-5 col-lg-5 col-xl-5">
+                    Lorem officia enim deserunt ea ex nostrud aliqua id enim consequat consequat Lorem eu dolore.
+                </div>
+                <div className="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                    support@bankster.com
+                </div>
+                <div className="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+                    <IconButton>
+                        <FacebookIcon />
+                    </IconButton>
+                    <IconButton>
+                        <LinkedInIcon />
+                    </IconButton>
+                    <IconButton>
+                        <InstagramIcon />
+                    </IconButton>
+                </div>
+            </div>
+        </section>
+    </div>
+  )
+}
+
+export default Footer

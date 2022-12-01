@@ -1,0 +1,98 @@
+@import  "../../App.scss";
+
+.find-jobs-head{
+    background-color: $secondary;
+}
+
+.filter-menu{
+    background-color: white;
+    border-radius: 5px;
+    height: 100%;
+    .content{
+        padding: 4%;
+    }
+    
+}
+
+.find-jobs-content{
+    padding: 2% !important;
+
+    
+}
+.single-job{
+    background-color: white;
+    border-radius: 10px;
+    margin: 3% 2% !important;
+    padding: 2% 0;
+    .company-name{
+        font-weight: 300;
+    }
+    h3{
+        font-size: 1.5em;
+    }
+    img{
+        width: 100%;
+    }
+    .content-div{
+        h3,h4{
+            margin: 0;
+        }
+        h4{
+            color: $tertiary;
+            margin: 1% 0 !important;
+        }
+        .total-reviews{
+            font-weight: bold;
+            color: $primary;
+        }
+        .key-headline{
+            font-size: 1.05em;
+            font-weight: 500;
+        }
+        .description{
+            border-top: 1px solid $tertiary;
+            padding-top: 2%;
+            margin-top: 2%;
+            h2{
+                font-weight: 400;
+                font-size: 1.5em;
+            }
+        }
+
+    }
+    .bookmark-div{
+        text-align: right;
+    }
+}
+.right-section-job{
+    padding: 2% !important;
+    .search-container{
+        background-color: white;
+        padding: 4%;
+        border-radius: 10px;
+        margin: 10% 0 !important;
+        img{
+            width: 20%;
+            margin: 2%;
+        }
+    }
+}
+
+
+@media (max-width: 992px) {
+
+}
+@media (max-width: 768px) {
+
+
+}
+@media (max-width: 576px) {
+    .filter-menu{
+        background-color: white;
+        padding: 4%;
+        position: absolute;
+        z-index: 2;
+        width: 80%;
+        height: inherit;
+    }
+}

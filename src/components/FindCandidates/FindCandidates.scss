@@ -1,0 +1,51 @@
+@import  "../../App.scss";
+
+.search-candidates-head{
+    background-color: $secondary;
+    padding: 2%;
+    .search-candidates{
+        background-color: white;
+        padding: 1% 2%;
+        border-radius: 10px;
+        height: 100%;
+    }
+}
+
+.candidates-nearby{
+    padding: 0 3%;
+}
+
+.candidate-card{
+    margin: 2% !important;
+    background-color: white;
+    padding: 2%;
+    border-radius: 10px;
+    img{
+        width: 100%;
+    }
+    h3{
+        margin-bottom: 1%;
+
+    }
+    .keys{
+        font-weight: bold;
+    }
+    .resume-cont{
+        background-color: $secondary;
+        padding: 2% !important;
+        border-radius: 10px;
+        h5{
+            margin: 0;
+            font-size: 0.9em;
+        }
+        p{
+            font-size: 0.8em;
+        }
+    }
+    .resume-cont:hover{
+        text-decoration: underline;
+        cursor: pointer;
+    }
+
+}
+

@@ -1,0 +1,36 @@
+@import "../../../App.scss";
+
+.plan-auth-cont{
+    background-color: white;
+    padding: 4%;
+    margin: 4%;
+    border-radius: 10px;
+    text-align: center;
+    h1,h2{
+        margin: 0;
+    }
+    h1{
+
+    }
+    h2{
+        font-weight: 400;
+        padding: 3% 0;
+        background: -webkit-linear-gradient(#E77AA5, #ff3d8b);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+
+    }
+    p{
+        font-weight: 400;
+        font-size: 1.1em;
+        color: #a1a1a1;
+    }
+    .active-text{
+        color: $darkpink;
+        font-weight: bold;
+    }
+}
+
+.active-plan{
+    background-color: $secondary;
+}

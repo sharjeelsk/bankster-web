@@ -1,0 +1,72 @@
+@import  "../../App.scss";
+
+.width-full{
+    width: 100% !important;
+}
+
+.searchbar-container{
+    width: 60%;
+    padding: .8%;
+    border-radius: 20px;
+    text-align: center;
+    background-color: white;
+    .searchbarinputbox{
+        input{
+            width: 100%;
+            border: none;
+            padding: 3% 4%;
+            
+        }
+        .borderleft{
+            border-left: 2px solid rgb(238, 238, 238);
+            
+        }
+        input:focus{
+            outline: none;
+        }
+        input::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+            color: #ccc;
+            font-weight: bold;
+            font-family: $secondary-font;
+          }
+    }
+    
+}
+
+@media (max-width: 992px) {
+
+}
+@media (max-width: 768px) {
+
+
+}
+@media (max-width: 576px) {
+    .searchbar-container{
+        width: 90%;
+        padding: .8%;
+        border-radius: 20px;
+        text-align: center;
+        background-color: white;
+        .searchbarinputbox{
+            margin: 2% auto !important;
+            input{
+                width: 100%;
+                border: none;
+                padding: 3% 4%;
+            }
+            .borderleft{
+                border-left:none;
+                
+            }
+            input:focus{
+                outline: none;
+            }
+            input::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+                color: #ccc;
+                font-weight: bold;
+                font-family: $secondary-font;
+              }
+        }
+        
+    }
+}
