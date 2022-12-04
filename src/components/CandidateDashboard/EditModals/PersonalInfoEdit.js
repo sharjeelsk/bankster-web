@@ -25,6 +25,10 @@ import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import { LocalizationProvider } from '@mui/x-date-pickers'
 import { setLoading } from '../../redux/loading/loadingActions';
+import Box from '@mui/material/Box';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
 const Input = styled('input')({
   display: 'none',
 });
@@ -36,6 +40,12 @@ function PersonalInfoEdit(props) {
     const [maritalStatus, setMaritalStatus] = React.useState('Unmarried');
 
     const [dob, setDob] = React.useState(new Date('2014-08-18T21:11:54'));
+
+    const [category, setCategory] = React.useState('');
+
+    const handleCategoryChange = (event) => {
+      setCategory(event.target.value);
+    };
 
     console.log("selected date is",dob)
 
@@ -57,7 +67,7 @@ function PersonalInfoEdit(props) {
       }else if(props.keyD==="maritalStatus"){
         setValue("maritalStatus",props.user.userInfo.maritalStatus)
       }else if(props.keyD==="category"){
-        setValue("category",props.user.userInfo.category)
+        setCategory(props.user.userInfo.category)
       }else if(props.keyD==="dob"){
         //dob
       }
@@ -72,6 +82,8 @@ function PersonalInfoEdit(props) {
         obj = {languages}
         }else if(props.keyD==="maritalStatus"){
           obj={maritalStatus}
+        }else if(props.keyD==="category"){
+          obj = {category}
         }
         else{
           obj[props.keyD]=data[props.keyD]
@@ -114,7 +126,24 @@ function PersonalInfoEdit(props) {
         </section>
       }else if(props.keyD==="category"){
         return <section>
-        <TextField
+          <Box sx={{ minWidth: 300 }} className="my-4">
+        <FormControl fullWidth>
+        <InputLabel id="demo-simple-select-label">Select Category</InputLabel>
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={category}
+          label="Select Category"
+          onChange={handleCategoryChange}
+        >
+          <MenuItem value={'SC'}>SC</MenuItem>
+          <MenuItem value={'ST'}>ST</MenuItem>
+          <MenuItem value={'OBC'}>OBC</MenuItem>
+          <MenuItem value={'GENERAL'}>GENERAL</MenuItem>
+        </Select>
+      </FormControl>
+      </Box>
+        {/* <TextField
         className="modal-textfield"
         inputProps={{ maxLength: 200 }}
         {...register(props.keyD,{required:true})}
@@ -125,7 +154,7 @@ function PersonalInfoEdit(props) {
           label={props.keyName}
           fullWidth
           variant="outlined"
-        /> 
+        />  */}
         </section>
       }else if(props.keyD==="dob"){
         return <section>

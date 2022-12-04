@@ -65,7 +65,7 @@ function BookmarkedJobs(props) {
              </IconButton>
              </span>
 
-            <div className="row my-auto mx-5">
+            <div className="row my-auto job-head-a">
              {
              jobsApplied.length>0?
              jobsApplied.map((item,index)=><Link key={index} className="link" to={`/jobdetail/${item.job._id}`}>

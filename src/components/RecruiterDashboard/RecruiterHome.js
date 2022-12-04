@@ -199,7 +199,7 @@ function RecruiterHome(props) {
             />
             {/* candidate row section */}
             <section className="candidate-info-section row m-auto shadow-sm">
-                <div className="col-2 img-cont">
+                <div className="col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 img-cont">
                     <img src={props.user.userInfo.profilePicture?`${process.env.REACT_APP_DEVELOPMENT}/api/image/${props.user.userInfo.profilePicture}`:"/user.png"} alt="profile" />
                     <div className="mt-4 mb-2" style={{textAlign:"center"}}>
                     <label htmlFor="contained-button-file">
@@ -212,21 +212,25 @@ function RecruiterHome(props) {
                     </label>
                     </div>
                 </div>
-                <div className="col-6 info-cont">
+                <div className="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 info-cont">
                     <h1>{userInfo.fullName} <IconButton onClick={()=>setOpen5(true)}><EditIcon /></IconButton></h1>
-                    <p className="bold-text">{userInfo.education.length>0?`${userInfo.education[0].name}, ${userInfo.education[0].universityName}`:""}</p>
+                    <p className="bold-text">{userInfo.education.length>0?userInfo.education.map(i=>{
+                    if(i.featuredEducation){
+                        return i.name + ', ' + i.universityName;
+                    }
+                }):"Add Education Info"}</p>
                     <p className="grey-text">{userInfo.gender} | {userInfo.dob?getAge(userInfo.dob):"DOB Missing"}</p>
                         <div className="row m-auto sub-info">
                             <p className="mx-2"><LocalPhoneIcon sx={{marginRight:.1}} /> <b>{userInfo.mobileNo}</b></p>
                             <p className="mx-2"><AlternateEmailIcon sx={{marginRight:.1}} /> <b>{userInfo.email}</b></p>
                             <p className="mx-2"><LocationOnIcon sx={{marginRight:.1}} /> <b>{userInfo.userLocation.city}, {userInfo.userLocation.state}</b></p>
                         </div>
-                    <p className="grey-text">{userInfo.resumeTagline?userInfo.resumeTagline:"Tagline Missing"}</p>
+                    <p className="resume-tagline grey-text">{userInfo.resumeTagline?userInfo.resumeTagline:"Tagline Missing"}</p>
                     <div className="row m-auto chip-div">
                     {userInfo.skills.length>0?userInfo.skills.map((item,index)=><Chip label={item} key={index} className="mx-2" color="primary" />):<p style={{color:"red",fontWeight:"bold"}}>You haven't added any skills yet, add from the skills section below</p>}
                     </div>
                 </div>
-                <div className="col-4 resume-div">
+                <div className="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 resume-div">
                     <div className="resume-head shadow-sm">
                     {userInfo.resume?<div className="resume-child row m-auto">
                             <div className="col-2">
@@ -278,7 +282,7 @@ function RecruiterHome(props) {
 
             {/* company info */}
             <section className="company-info-section shadow-sm row m-auto">
-                <div className="col-2">
+                <div className="col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
                 <img src={props.user.userInfo.companyImg?`${process.env.REACT_APP_DEVELOPMENT}/api/image/${props.user.userInfo.companyImg}`:"/user.png"} alt="profile" />
                     <div className="mt-4 mb-2" style={{textAlign:"center"}}>
                     <label htmlFor="contained-button-file-company">
@@ -291,7 +295,7 @@ function RecruiterHome(props) {
                     </label>
                     </div>
                 </div>
-                <div className="col-10 row m-auto">
+                <div className="col-12 col-sm-12 col-md-10 col-lg-10 col-xl-10 row m-auto">
                 <div className="col-11">
                 <h2>Current Company Details</h2>
                 <h3>{userInfo.companyName}</h3>
@@ -321,7 +325,7 @@ function RecruiterHome(props) {
             {/* view sections */}
 
             <section className="row m-auto view-section-head justify-content-around">
-                <div className="col-3 view-section-child row m-auto align-items-center justify-content-around shadow-sm">
+                <div className="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 view-section-child row m-auto align-items-center justify-content-around shadow-sm">
                     <div>
                     <p>Total Hired Candidates</p>
                     </div>
@@ -330,7 +334,7 @@ function RecruiterHome(props) {
                         <h2>1465</h2>
                     </div>
                 </div>
-                <div className="col-3 view-section-child row m-auto align-items-center justify-content-around shadow-sm">
+                <div className="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 view-section-child row m-auto align-items-center justify-content-around shadow-sm">
                     <div>
                     <p>Total Profile Bookmarks</p>
                     </div>
@@ -339,7 +343,7 @@ function RecruiterHome(props) {
                         <h2>65</h2>
                     </div>
                 </div>
-                <div className="col-3 view-section-child row m-auto align-items-center justify-content-around shadow-sm">
+                <div className="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 view-section-child row m-auto align-items-center justify-content-around shadow-sm">
                     <div>
                     <p>Hiring Rate</p>
                     </div>
@@ -354,7 +358,7 @@ function RecruiterHome(props) {
 
             {/* profile info sections */}
             <section className="row m-auto info-sections justify-content-around">
-                <div className="col-5 info-child shadow-sm">
+                <div className="col-12 col-sm-12 col-md-5 col-lg-5 col-xl-5 info-child shadow-sm">
                     {/* heading of personal info */}
                     <div className="row m-auto justify-content-between">
                         <div>
@@ -439,7 +443,7 @@ function RecruiterHome(props) {
                         </div>
                     </div>
                 </div>
-                <div className="col-5 info-child shadow-sm">
+                <div className="col-12 col-sm-12 col-md-5 col-lg-5 col-xl-5 info-child shadow-sm">
                     <div className="row m-auto justify-content-between">
                         <div>
                         <h2>Employment</h2>
@@ -487,7 +491,7 @@ function RecruiterHome(props) {
                     }
 
                 </div>
-                <div className="col-5 info-child shadow-sm">
+                <div className="col-12 col-sm-12 col-md-5 col-lg-5 col-xl-5 info-child shadow-sm">
                     <div className="row m-auto justify-content-between">
                         <div>
                         <h2>Education</h2>
@@ -534,7 +538,7 @@ function RecruiterHome(props) {
                         :<p><b>Add Education Details</b></p>
                     }
                 </div>
-                <div className="col-5 info-child shadow-sm">
+                <div className="col-12 col-sm-12 col-md-5 col-lg-5 col-xl-5 info-child shadow-sm">
                     <div className="row m-auto justify-content-between">
                         <div>
                         <h2>Key Skills</h2>
@@ -559,7 +563,7 @@ function RecruiterHome(props) {
                         }} label={item} key={index} />)
                     }
                 </div>
-                <div className="col-5 info-child shadow-sm">
+                <div className="col-12 col-sm-12 col-md-5 col-lg-5 col-xl-5 info-child shadow-sm">
                     <div className="row m-auto justify-content-between">
                         <div>
                         <h2>Preferences</h2>

@@ -102,12 +102,12 @@ function Subscription(props) {
              </IconButton>
              </span>
 
-            <h1>Subscriptions</h1>
+            <h1 className="mobile-center">Subscriptions</h1>
 
             <section className='row m-auto'>
             {
               plans.length>0?plans.map((item,index)=>
-              <div key={index} className={`shadow-sm plan-auth-cont col-3 ${item._id===props.user.userInfo.subscription._id?"active-plan":""}`}>
+              <div key={index} className={`shadow-sm plan-auth-cont col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 ${item._id===props.user.userInfo.subscription._id?"active-plan":""}`}>
               <h1>{item.name}</h1>
               <h2>${item.amount}/month</h2>
               <p><TaskAltIcon /> {item.cvAccess} resume access</p>

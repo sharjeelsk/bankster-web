@@ -236,7 +236,7 @@ function JobDetail(props) {
                         </div>
 
                     </div>
-                    <div className="bookmark-div col-2">
+                    <div className="bookmark-div col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
                         <IconButton onClick={()=>handleBookmarkAdd()}>
                             {bookmarked?<BookmarkIcon />:<BookmarkBorderIcon />}
                         </IconButton>

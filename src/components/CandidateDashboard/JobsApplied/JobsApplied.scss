@@ -1,7 +1,9 @@
 @import "../../../App.scss";
 
 
-
+.job-head-a{
+    margin: auto 2% !important;
+}
 
 .job-apply-head{
     padding: 2%;
@@ -88,3 +90,106 @@
     border-radius: 5px;
     padding: 3%;
 }
+
+
+@media (max-width: 992px) {
+
+}
+@media (max-width: 768px) {
+
+
+}
+@media (max-width: 576px) {
+    .job-head-a{
+        margin: 4% 2% !important;
+    }
+    .job-apply-head{
+        padding:4% 1%;
+        margin: 2% auto !important;
+        img{
+            width: 30%;
+            display: block;
+            margin: 2% auto !important;
+        }
+        .companyName{
+            color: #a1a1a1;
+            margin: .5% 0 !important;
+        }
+        .total-reviews{
+            color: #a1a1a1;
+        }
+        .key-headline{
+            font-weight: 500;
+        }
+        
+    }
+    
+    .no-jobs{
+        padding: 2%;
+        h1{
+            text-align: center;
+        }
+        text-align: center;
+    }
+    
+    .Hired{
+        background-color: rgb(241, 255, 241) !important;
+        .status{
+            background-color: rgba(132, 214, 132, 0.5) !important;
+            text-align: center;
+            color: rgb(2, 148, 2);
+            font-weight: 500;
+            font-size: 1.2em;
+            border-radius: 5px;
+            padding: 3%;
+        }
+    }
+    
+    .Pending{
+        background-color: rgb(255, 255, 255) !important;
+        .status{
+            background-color: rgba(170, 170, 170, 0.5) !important;
+            text-align: center;
+            color: rgb(63, 63, 63);
+            font-weight: 500;
+            font-size: 1.2em;
+            border-radius: 5px;
+            padding: 3%;
+        }
+    }
+    
+    .Rejected{
+        background-color: rgb(255, 242, 242) !important;
+        .status{
+            background-color: rgba(255, 124, 124, 0.5) !important;
+            text-align: center;
+            color: rgb(148, 0, 0);
+            font-weight: 500;
+            font-size: 1.2em;
+            border-radius: 5px;
+            padding: 3%;
+        }
+    }
+    
+    .hired-status{
+        background-color: rgba(132, 214, 132, 0.5) !important;
+        text-align: center;
+        color: rgb(2, 148, 2);
+        font-weight: 500;
+        font-size: 1.2em;
+        border-radius: 5px;
+        padding: 3%;
+    }
+    
+    .rejected-status{
+        background-color: rgba(255, 124, 124, 0.5) !important;
+        text-align: center;
+        color: rgb(148, 0, 0);
+        font-weight: 500;
+        font-size: 1.2em;
+        border-radius: 5px;
+        padding: 3%;
+    }
+    
+}
+

@@ -95,4 +95,51 @@
         width: 80%;
         height: inherit;
     }
+    .single-job{
+        background-color: white;
+        border-radius: 10px;
+        margin: 5% 2% !important;
+        padding: 2% 0;
+        .company-name{
+            font-weight: 300;
+        }
+        h3{
+            font-size: 1.5em;
+        }
+        img{
+            width: 30%;
+            display: block;
+            margin: 3% auto !important;
+        }
+        .content-div{
+            h3,h4{
+                margin: 0;
+            }
+            h4{
+                color: $tertiary;
+                margin: 1% 0 !important;
+            }
+            .total-reviews{
+                font-weight: bold;
+                color: $primary;
+            }
+            .key-headline{
+                font-size: 1.05em;
+                font-weight: 500;
+            }
+            .description{
+                border-top: 1px solid $tertiary;
+                padding-top: 2%;
+                margin-top: 2%;
+                h2{
+                    font-weight: 400;
+                    font-size: 1.5em;
+                }
+            }
+    
+        }
+        .bookmark-div{
+            text-align: right !important;
+        }
+    }
 }

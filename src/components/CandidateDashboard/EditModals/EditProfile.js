@@ -189,6 +189,20 @@ function EditProfile(props) {
                     />
                     </div>
 
+                    <TextField
+                    className="mb-3"
+                    inputProps={{ maxLength: 200 }}
+                    {...register("noticePeriod",{required:true})}
+                    error={errors.noticePeriod?true:false}
+                      autoFocus
+                      margin="dense"
+                      id={'outlined-basic'}
+                      label={"Notice Period (in Weeks)"}
+                      fullWidth
+                      variant="outlined"
+                    />
+                    
+
         <section className="my-3">
         <LocalizationProvider 
         

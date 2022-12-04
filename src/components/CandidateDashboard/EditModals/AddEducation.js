@@ -27,6 +27,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers'
 import { setLoading } from '../../redux/loading/loadingActions';
 import FormGroup from '@mui/material/FormGroup';
 import Checkbox from '@mui/material/Checkbox';
+import Autocomplete from '@mui/material/Autocomplete';
 const Input = styled('input')({
   display: 'none',
 });
@@ -36,6 +37,9 @@ function AddEducation(props) {
     const [startDate, setStartDate] = React.useState(new Date('2014-08-18T21:11:54'));
     const [endDate,setEndDate] = React.useState(new Date('2014-08-18T21:11:54'))
     const [current,setCurrent]=React.useState(false)
+    const [featuredEducation,setFeaturedEducation] = React.useState(false)
+    const [allEducation,setAllEducation] = React.useState([])
+    const [singleEducation,setSingleEducation] = React.useState(null)
     React.useEffect(()=>{
       if(props.keyD==="Edit"){
         setValue("name",props.editData.name)
@@ -49,17 +53,22 @@ function AddEducation(props) {
         }
         
       }
+      axios.get(`${process.env.REACT_APP_DEVELOPMENT}/api/admin/getEducationJobParam`)
+      .then(res=>{
+        console.log(res)
+        setAllEducation(res.data.result)
+      })
     },[props.editData])
 
-    console.log("addemployemnt props",props,startDate,endDate,current)
+    console.log("addemployemnt props",props,startDate,endDate,current,featuredEducation)
     //console.log()
 
     const onSubmit = (data)=>{
         console.log(data)
-        props.setLoading(true)
-        //edit route is missing
+         props.setLoading(true)
+        if(singleEducation){
         if(props.keyD==="Edit"){
-          axios.post(`${process.env.REACT_APP_DEVELOPMENT}/api/candidate/editEducation`,{obj:{...data,startDate,endDate:current?"":endDate,current},oldObj:props.editData},{headers:{token:props.user.user}})
+          axios.post(`${process.env.REACT_APP_DEVELOPMENT}/api/candidate/editEducation`,{obj:{...data,name:singleEducation.name,startDate,endDate:current?"":endDate,current,featuredEducation},oldObj:props.editData},{headers:{token:props.user.user}})
           .then(res=>{
             console.log(res)
             props.fetchCandidateInfo(props.user.user)
@@ -72,7 +81,7 @@ function AddEducation(props) {
             props.setLoading(false)
           })
         }else{
-          axios.post(`${process.env.REACT_APP_DEVELOPMENT}/api/candidate/addEducation`,{obj:{...data,startDate,endDate:current?"":endDate,current}},{headers:{token:props.user.user}})
+          axios.post(`${process.env.REACT_APP_DEVELOPMENT}/api/candidate/addEducation`,{obj:{...data,name:singleEducation.name,startDate,endDate:current?"":endDate,current,featuredEducation}},{headers:{token:props.user.user}})
           .then(res=>{
             console.log(res)
             props.fetchCandidateInfo(props.user.user)
@@ -85,6 +94,8 @@ function AddEducation(props) {
             props.setOpen(false)
           })
         }
+        }
+
 
     }
 
@@ -98,8 +109,17 @@ function AddEducation(props) {
         <DialogContent>
             <p className="modal-heading"><b>{props.keyD} Education</b></p>
           {<>
-
-          <TextField
+            <Autocomplete
+            disablePortal
+            id="combo-box-demo"
+            options={allEducation}
+            fullWidth
+            className='mb-3'
+            onChange={(e,value)=>setSingleEducation(value)}
+            getOptionLabel={(item)=>item.name}
+            renderInput={(params) => <TextField  {...params} label="Degree Name" />}
+          />
+          {/* <TextField
           className="mb-3"
           inputProps={{ maxLength: 200 }}
           {...register("name",{required:true})}
@@ -110,7 +130,7 @@ function AddEducation(props) {
             label={"Degree Name"}
             fullWidth
             variant="outlined"
-          />
+          /> */}
           <TextField
           className="mb-3"
           inputProps={{ maxLength: 200 }}
@@ -157,7 +177,8 @@ function AddEducation(props) {
 
       <FormGroup>
       <FormControlLabel control={<Checkbox checked={current} onChange={(e)=>setCurrent(e.target.checked)} />} label="Currently Studying" />
-    </FormGroup>
+      <FormControlLabel control={<Checkbox checked={featuredEducation} onChange={(e)=>setFeaturedEducation(e.target.checked)} />} label="Featured Education" />
+      </FormGroup>
           </>}
 
 

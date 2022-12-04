@@ -156,7 +156,7 @@ const handleBookmarkAdd = (jobId)=>{
                         </Link>
 
                     </div>
-                    <div className="bookmark-div col-2">
+                    <div className="bookmark-div col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
                     <IconButton onClick={()=>{
                         if(!props.user.user){
                             props.history.push("/login")

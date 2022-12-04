@@ -64,7 +64,7 @@ function JobsApplied(props) {
              </IconButton>
              </span>
 
-            <div className="row my-auto mx-5">
+            <div className="row my-auto job-head-a">
              {
              jobsApplied.length>0?
              jobsApplied.map((item,index)=><Link key={index} className="link" to={`/jobdetail/${item._id}`}>
@@ -116,7 +116,7 @@ function JobsApplied(props) {
 
 
              </div>
-             <div className="bookmark-div col-2">
+             <div className="bookmark-div col-12 col-sm-2 col-md-2 col-lg-2 col-xl-2">
                 <p className="status">
                  {
                     renderJobStatus(item)

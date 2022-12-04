@@ -25,3 +25,43 @@
     background-color: white;
     padding: 2%;
 }
+
+
+@media (max-width: 992px) {
+
+}
+@media (max-width: 768px) {
+
+
+}
+@media (max-width: 576px) {
+    .notification-container{
+        background-color: white;
+        height: 100% !important;
+        
+        
+        .notification-parent{
+            border-bottom: 1px solid #f7f7f7;
+            padding: 2%;
+            img{
+                width: 50%;
+                display: block;
+                margin: auto;
+            }
+        }
+        .notification-parent:hover{
+            cursor: pointer;
+            background-color: $secondary;
+            transition: .2s;
+        }
+    }
+    
+    .notification-detail{
+        background-color: white;
+        padding: 2%;
+    }
+    .display-false{
+        display: none;
+    }
+}
+
