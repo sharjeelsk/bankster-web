@@ -78,7 +78,10 @@ function CreateJob(props) {
     }
 
     React.useEffect(()=>{
-        getRecruiterJob()
+        //getRecruiterJob()
+        if(props.user.userInfo.availablePlanCredits.jobPostings<=0){
+            setBlock(true)
+        }
         axios.get(`${process.env.REACT_APP_DEVELOPMENT}/api/admin/getAllJobParam`)
         .then(res=>{
             console.log(res)
@@ -130,7 +133,8 @@ function CreateJob(props) {
             "functionalArea":formValues.functionalArea,
             "desiredProfile":formValues.desiredProfile,
             "companyName":formValues.companyName,
-            "companyInfo":formValues.companyInfo
+            "companyInfo":formValues.companyInfo,
+            creditId:props.user.userInfo.availablePlanCredits._id
         }
         console.log(obj)
         axios.post(`${process.env.REACT_APP_DEVELOPMENT}/api/job/createJob`,{...obj},{headers:{token:props.user.user}})

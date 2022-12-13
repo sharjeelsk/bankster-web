@@ -11,6 +11,7 @@ import "./SubscriptionR.scss"
 import { Button } from '@mui/material';
 import date from 'date-and-time';
 import moment from 'moment'
+import { DataGrid } from '@mui/x-data-grid';
 function Subscription(props) {
     const [display,setDisplay]=React.useState(false)
     const [plans,setPlans] = React.useState([])
@@ -40,8 +41,8 @@ function Subscription(props) {
       getPlans()
     },[])
 
-    const openPayModal = (amount,planId) => {
-      console.log(planId)
+    const openPayModal = (amount,plan) => {
+      console.log(plan._id)
       const options = {
         key: 'rzp_test_BbBTgCM0XfV6iH',
         amount: amount*100, //  = INR 1
@@ -50,7 +51,7 @@ function Subscription(props) {
         image: 'https://cdn.razorpay.com/logos/7K3b6d18wHwKzL_medium.png',
         handler: function(response) {
             console.log(response);
-            axios.post(`${process.env.REACT_APP_DEVELOPMENT}/api/recruiter/changeRecruiterPlan`,{planId,paymentId:response},{headers:{token:props.user.user}})
+            axios.post(`${process.env.REACT_APP_DEVELOPMENT}/api/recruiter/changeRecruiterPlan`,{plan,paymentId:response,availablePlanCreditsId:props.user.userInfo.availablePlanCredits._id},{headers:{token:props.user.user}})
             .then(res=>{
               console.log(res);
               getPlans()
@@ -86,7 +87,16 @@ function Subscription(props) {
       let createdat = date.addMonths(expiry,-1)
       return createdat;
     }
-
+    const columns2 = [
+      { field: 'id', headerName: 'ID',width:20},
+      //{ field: 'brand', headerName: 'Brand Name',valueGetter:(param)=>param.value.name,width:150},
+      { field: 'planName', headerName: 'Plan Name',valueGetter:(param)=>renderPlanName(param.row.subscriptionId),width:150},
+      { field: 'PaymentId', headerName: 'Payment ID',valueGetter:(param)=>param.row.paymentId.razorpay_payment_id,width:200},
+      {field:"expiry",headerName:"Expiry",valueGetter:(param)=>moment.parseZone(param.value).local().format("DD/MM/YY"),width:120},
+      {field:"createdAt",headerName:"Created At",valueGetter:(param)=>moment.parseZone(param.value).local().format("DD/MM/YY"),width:120}
+    
+    
+    ];
     return (
         <>
          <HeaderDash />
@@ -95,33 +105,55 @@ function Subscription(props) {
             <RecruiterDashhead id={4} display={display} />
             </div>
 
-            <div className="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-xl-10 dashboard-container" onClick={()=>display&&setDisplay(false)}>
+            <div className="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-xl-10 dashboard-container scroll" onClick={()=>display&&setDisplay(false)}>
             <span className="iconbutton display-mobile">
             <IconButton  size="large" aria-label="Menu" onClick={()=>setDisplay(true)}>
             <MenuIcon fontSize="inherit" />
              </IconButton>
              </span>
 
+             {props.user.userInfo.subRecruiter?
+             <div className="col-12 no-jobs">
+             <h1>You don't have access to this section, contact head recruiter</h1>
+            </div>
+             :<>
+             <h1>CurrentSubscription</h1>
+             <p><TaskAltIcon /> {props.user.userInfo.availablePlanCredits.cvAccess} resume access left</p>
+              <p><TaskAltIcon /> {props.user.userInfo.availablePlanCredits.jobPostings} job postings left</p>
+              <p><TaskAltIcon /> {props.user.userInfo.availablePlanCredits.subRecruiters} Sub Recruiters left</p>
+
             <h1>Subscriptions</h1>
 
             <section className='row m-auto'>
             {
-              plans.length>0?plans.map((item,index)=>
+              plans.length>0?plans.map((item,index)=>!item.custom&&
               <div key={index} className={`shadow-sm plan-auth-cont col-3 ${item._id===props.user.userInfo.subscription._id?"active-plan":""}`}>
               <h1>{item.name}</h1>
               <h2>${item.amount}/month</h2>
               <p><TaskAltIcon /> {item.cvAccess} resume access</p>
               <p><TaskAltIcon /> {item.jobPostings} job postings</p>
+              <p><TaskAltIcon /> {item.subRecruiters} Sub Recruiters</p>
               {
                 item._id===props.user.userInfo.subscription._id?<p className="active-text">Currently Active</p>:
-                <Button onClick={()=>openPayModal(item.amount,item._id)} variant="contained">upgrade</Button>
+                <Button onClick={()=>openPayModal(item.amount,item)} variant="contained">upgrade</Button>
               }
              </div> 
               ):null
              }
             </section>
 
-            {plans.length>0&&<>
+            
+          <div style={{ height: '40vh', width: '100%' }}>
+                <DataGrid
+                    rows={props.user.userInfo.paymentHistory.map((item,index)=>({...item,id:index+1}))}
+                    columns={columns2}
+                    autoPageSize
+                />
+            </div>
+
+            </>
+            }
+            {/* {plans.length>0&&<>
             <h2>Payment History</h2>
             <table className="ui celled table">
             <thead>
@@ -142,9 +174,10 @@ function Subscription(props) {
             </tr>)
             }
 
+
           </tbody>
           </table>
-          </>}
+          </>} */}
 
              </div>
     </div>

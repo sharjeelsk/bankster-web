@@ -19,9 +19,22 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import {connect} from 'react-redux'
 import { Button } from '@mui/material';
 import { deleteUser } from '../redux/user/userActions';
+import axios from 'axios'
 const CandidateDashhead = (props) => {
-    console.log(props);
     let {id,display} = props
+    const [dashboardData,setDashboardData] = React.useState(null)
+    React.useEffect(()=>{
+        axios.get(`${process.env.REACT_APP_DEVELOPMENT}/api/candidate/getCandidateDashNumbers`,{headers:{token:props.user.user}})
+        .then(res=>{
+            console.log("dashdata",res)
+            if(res.data.result.length>0){
+                setDashboardData(res.data.result[0])
+            }
+            
+        })
+    },[])
+    console.log(props,dashboardData);
+
     return (
         
             
@@ -76,8 +89,8 @@ const CandidateDashhead = (props) => {
                 <div className="col-8">
                     <h3>{props.user.userInfo.fullName}</h3>
                     <p className="sub-heading">Job Seeker</p>
-                    <p className="light-grey-text">Applied: 7</p>
-                    <p className="light-grey-text">Offered: 2</p>
+                    <p className="light-grey-text">Applied: {dashboardData&&dashboardData.appliedJobs[0].total}</p>
+                    <p className="light-grey-text">Offered: {dashboardData&&dashboardData.hiredJobs[0].total}</p>
                 </div>
             </div>
             <div className="my-3" style={{textAlign:"right"}}>

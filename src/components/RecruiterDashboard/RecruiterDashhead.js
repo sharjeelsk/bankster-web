@@ -12,10 +12,26 @@ import PersonIcon from '@mui/icons-material/Person';
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 import {connect} from 'react-redux'
 import {Button} from '@mui/material'
+import axios from 'axios'
 import { deleteUser } from '../redux/user/userActions';
 const RecruiterDashhead = (props) => {
     console.log(props);
     let {id,display} = props
+    const [dashboardData,setDashboardData] = React.useState(null)
+    React.useEffect(()=>{
+        axios.get(`${process.env.REACT_APP_DEVELOPMENT}/api/recruiter/getRecruiterDashNumbers`,{headers:{token:props.user.user}})
+        .then(res=>{
+            console.log("dashdata",res)
+            if(res.data.result.length>0){
+                setDashboardData(res.data.result[0])
+                if(props.setDashboardData){
+                    props.setDashboardData(res.data.result[0])
+                }
+            }
+            
+        })
+    },[])
+    console.log(props,dashboardData);
     return (
         
             
@@ -53,6 +69,14 @@ const RecruiterDashhead = (props) => {
             </div>
             }
 
+            {id===5?<div className="menu-container-active" onClick={()=>props.history.push('/subrecruiters')}>
+                <p><LocalAtmIcon /> Sub Recruiters</p>
+            </div>:
+            <div className="menu-container" onClick={()=>props.history.push('/subrecruiters')}>
+            <p><LocalAtmIcon /> Sub Recruiters</p>
+            </div>
+            }
+
             {props.user.userInfo&&
             <section className="dash-user-cont">
             <div className="row m-auto">
@@ -62,8 +86,8 @@ const RecruiterDashhead = (props) => {
                 <div className="col-8">
                     <h3>{props.user.userInfo.fullName}</h3>
                     <p className="sub-heading">Recruiter</p>
-                    <p className="light-grey-text">Recruited: 7</p>
-                    <p className="light-grey-text">Rejected: 2</p>
+                    <p className="light-grey-text">Recruited: {dashboardData&&dashboardData.hiredCandidates[0].total}</p>
+                    <p className="light-grey-text">Rejected: {dashboardData&&dashboardData.rejectedCandidates[0].total}</p>
                 </div>
             </div>
             <div className="my-3" style={{textAlign:"right"}}>

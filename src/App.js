@@ -16,6 +16,8 @@ import JobsCreated from './components/RecruiterDashboard/JobsCreated/JobsCreated
 import NotificationsR from './components/RecruiterDashboard/NotificationsR/NotificationsR';
 import SubscriptionR from './components/RecruiterDashboard/SubscriptionR/SubscriptionR';
 import CreateJob from './components/RecruiterDashboard/JobsCreated/CreateJob';
+import SubRecruiters from './components/RecruiterDashboard/SubRecruiters/SubRecruiters';
+import CreateSubRecruiter from './components/RecruiterDashboard/SubRecruiters/CreateSubRecruiter';
 import RecruiterJobDetail from './components/RecruiterDashboard/JobsCreated/RecruiterJobDetail';
 
 import JobDetail from './components/FindJobs/JobDetail';
@@ -29,6 +31,7 @@ import Singuprecruiter from './components/Singup/Singuprecruiter';
 import Snackbar from './components/utils/Snackbar'
 import SimpleBackdrop from './components/utils/SimpleBackdrop';
 import ForgetPassword from './components/Login/ForgetPassword';
+
 
 
 function App(props) {
@@ -51,6 +54,8 @@ function App(props) {
 
       <Route path="/recruiterhome" component={RecruiterHome} />
       <Route path="/jobscreated" component={JobsCreated} />
+      <Route path="/SubRecruiters" component={SubRecruiters} />
+      <Route path="/createsubrecruiter" component={CreateSubRecruiter} />
       <Route path="/recruiterjobdetail/:id" component={RecruiterJobDetail} />
       <Route path="/createjob" component={CreateJob} />
       <Route path="/notificationsR" component={NotificationsR} />

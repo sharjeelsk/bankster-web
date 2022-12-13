@@ -58,11 +58,19 @@ const handleMouseDownPassword = (event) => {
 
 
   const handlePasswordReset = ()=>{
+    let link;
     if(values.password!==values.confirmPassword){
       setError("Passwords Mismatch")
     }else{
       //reset password
-      axios.post(`${process.env.REACT_APP_DEVELOPMENT}/api/candidate/resetPassword`,{
+      if(props.location.search.split("?")[1]==="candidate"){
+        console.log("candidate")
+        link = `${process.env.REACT_APP_DEVELOPMENT}/api/candidate/resetPassword`  
+      }else{
+        console.log("recrter")
+        link = `${process.env.REACT_APP_DEVELOPMENT}/api/recruiter/resetPassword`  
+      }
+      axios.post(link,{
         "email":email,
         password:values.password
       })
@@ -93,31 +101,34 @@ const handleMouseDownPassword = (event) => {
   //login of candidate
   const handleOtpSend = ()=>{
     setCounter(60)
+    let link;
     if(email.length>0){
       if(props.location.search.split("?")[1]==="candidate"){
         console.log("candidate")
-            axios.post(`${process.env.REACT_APP_DEVELOPMENT}/api/candidate/sendOTP`,{
-              "email":email,
-            })
-          .then(res=>{
-              setError("")
-              console.log(res)
-              if(res.data.msg==="success"){
-                props.setSnackbar({type:"success",text:"Welcome Back Sharjeel!",open:true})
-              }
-              
-          })
-          .catch(err=>{
-              console.log(err.response)
-              if(err.response){
-                if(err.response.data.length>0){
-                  setError(err.response.data)
-                }
-              }
-          })
+        link = `${process.env.REACT_APP_DEVELOPMENT}/api/candidate/sendOTP`  
       }else{
-        console.log("candidate23")
+        console.log("recrter")
+        link = `${process.env.REACT_APP_DEVELOPMENT}/api/recruiter/sendOTP`  
       }
+      axios.post(link,{
+        "email":email,
+      })
+    .then(res=>{
+        setError("")
+        console.log(res)
+        if(res.data.msg==="success"){
+          props.setSnackbar({type:"success",text:"Email sent successfully",open:true})
+        }
+        
+    })
+    .catch(err=>{
+        console.log(err.response)
+        if(err.response){
+          if(err.response.data.length>0){
+            setError(err.response.data)
+          }
+        }
+    })
     }else{
       setError("Invalid Email")
     }
@@ -125,7 +136,13 @@ const handleMouseDownPassword = (event) => {
 
   const onSubmit = (data)=>{
     console.log(data)
-    axios.post(`${process.env.REACT_APP_DEVELOPMENT}/api/candidate/verifyOTP`,{
+    let link;
+    if(props.location.search.split("?")[1]==="candidate"){
+      link = `${process.env.REACT_APP_DEVELOPMENT}/api/candidate/verifyOTP`  
+    }else{
+      link = `${process.env.REACT_APP_DEVELOPMENT}/api/recruiter/verifyOTP`  
+    }
+    axios.post(link,{
       "email":email,
       "otp":data.otp,
   })
@@ -146,6 +163,7 @@ const handleMouseDownPassword = (event) => {
         }
       }
   })
+
   }
 
   return (

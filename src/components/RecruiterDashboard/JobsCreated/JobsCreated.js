@@ -126,7 +126,7 @@ function JobsCreated(props) {
                         Create Job
                     </Fab>
                     </Tooltip>
-                    </div>
+            </div>
              </div>
     </div>
     </>

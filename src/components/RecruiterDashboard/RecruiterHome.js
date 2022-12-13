@@ -46,7 +46,9 @@ function RecruiterHome(props) {
     const [key,setKey]=React.useState("") //key to pass to personal info prop
     const [keyName,setKeyName]=React.useState("")
     const [editData,setEditData]=React.useState(null) //edit data to pass to the edit respective edit component
+    const [dashboardData,setDashboardData]=React.useState(null)
     console.log(key,keyName)
+    console.log("recruiterhome-dashboarddata",dashboardData)
     let userInfo = props.user.userInfo
 
     React.useEffect(()=>{
@@ -154,7 +156,7 @@ function RecruiterHome(props) {
         
         <div className="row">
             <div className="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 p-0">
-            <RecruiterDashhead margin={0} id={1} display={display} />
+            <RecruiterDashhead setDashboardData={setDashboardData} margin={0} id={1} display={display} />
             </div>
 
             <div className="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-xl-10 dashboard-container scroll" onClick={()=>display&&setDisplay(false)}>
@@ -284,7 +286,7 @@ function RecruiterHome(props) {
             <section className="company-info-section shadow-sm row m-auto">
                 <div className="col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
                 <img src={props.user.userInfo.companyImg?`${process.env.REACT_APP_DEVELOPMENT}/api/image/${props.user.userInfo.companyImg}`:"/user.png"} alt="profile" />
-                    <div className="mt-4 mb-2" style={{textAlign:"center"}}>
+                    {!userInfo.subRecruiter&&<div className="mt-4 mb-2" style={{textAlign:"center"}}>
                     <label htmlFor="contained-button-file-company">
                     <Input 
                     onChange={upload3}
@@ -293,7 +295,7 @@ function RecruiterHome(props) {
                     Change image
                     </Button>
                     </label>
-                    </div>
+                    </div>}
                 </div>
                 <div className="col-12 col-sm-12 col-md-10 col-lg-10 col-xl-10 row m-auto">
                 <div className="col-11">
@@ -314,9 +316,9 @@ function RecruiterHome(props) {
                 }
                 </div>
                 <div className="col-1">
-                    <IconButton onClick={()=>setOpen6(true)}>
+                    {!userInfo.subRecruiter&&<IconButton onClick={()=>setOpen6(true)}>
                         <EditIcon />
-                    </IconButton>
+                    </IconButton>}
                 </div>
                 </div>
             </section>
@@ -331,7 +333,7 @@ function RecruiterHome(props) {
                     </div>
 
                     <div className="ml-2">
-                        <h2>1465</h2>
+                        <h2>{dashboardData&&dashboardData.hiredCandidates[0].total}</h2>
                     </div>
                 </div>
                 <div className="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 view-section-child row m-auto align-items-center justify-content-around shadow-sm">
@@ -340,7 +342,7 @@ function RecruiterHome(props) {
                     </div>
 
                     <div className="ml-2">
-                        <h2>65</h2>
+                        <h2>{userInfo.bookmarks.candidates.length}</h2>
                     </div>
                 </div>
                 <div className="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 view-section-child row m-auto align-items-center justify-content-around shadow-sm">
@@ -349,7 +351,10 @@ function RecruiterHome(props) {
                     </div>
 
                     <div className="ml-2">
-                        <h2>45%</h2>
+                        <h2>{dashboardData&&(
+                            (dashboardData.hiredCandidates[0].total/
+                            (dashboardData.hiredCandidates[0].total+dashboardData.pendingCandidates[0].total+dashboardData.rejectedCandidates[0].total))*100
+                            )}%</h2>
                     </div>
                 </div>
             </section>
@@ -358,7 +363,7 @@ function RecruiterHome(props) {
 
             {/* profile info sections */}
             <section className="row m-auto info-sections justify-content-around">
-                <div className="col-12 col-sm-12 col-md-5 col-lg-5 col-xl-5 info-child shadow-sm">
+                <div className={!userInfo.subRecruiter?"col-12 col-sm-12 col-md-5 col-lg-5 col-xl-5 info-child shadow-sm":"col-12 info-child shadow-sm"}>
                     {/* heading of personal info */}
                     <div className="row m-auto justify-content-between">
                         <div>
@@ -443,7 +448,7 @@ function RecruiterHome(props) {
                         </div>
                     </div>
                 </div>
-                <div className="col-12 col-sm-12 col-md-5 col-lg-5 col-xl-5 info-child shadow-sm">
+                {!userInfo.subRecruiter&&<div className="col-12 col-sm-12 col-md-5 col-lg-5 col-xl-5 info-child shadow-sm">
                     <div className="row m-auto justify-content-between">
                         <div>
                         <h2>Employment</h2>
@@ -490,8 +495,8 @@ function RecruiterHome(props) {
                         :<p><b>Add Employment Details</b></p>
                     }
 
-                </div>
-                <div className="col-12 col-sm-12 col-md-5 col-lg-5 col-xl-5 info-child shadow-sm">
+                </div>}
+                {!userInfo.subRecruiter&&<div className="col-12 col-sm-12 col-md-5 col-lg-5 col-xl-5 info-child shadow-sm">
                     <div className="row m-auto justify-content-between">
                         <div>
                         <h2>Education</h2>
@@ -537,8 +542,8 @@ function RecruiterHome(props) {
                         ))
                         :<p><b>Add Education Details</b></p>
                     }
-                </div>
-                <div className="col-12 col-sm-12 col-md-5 col-lg-5 col-xl-5 info-child shadow-sm">
+                </div>}
+                {!userInfo.subRecruiter&&<div className="col-12 col-sm-12 col-md-5 col-lg-5 col-xl-5 info-child shadow-sm">
                     <div className="row m-auto justify-content-between">
                         <div>
                         <h2>Key Skills</h2>
@@ -562,8 +567,8 @@ function RecruiterHome(props) {
                             })
                         }} label={item} key={index} />)
                     }
-                </div>
-                <div className="col-12 col-sm-12 col-md-5 col-lg-5 col-xl-5 info-child shadow-sm">
+                </div>}
+                {!userInfo.subRecruiter&&<div className="col-12 col-sm-12 col-md-5 col-lg-5 col-xl-5 info-child shadow-sm">
                     <div className="row m-auto justify-content-between">
                         <div>
                         <h2>Preferences</h2>
@@ -587,7 +592,7 @@ function RecruiterHome(props) {
                             })
                         }} label={item} key={index} />)
                     }
-                </div>
+                </div>}
 
             </section>
             {/* profile info sections */}
