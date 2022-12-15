@@ -21,9 +21,16 @@ import "./JobsCreated.scss"
 import Tooltip from '@mui/material/Tooltip';
 import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import TwoBDialog from '../../utils/TwoBDialog'
+import { setSnackbar } from "../../redux/flags/flagActions";
+import SearchBar2 from '../../utils/SearchBar2';
 function JobsCreated(props) {
     const [display,setDisplay]=React.useState(false)
     const [jobs,setJobs]=React.useState([])
+    const [open,setOpen] = React.useState(false)
+    const [jobId,setJobId] = React.useState("")
 
     React.useEffect(()=>{
         axios.get(`${process.env.REACT_APP_DEVELOPMENT}/api/job/recruiterJobs`,{headers:{token:props.user.user}})
@@ -39,12 +46,28 @@ function JobsCreated(props) {
         })
     },[])
 
-
+    const deleteJob =()=>{
+        axios.post(`${process.env.REACT_APP_DEVELOPMENT}/api/job/deleteJob`,{jobId},{headers:{token:props.user.user}})
+        .then(res=>{
+            console.log(res)
+            if(res.data.msg==="success"){
+                props.setSnackbar({type:"success",text:"Job Deleted Successfully",open:true})
+            }
+        })
+    }
 
 
     return (
         <>
-
+            <TwoBDialog 
+            open={open}
+            setOpen={setOpen}
+            title="Delete Job"
+            description="Are you sure you want to delete this job?"
+            leftButton="Cancel"
+            rightButton="Delete"
+            handleSubmit = {deleteJob}
+            />
             <HeaderDash />
         
         <div className="row">
@@ -60,13 +83,15 @@ function JobsCreated(props) {
              </span>
 
             <h1>Created Jobs</h1>
+            <SearchBar2 />
             {
-                jobs.length>0?jobs.map((item,index)=><Link key={index} className="link" to={`/recruiterjobdetail/${item._id}`}>
-                <section className={`col-12 shadow-sm job-apply-head row m-auto`} style={{backgroundColor:"white"}}>
+                jobs.length>0?jobs.map((item,index)=>
+                <section key={index}  className={`col-12 shadow-sm job-apply-head row m-auto`} style={{backgroundColor:"white"}}>
                 <div className='img-div col-12 col-sm-12 col-md-1 col-lg-1 col-xl-1'>
                     <img src={`${process.env.REACT_APP_DEVELOPMENT}/api/image/${item.createdBy.companyImg}`} alt="logo1" />
                 </div>
                 <div className='content-div col-12 col-sm-12 col-md-9 col-lg-9 col-xl-9'>
+                <Link className="link" to={`/recruiterjobdetail/${item._id}`}>
                     <h3 className="m-0">{item.title}</h3>
                     <p className="m-0 companyName">{item.companyName}</p>
                     <h4 className="m-0">{item.product}</h4>
@@ -106,17 +131,23 @@ function JobsCreated(props) {
                             <span className='key-headline m-2'>{item.industry}</span>
                         </div>
                     </div>
-   
+                    </Link>
    
    
                 </div>
                 <div className="bookmark-div col-2">
-                   <p className="status">
-                    
-                    </p>
+                   <IconButton onClick={()=>props.history.push("/createjob",item)}>
+                    <EditIcon sx={{fontSize:23}} />
+                   </IconButton>
+                   <IconButton onClick={()=>{
+                    setOpen(true)
+                    setJobId(item._id)
+                   }}>
+                    <DeleteOutlineIcon sx={{fontSize:23}} />
+                   </IconButton>
                 </div>
             </section>
-            </Link>):null
+            ):null
             }
 
             <div  style={{position:"fixed",bottom:"5%",right:"5%",zIndex:5}}>
@@ -141,7 +172,8 @@ const mapStateToProps = ({banksterUser})=>{
 
 const mapDispatchToProps = (dispatch)=>{    
     return {
-        storeUserInfo:(userInfo)=>dispatch(storeUserInfo(userInfo))
+        storeUserInfo:(userInfo)=>dispatch(storeUserInfo(userInfo)),
+        setSnackbar:(obj)=>dispatch(setSnackbar(obj))
     }
 }
 

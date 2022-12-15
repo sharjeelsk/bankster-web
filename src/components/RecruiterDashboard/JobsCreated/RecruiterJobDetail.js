@@ -32,10 +32,14 @@ import LocationOnIcon from '@mui/icons-material/LocationOn';
 import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
 import { Button } from '@mui/material';
+import {getAge} from '../../utils/Functions'
+import ChangeJobStatus from './ChangeJobStatus'
 function RecruiterJobDetail(props) {
     const [display,setDisplay]=React.useState(false)
     const [singleJob,setSingleJob] = React.useState(null)
     const [value, setValue] = React.useState('1');
+    const [open,setOpen] = React.useState(false)
+    const [selectedItem,setSelectedItem] = React.useState(null)
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -85,11 +89,48 @@ function RecruiterJobDetail(props) {
         })
     }
 
+    const handleShortlist = (candidateObjectId,userId)=>{
+        axios.post(`${process.env.REACT_APP_DEVELOPMENT}/api/job/shortlistCandidate`,{jobId:singleJob._id,candidateObjectId,userId,title:singleJob.title},{headers:{token:props.user.user}})
+        .then(res=>{
+            console.log(res)
+            getSingleJob()
+        })
+        .catch(err=>{
+            console.log(err)
+        })
+    }
 
+    const renderEmployementString = (userInfo)=>{
+        if(userInfo.fresher){
+            return "Fresher"
+        }else if(userInfo.workExperience.filter(i=>i.current===true).length>0){
+            let strobj = userInfo.workExperience.filter(i=>i.current===true)[0]
+            return `${strobj.designation} | ${strobj.name}`
+        }else{
+            return "Currently Unemployed"
+        }
+    }
+
+    const renderStatus = (status)=>{
+        if(status==="Hired"){
+            return "hired-status px-3 py-2"
+        }else if(status==="Rejected"){
+            return "rejected-status px-3 py-2"
+        }else{
+            return "shortlisted-status px-3 py-2"
+        }
+    }
 
     return (
         <>
-
+            <ChangeJobStatus 
+            open={open}
+            setOpen={setOpen}
+            handleHire={handleHire}
+            handleReject={handleReject}
+            handleShortlist={handleShortlist}
+            item={selectedItem}
+            />
             <HeaderDash />
         
         <div className="row">
@@ -203,12 +244,27 @@ function RecruiterJobDetail(props) {
                             </div>
                             <div className="col-5">
                                 <h2>{item.user.fullName}</h2>
-                                {item.user.workExperience.length>0&&item.user.workExperience.map(we=>we.current&&<p className="bold-text">{we.name} | {we.designation}</p>)}
+                                <p className="bold-text">{renderEmployementString(item.user)}</p>
+                                <p className="bold-text">{item.user.education.length>0?item.user.education.map(i=>{
+                                    if(i.featuredEducation){
+                                        return i.name + ', ' + i.universityName;
+                                    }
+                                }):"User hasn't added featured education"}</p>
+                                <p className="grey-text">{item.user.gender} | {item.user.dob?getAge(item.user.dob):"DOB Missing"}</p>
+                                <p className="grey-text">{item.user.yearsOfExperience?item.user.yearsOfExperience:"Not added"} Years of Experience | {item.user.currentCtc?item.user.currentCtc:"Not added"} CTC | {item.user.product?item.user.product:"Not added"} | {item.user.noticePeriod?item.user.noticePeriod:"Not added"} Weeks Notice Period</p>
+                                {/* {item.user.workExperience.length>0&&item.user.workExperience.map((we,ind)=>we.current&&<p key={ind} className="bold-text">{we.name} | {we.designation}</p>)} */}
                                 <p className="bold-text">{item.user.education.length>0?`${item.user.education[0].name}, ${item.user.education[0].universityName}`:""}</p>
                             </div>
                             <div className="col-5">
                             {item.user.resume.length>0&&<div onClick={()=>{
                                 window.open(`${process.env.REACT_APP_DEVELOPMENT}/api/pdf/${item.user.resume}`, '_blank');
+                                axios.post(`${process.env.REACT_APP_DEVELOPMENT}/api/candidate/increaseProfileCount`,{candidateId:item.user._id},{headers:{token:props.user.user}})
+                                .then(res=>{
+                                    console.log(res)
+                                })
+                                .catch(err=>{
+                                    console.log(err)
+                                })
                                 //window.location.href=`${process.env.REACT_APP_DEVELOPMENT}/api/pdf/${item.user.resume}`
                                 //window.location.href()
                             }} className="resume-cont row m-auto align-items-center shadow-sm">
@@ -233,12 +289,23 @@ function RecruiterJobDetail(props) {
                         }
                         <div style={{textAlign:"right"}}>
                             {item.status==="Pending"?<>
-                            <Button onClick={()=>handleReject(item._id,item.user._id)}>Reject</Button>
+                            <Button color="error" onClick={()=>handleReject(item._id,item.user._id)}>Reject</Button>|
+                            <Button color="info" onClick={()=>handleShortlist(item._id,item.user._id)}>Shortlist</Button>|
                             <Button onClick={()=>handleHire(item._id,item.user._id)} variant="contained">Hire</Button>
-                            </>:<span className={item.status==="Hired"?"hired-status px-3 py-2":"rejected-status px-3 py-2"}>{item.status}</span>}
+                            </>:
+                            <>
+                            <span className={renderStatus(item.status)}>{item.status}</span>
+                            <br />
+                            <Button onClick={()=>{
+                                setOpen(true)
+                                setSelectedItem(item)
+                            }} className="mt-3">Change Status</Button>
+                            </>
+                            }
                         </div>
                     </section>):null
                 }
+                <div className="mb-5 pb-5" />
         </TabPanel>
       </TabContext>
 

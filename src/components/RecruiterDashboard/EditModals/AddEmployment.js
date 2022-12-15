@@ -36,8 +36,8 @@ function AddEmployment(props) {
     const [endDate,setEndDate] = React.useState(new Date(''))
     const [current,setCurrent]=React.useState(false)
     React.useEffect(()=>{
+      setValue("name",props.user.userInfo.companyName)
       if(props.keyD==="Edit"){
-        setValue("name",props.editData.name)
         setValue("designation",props.editData.designation)
         setValue("description",props.editData.description)
         setStartDate(props.editData.startDate)
@@ -90,6 +90,7 @@ function AddEmployment(props) {
             id={'outlined-basic'}
             label={"Company Name"}
             fullWidth
+            disabled
             variant="outlined"
           />
           <TextField

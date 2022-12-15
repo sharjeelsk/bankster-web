@@ -58,18 +58,34 @@ function AddEmployment(props) {
       //edit route is missing
       props.setLoading(true)
         console.log(data)
-        axios.post(`${process.env.REACT_APP_DEVELOPMENT}/api/candidate/addEmployment`,{obj:{...data,startDate,endDate:current?"":endDate,current}},{headers:{token:props.user.user}})
-        .then(res=>{
-          console.log(res)
-          props.fetchCandidateInfo(props.user.user)
-          props.setOpen(false)
-          props.setLoading(false)
-        })
-        .catch(err=>{
-          console.log(err)
-          props.setOpen(false)
-          props.setLoading(false)
-        })
+        if(props.keyD==="Edit"){
+          axios.post(`${process.env.REACT_APP_DEVELOPMENT}/api/candidate/editEmployement`,{obj:{...data,startDate,endDate:current?"":endDate,current},oldObj:props.editData},{headers:{token:props.user.user}})
+          .then(res=>{
+            console.log(res)
+            props.fetchCandidateInfo(props.user.user)
+            props.setOpen(false)
+            props.setLoading(false)
+          })
+          .catch(err=>{
+            console.log(err)
+            props.setOpen(false)
+            props.setLoading(false)
+          })
+        }else{
+          axios.post(`${process.env.REACT_APP_DEVELOPMENT}/api/candidate/addEmployment`,{obj:{...data,startDate,endDate:current?"":endDate,current}},{headers:{token:props.user.user}})
+          .then(res=>{
+            console.log(res)
+            props.fetchCandidateInfo(props.user.user)
+            props.setOpen(false)
+            props.setLoading(false)
+          })
+          .catch(err=>{
+            console.log(err)
+            props.setOpen(false)
+            props.setLoading(false)
+          })
+        }
+
 
     }
 

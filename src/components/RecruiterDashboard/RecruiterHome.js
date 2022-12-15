@@ -29,6 +29,7 @@ import { getAge } from '../utils/Functions';
 import UploadFileIcon from '@mui/icons-material/UploadFile';
 import LinkIcon from '@mui/icons-material/Link';
 import CompanyInfoEdit from './EditModals/CompanyInfoEdit';
+import { Link } from 'react-router-dom';
 const Input = styled('input')({
     display: 'none',
   });
@@ -100,8 +101,8 @@ function RecruiterHome(props) {
           formdata.append('file',e.target.files[0])
           formdata.append('collectionName',"Recruiter")
           formdata.append('type',"pdf")
-          if(userInfo.resume.length>0){
-            formdata.append('previousfile',userInfo.resume)
+          if(userInfo.gstin.length>0){
+            formdata.append('previousfile',userInfo.gstin)
           }
           //props.setLoading(true)
           console.log(formdata)
@@ -139,6 +140,34 @@ function RecruiterHome(props) {
             //props.getUserInfo(props.user.user)
             console.log(res)
             props.setSnackbar({type:"success",text:"Company Image Changed Successfully",open:true})
+            setFlag(!flag)
+          
+        })
+        .catch(err=>{
+          //props.setLoading(false)
+        })
+    }
+    }
+
+    const upload4 = (e)=>{
+        //company pan
+        console.log(e.target.files[0])
+        const formdata = new FormData();
+        if(!Array.isArray(e.target.files[0])){
+          formdata.append('file',e.target.files[0])
+          formdata.append('collectionName',"Recruiter")
+          formdata.append('type',"image")
+          formdata.append('profile','pan')
+          if(userInfo.pan.length>0){
+            formdata.append('previousfile',userInfo.pan)
+          }
+          //props.setLoading(true)
+        axios.post(`${process.env.REACT_APP_DEVELOPMENT}/upload`,formdata,{headers:{Accept:'application/json','Content-Type':"multipart/form-data",token:props.user.user}})
+        .then(res=>{
+            //props.setLoading(false)
+            //props.getUserInfo(props.user.user)
+            console.log(res)
+            props.setSnackbar({type:"success",text:"Pan Changed Successfully",open:true})
             setFlag(!flag)
           
         })
@@ -234,19 +263,19 @@ function RecruiterHome(props) {
                 </div>
                 <div className="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 resume-div">
                     <div className="resume-head shadow-sm">
-                    {userInfo.resume?<div className="resume-child row m-auto">
+                    {userInfo.gstin?<div className="resume-child row m-auto">
                             <div className="col-2">
                                 <InsertDriveFileIcon color="primary" />
                             </div>
-                            <div className="col-8 underline-hover" onClick={()=>window.open(`${process.env.REACT_APP_DEVELOPMENT}/api/pdf/${userInfo.resume}`, '_blank')}>
-                                <h4>{userInfo.fullName}'s Resume.{userInfo.resume.split(".")[1]}</h4>
-                                <p>Click to view resume</p>
+                            <div className="col-8 underline-hover" onClick={()=>window.open(`${process.env.REACT_APP_DEVELOPMENT}/api/pdf/${userInfo.gstin}`, '_blank')}>
+                                <h4>{userInfo.fullName}'s GSTIN.{userInfo.gstin.split(".")[1]}</h4>
+                                <p>Click to view GSTIN</p>
                             </div>
                             <div className="col-2">
-                            <label htmlFor="contained-button-file2">
+                            <label htmlFor="contained-button-file3">
                             <Input 
                             onChange={upload2}
-                            accept="application/*" id="contained-button-file2" multiple type="file" />
+                            accept="application/*" id="contained-button-file3" multiple type="file" />
                                 <IconButton component="span">
                                 <PublishIcon sx={{fontSize:30}} color="tertiary" />
                                 </IconButton>
@@ -261,6 +290,42 @@ function RecruiterHome(props) {
                     accept="application/*" id="contained-button-file3" multiple type="file" />
                     <Button variant="contained" component="span" endIcon={<UploadFileIcon />}>
                     Upload GSTIN
+                    </Button>
+                    </label>
+                        </div>
+                        
+                    </div>
+                        }
+                    </div>
+
+                    <div className="resume-head shadow-sm">
+                    {userInfo.pan?<div className="resume-child row m-auto">
+                            <div className="col-2">
+                                <InsertDriveFileIcon color="primary" />
+                            </div>
+                            <div className="col-8 underline-hover" onClick={()=>window.open(`${process.env.REACT_APP_DEVELOPMENT}/api/image/${userInfo.pan}`, '_blank')}>
+                                <h4>{userInfo.fullName}'s Pan.{userInfo.pan.split(".")[1]}</h4>
+                                <p>Click to view pan</p>
+                            </div>
+                            <div className="col-2">
+                            <label htmlFor="contained-button-file4">
+                            <Input 
+                            onChange={upload4}
+                            accept="application/*" id="contained-button-file4" multiple type="file" />
+                                <IconButton component="span">
+                                <PublishIcon sx={{fontSize:30}} color="tertiary" />
+                                </IconButton>
+                                </label>
+                            </div>
+                        </div>:
+                        <div className="resume-child row m-auto">
+                        <div className="" style={{margin:"auto"}}>
+                        <label htmlFor="contained-button-file4">
+                    <Input 
+                    onChange={upload4}
+                    accept="application/*" id="contained-button-file4" multiple type="file" />
+                    <Button variant="contained" component="span" endIcon={<UploadFileIcon />}>
+                    Upload Pan
                     </Button>
                     </label>
                         </div>
@@ -307,7 +372,7 @@ function RecruiterHome(props) {
                         <p><LocationOnIcon /> {userInfo.companyLocation.city}, {userInfo.companyLocation.state}</p>
                     </div>
                     <div className="col-6 key-holders">
-                        <p><LinkIcon /> {userInfo.companyUrl}</p>
+                        <Link to={{ pathname: userInfo.companyUrl }} target="_blank"><p><LinkIcon /> {userInfo.companyUrl}</p></Link>
                     </div>
                 </div>
                 <div className="mt-4" />
@@ -454,10 +519,10 @@ function RecruiterHome(props) {
                         <h2>Employment</h2>
                         </div>
                         <div>
-                            <Button onClick={()=>{
+                            {userInfo.workExperience.length<=0&&<Button onClick={()=>{
                                 setOpen2(true)
                                 setKey("Add")
-                            }}>Add Details</Button>
+                            }}>Add Details</Button>}
                         </div>
                     </div>
                     {
@@ -465,7 +530,7 @@ function RecruiterHome(props) {
                         userInfo.workExperience.map((item,index)=>(
                             <div key={index} className="row m-auto justify-content-between info-sub-content">
                             <div className="p-0 col-8">
-                            <p className="key">{item.designation} {item.name}</p>
+                            <p className="key">{item.designation} | {item.name}</p>
                             <p className="val">{item.description}</p>
                             <p className="datefromto">{moment.parseZone(item.startDate).local().format("DD/MM/YYYY")} - {item.current?"Current":moment.parseZone(item.endDate).local().format("DD/MM/YYYY")}</p>
                             </div>
@@ -478,13 +543,13 @@ function RecruiterHome(props) {
                                     <EditIcon color="primary" />
                                 </IconButton>
                                 <IconButton onClick={()=>{
-                                    axios.post(`${process.env.REACT_APP_DEVELOPMENT}/api/candidate/removeEmployment`,{obj:item},{headers:{token:props.user.user}})
+                                    axios.post(`${process.env.REACT_APP_DEVELOPMENT}/api/recruiter/removeEmployment`,{obj:item},{headers:{token:props.user.user}})
                                     .then(res=>{
                                         console.log(res)
                                         setFlag(!flag)
                                     })
                                     .catch(err=>{
-                                        console.log(err)
+                                        console.log(err.response)
                                     })
                                 }}>
                                     <DeleteOutlinedIcon color="error" />
@@ -496,7 +561,7 @@ function RecruiterHome(props) {
                     }
 
                 </div>}
-                {!userInfo.subRecruiter&&<div className="col-12 col-sm-12 col-md-5 col-lg-5 col-xl-5 info-child shadow-sm">
+                {/* {!userInfo.subRecruiter&&<div className="col-12 col-sm-12 col-md-5 col-lg-5 col-xl-5 info-child shadow-sm">
                     <div className="row m-auto justify-content-between">
                         <div>
                         <h2>Education</h2>
@@ -542,8 +607,8 @@ function RecruiterHome(props) {
                         ))
                         :<p><b>Add Education Details</b></p>
                     }
-                </div>}
-                {!userInfo.subRecruiter&&<div className="col-12 col-sm-12 col-md-5 col-lg-5 col-xl-5 info-child shadow-sm">
+                </div>} */}
+                {/* {!userInfo.subRecruiter&&<div className="col-12 col-sm-12 col-md-5 col-lg-5 col-xl-5 info-child shadow-sm">
                     <div className="row m-auto justify-content-between">
                         <div>
                         <h2>Key Skills</h2>
@@ -592,7 +657,7 @@ function RecruiterHome(props) {
                             })
                         }} label={item} key={index} />)
                     }
-                </div>}
+                </div>} */}
 
             </section>
             {/* profile info sections */}

@@ -19,6 +19,11 @@ import ArticleIcon from '@mui/icons-material/Article';
 import DescriptionIcon from '@mui/icons-material/Description';
 import Inventory2Icon from '@mui/icons-material/Inventory2';
 import SearchIcon from '@mui/icons-material/Search';
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormControl from '@mui/material/FormControl';
+import FormLabel from '@mui/material/FormLabel';
 function CreateJob(props) {
     const [display,setDisplay]=React.useState(false)
     const [ug,setUg]=React.useState([])
@@ -31,7 +36,7 @@ function CreateJob(props) {
     const [formValues,setFormValues]=React.useState({
         title:"",industry:"",functionalArea:"",companyInfo:"",minimumAge:18,maximumAge:18,minimumSalary:10,companyName:"",
         maximumSalary:15,ug:"",pg:"",product:"",minimumExperience:4,maximumExperience:55,country:"India",city:"",state:"",jobDescription:"",
-        rolesAndResponsibilities:[],jobTags:[],desiredProfile:""
+        rolesAndResponsibilities:[],jobTags:[],desiredProfile:"",workMode:"hybrid"
     })
 
     const [states,setStates]=React.useState([])
@@ -39,6 +44,8 @@ function CreateJob(props) {
 
     const [singleRole,setSingleRole] = React.useState("")
     const [jobTag,setJobTag] = React.useState("")
+
+    console.log("creaet job props", props)
 
     const getCities = (state)=>{
         console.log(state)
@@ -79,7 +86,29 @@ function CreateJob(props) {
 
     React.useEffect(()=>{
         //getRecruiterJob()
-        if(props.user.userInfo.availablePlanCredits.jobPostings<=0){
+        if(props.location.state){
+            let oldData = props.location.state
+            setFormValues({
+                title:oldData.title,
+                industry:oldData.industry,
+                functionalArea:oldData.functionalArea,
+                companyInfo:oldData.companyInfo,
+                minimumAge:oldData.age.min,
+                maximumAge:oldData.age.max,
+                minimumSalary:oldData.ctc.min/100000,
+                companyName:oldData.companyName,
+                maximumSalary:oldData.ctc.max/100000,
+                ug:oldData.qualification.ug,
+                pg:oldData.qualification.pg,
+                product:oldData.product,
+                minimumExperience:oldData.experience.min,
+                maximumExperience:oldData.experience.max,
+                country:"India",city:oldData.jobLocation.city,state:oldData.jobLocation.state,jobDescription:oldData.jobDescription,
+                rolesAndResponsibilities:oldData.roleResp,jobTags:oldData.tags,desiredProfile:oldData.desiredProfile
+
+            })
+        }
+        else if(props.user.userInfo.availablePlanCredits.jobPostings<=0){
             setBlock(true)
         }
         axios.get(`${process.env.REACT_APP_DEVELOPMENT}/api/admin/getAllJobParam`)
@@ -102,7 +131,7 @@ function CreateJob(props) {
               
               axios(config)
               .then(function (response) {
-                console.log(response);
+                console.log("stateresposne",response);
                 setStates(response.data)
               })
               .catch(function (error) {
@@ -117,8 +146,8 @@ function CreateJob(props) {
             "title":formValues.title,
             "minimumExperience":formValues.minimumExperience,
             "maximumExperience":formValues.maximumExperience,
-            "minimumSalary":parseInt(formValues.minimumSalary)+100000,
-            "maximumSalary":parseInt(formValues.maximumSalary)+100000,
+            "minimumSalary":parseInt(formValues.minimumSalary)*100000,
+            "maximumSalary":parseInt(formValues.maximumSalary)*100000,
             "minimumAge":formValues.minimumAge,
             "maximumAge":formValues.maximumAge,
             "product":formValues.product,
@@ -137,18 +166,32 @@ function CreateJob(props) {
             creditId:props.user.userInfo.availablePlanCredits._id
         }
         console.log(obj)
-        axios.post(`${process.env.REACT_APP_DEVELOPMENT}/api/job/createJob`,{...obj},{headers:{token:props.user.user}})
-        .then(res=>{
-            console.log(res)
-            props.history.push('/findjobs')
-        })
-        .catch(err=>{
-            console.log(err)
-        })
+        if(props.location.state){
+            //edit job
+            axios.post(`${process.env.REACT_APP_DEVELOPMENT}/api/job/editJob`,{jobObject:obj,jobId:props.location.state._id},{headers:{token:props.user.user}})
+            .then(res=>{
+                console.log(res)
+                props.history.push('/jobscreated')
+            })
+            .catch(err=>{
+                console.log(err)
+            })
+        }else{
+            //create job
+            axios.post(`${process.env.REACT_APP_DEVELOPMENT}/api/job/createJob`,{...obj},{headers:{token:props.user.user}})
+            .then(res=>{
+                console.log(res)
+                props.history.push('/jobscreated')
+            })
+            .catch(err=>{
+                console.log(err)
+            })
+        }
+        
     }
 
 
-    console.log(formValues)
+    console.log(formValues,states)
 
     return (
         <>
@@ -179,28 +222,30 @@ function CreateJob(props) {
             :<section className="create-job row m-auto">
                 <div className="col-5 job-form">
                     <h2>Create Job</h2>
-                    <TextField value={formValues.title} onChange={(e)=>setFormValues({...formValues,title:e.target.value})} fullWidth variant='outlined' id="outlined-basic" label="Job Title" className="mt-2 mb-3" />
+                    <TextField disabled={props.location.state?true:false} value={formValues.title} onChange={(e)=>setFormValues({...formValues,title:e.target.value})} fullWidth variant='outlined' id="outlined-basic" label="Job Title" className="mt-2 mb-3" />
                     <div className="my-4">
                     <Autocomplete
                     fullWidth
+                    value={formValues.industry}
                     onChange={(event, newValue) => {
-                    setFormValues({...formValues,industry:newValue.name});
+                    setFormValues({...formValues,industry:newValue});
                     }}
                     id="controllable-states-demo"
-                    options={industry}
-                    getOptionLabel={(option) => option.name}
+                    options={industry.map(i=>i.name)}
+                    //getOptionLabel={(option) => option.name}
                     renderInput={(params) => <TextField {...params} label="Choose Industry"/>}
                     />
                     </div>
                     <div className="my-4">
                     <Autocomplete
                     fullWidth
+                    value={formValues.functionalArea}
                     onChange={(event, newValue) => {
-                    setFormValues({...formValues,functionalArea:newValue.name});
+                    setFormValues({...formValues,functionalArea:newValue});
                     }}
                     id="controllable-states-demo"
-                    options={functionalArea}
-                    getOptionLabel={(option) => option.name}
+                    options={functionalArea.map(i=>i.name)}
+                    //getOptionLabel={(option) => option.name}
                     renderInput={(params) => <TextField {...params} label="Select Functional Area"/>}
                     />
                     </div>
@@ -230,12 +275,13 @@ function CreateJob(props) {
                     <div className="my-4">
                     <Autocomplete
                     fullWidth
+                    value={formValues.ug}
                     onChange={(event, newValue) => {
-                    setFormValues({...formValues,ug:newValue.name});
+                    setFormValues({...formValues,ug:newValue});
                     }}
                     id="controllable-states-demo"
-                    options={ug}
-                    getOptionLabel={(option) => option.name}
+                    options={ug.map(i=>i.name)}
+                    //getOptionLabel={(option) => option.name}
                     renderInput={(params) => <TextField {...params} label="Select UG Qualification"/>}
                     />
                     </div>
@@ -243,12 +289,13 @@ function CreateJob(props) {
                     <div className="my-4">
                     <Autocomplete
                     fullWidth
+                    value={formValues.pg}
                     onChange={(event, newValue) => {
-                    setFormValues({...formValues,pg:newValue.name});
+                    setFormValues({...formValues,pg:newValue});
                     }}
                     id="controllable-states-demo"
-                    options={pg}
-                    getOptionLabel={(option) => option.name}
+                    options={pg.map(i=>i.name)}
+                    //getOptionLabel={(option) => option.name}
                     renderInput={(params) => <TextField {...params} label="Select PG Qualification"/>}
                     />
                     </div>
@@ -266,22 +313,23 @@ function CreateJob(props) {
                     <div className="my-4">
                     <Autocomplete
                     fullWidth
+                    value={formValues.product}
                     onChange={(event, newValue) => {
-                    setFormValues({...formValues,product:newValue.name});
+                    setFormValues({...formValues,product:newValue});
                     }}
                     id="controllable-states-demo"
-                    options={product}
-                    getOptionLabel={(option) => option.name}
+                    options={product.map(i=>i.name)}
+                    //getOptionLabel={(option) => option.name}
                     renderInput={(params) => <TextField {...params} label="Choose Product"/>}
                     />
                     </div>
 
                     <h4>Minimum Experience (In Years)</h4>
-                    <Slider onChange={(ev,value)=>setFormValues({...formValues,minimumExperience:value})} value={formValues.minimumExperience} min={0} max={30} defaultValue={15} aria-label="Default" valueLabelDisplay="auto" />
+                    <Slider onChange={(ev,value)=>setFormValues({...formValues,minimumExperience:value})} value={formValues.minimumExperience} min={0} max={30} aria-label="Default" valueLabelDisplay="auto" />
                     <p className="slider-info">Minimum Experience is {formValues.minimumExperience}</p>
 
                     <h4>Maximum Experience (In Years)</h4>
-                    <Slider onChange={(ev,value)=>setFormValues({...formValues,maximumExperience:value})} value={formValues.maximumExperience} min={0} max={30} defaultValue={15} aria-label="Default" valueLabelDisplay="auto" />
+                    <Slider onChange={(ev,value)=>setFormValues({...formValues,maximumExperience:value})} value={formValues.maximumExperience} min={0} max={30} aria-label="Default" valueLabelDisplay="auto" />
                     <p className="slider-info">Maximum Experience is {formValues.maximumExperience}</p>
 
                     <h3 className="sub-heading">Job Location</h3>
@@ -289,9 +337,10 @@ function CreateJob(props) {
                     <div className="my-4">
                     <Autocomplete
                     fullWidth
+                    
                     onChange={(event, newValue) => {
-                    setFormValues({...formValues,state:newValue.name});
                     getCities(newValue.iso2)
+                    setFormValues({...formValues,state:newValue.name});
                     }}
                     id="controllable-states-demo"
                     options={states}
@@ -302,12 +351,13 @@ function CreateJob(props) {
                     <div className="my-4">
                     <Autocomplete
                     fullWidth
-                    onChange={(event, newValue) => {
-                    setFormValues({...formValues,city:newValue.name});
+                    value={formValues.city}
+                    onInputChange={(event, newValue) => {
+                    setFormValues({...formValues,city:newValue});
                     }}
                     id="controllable-states-demo"
-                    options={cities}
-                    getOptionLabel={(option) => option.name}
+                    options={cities.map(i=>i.name)}
+                    //getOptionLabel={(option) => option.name}
                     renderInput={(params) => <TextField {...params} label="Select City"/>}
                     />
                     </div>
@@ -398,9 +448,24 @@ function CreateJob(props) {
                     variant="filled"
                     />
 
+                    <FormControl>
+                        <FormLabel id="demo-row-radio-buttons-group-label">Select Work Mode</FormLabel>
+                        <RadioGroup
+                            row
+                            aria-labelledby="demo-row-radio-buttons-group-label"
+                            name="row-radio-buttons-group"
+                            value={formValues.workMode}
+                            onChange={(e)=>setFormValues({...formValues,workMode:e.target.value})}
+                        >
+                            <FormControlLabel value="home" control={<Radio />} label="Work From Home" />
+                            <FormControlLabel value="office" control={<Radio />} label="Work From Office" />
+                            <FormControlLabel value="hybrid" control={<Radio />} label="Hybrid" />
+                        </RadioGroup>
+                        </FormControl>
+
                     <div style={{textAlign:"right"}} className="my-4">
                         <Button onClick={()=>props.history.push("jobscreated")}>Cancel</Button>
-                        <Button onClick={()=>handleJobCreate()} variant="contained">Create Job</Button>
+                        <Button onClick={()=>handleJobCreate()} variant="contained">{props.location.state?'Edit':"Create"} Job</Button>
                     </div>
 
 

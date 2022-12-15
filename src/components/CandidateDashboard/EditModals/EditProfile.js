@@ -37,8 +37,9 @@ function EditProfile(props) {
     const [dob, setDob] = React.useState('');
     const [states,setStates]=React.useState([])
     const [cities,setCities] = React.useState([])
-    const [formValues,setFormValues] = React.useState({state:"",city:""})
+    const [formValues,setFormValues] = React.useState({state:"",city:"",product:""})
     const [gender, setGender] = React.useState('Male');
+    const [products,setProducts]=React.useState([])
 
     const handleChange = (event) => {
       setGender(event.target.value);
@@ -50,7 +51,8 @@ function EditProfile(props) {
             setValue("mobileNo",userInfo.mobileNo)
             setValue("resumeTagline",userInfo.resumeTagline)
             setValue("mobileNo",userInfo.mobileNo)
-            setFormValues({state:userInfo.userLocation.state,city:userInfo.userLocation.city})
+            setValue("noticePeriod",userInfo.noticePeriod)
+            setFormValues({state:userInfo.userLocation.state,city:userInfo.userLocation.city,product:userInfo.product})
             setDob(userInfo.dob)
             var config = {
               method: 'get',
@@ -68,13 +70,18 @@ function EditProfile(props) {
             .catch(function (error) {
               console.log(error);
             });
+            axios.get(`${process.env.REACT_APP_DEVELOPMENT}/api/admin/getAllProducts`,{headers:{token:props.user.user}})
+            .then(res=>{
+              console.log("products response",res)
+              setProducts(res.data.result)
+            })
     },[])
 
 
     const onSubmit = (data)=>{
         console.log(data)
         props.setLoading(true)
-        axios.post(`${process.env.REACT_APP_DEVELOPMENT}/api/candidate/editCandidateProfile`,{...data,dob,userLocation:{...formValues,country:"India"},gender},{headers:{token:props.user.user}})
+        axios.post(`${process.env.REACT_APP_DEVELOPMENT}/api/candidate/editCandidateProfile`,{...data,dob,userLocation:{...formValues,country:"India"},gender,product:formValues.product},{headers:{token:props.user.user}})
         .then(res=>{
             console.log(res)
             props.setLoading(false)
@@ -201,6 +208,45 @@ function EditProfile(props) {
                       fullWidth
                       variant="outlined"
                     />
+
+                    <TextField
+                    className="mb-3"
+                    inputProps={{ maxLength: 200 }}
+                    {...register("yearsOfExperience",{required:true})}
+                    error={errors.yearsOfExperience?true:false}
+                      autoFocus
+                      margin="dense"
+                      id={'outlined-basic'}
+                      label={"Years of Experience"}
+                      fullWidth
+                      variant="outlined"
+                    />
+                    <TextField
+                    className="mb-3"
+                    inputProps={{ maxLength: 200 }}
+                    {...register("currentCtc",{required:true})}
+                    error={errors.currentCtc?true:false}
+                      autoFocus
+                      margin="dense"
+                      id={'outlined-basic'}
+                      label={"Current CTC (In Numbers)"}
+                      fullWidth
+                      variant="outlined"
+                    />
+
+                    <div className="my-4">
+                    <Autocomplete
+                    fullWidth
+                    onChange={(event, newValue) => {
+                      console.log(newValue)
+                    setFormValues({...formValues,product:newValue.name});
+                    }}
+                    id="controllable-states-demo"
+                    options={products}
+                    getOptionLabel={(option) => option.name}
+                    renderInput={(params) => <TextField {...params} label="Select Product"/>}
+                    />
+                    </div>
                     
 
         <section className="my-3">

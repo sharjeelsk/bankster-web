@@ -106,6 +106,17 @@ function CandidateHome(props) {
     }
     }
 
+    const renderEmployementString = ()=>{
+        if(userInfo.fresher){
+            return "Fresher"
+        }else if(userInfo.workExperience.filter(i=>i.current===true).length>0){
+            let strobj = userInfo.workExperience.filter(i=>i.current===true)[0]
+            return `${strobj.designation} | ${strobj.name}`
+        }else{
+            return "Currently Unemployed"
+        }
+    }
+
 
     return (
         <>
@@ -170,13 +181,14 @@ function CandidateHome(props) {
                 </div>
                 <div className="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 info-cont">
                 <h1>{userInfo.fullName} <IconButton onClick={()=>setOpen5(true)}><EditIcon /></IconButton></h1>
+                <p className="bold-text">{renderEmployementString()}</p>
                 <p className="bold-text">{userInfo.education.length>0?userInfo.education.map(i=>{
                     if(i.featuredEducation){
                         return i.name + ', ' + i.universityName;
                     }
                 }):"Add Featured Education"}</p>
                     <p className="grey-text">{userInfo.gender} | {userInfo.dob?getAge(userInfo.dob):"DOB Missing"}</p>
-                    <p className="grey-text">{userInfo.noticePeriod} Weeks Notice Period</p>
+                    <p className="grey-text">{userInfo.yearsOfExperience} Years of Experience | {userInfo.currentCtc} CTC | {userInfo.product} | {userInfo.noticePeriod} Weeks Notice Period</p>
                         <div className="row m-auto sub-info">
                         <p className="mx-2"><LocalPhoneIcon sx={{marginRight:.1}} /> <b>{userInfo.mobileNo}</b></p>
                             <p className="mx-2"><AlternateEmailIcon sx={{marginRight:.1}} /> <b>{userInfo.email}</b></p>
