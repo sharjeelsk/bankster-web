@@ -147,7 +147,7 @@ function JobDetail(props) {
                 {
                     singleJob&&<section className="shadow-sm single-job row m-auto">
                     <div className='img-div col-12 col-sm-12 col-md-1 col-lg-1 col-xl-1'>
-                        <img src={`${process.env.REACT_APP_DEVELOPMENT}/api/image/${singleJob.createdBy.companyImg}`} alt="logo1" />
+                        <img src={singleJob.createdBy.companyImg?`${process.env.REACT_APP_DEVELOPMENT}/api/image/${singleJob.createdBy.companyImg}`:'/job-offer.png'} alt="logo1" />
                     </div>
                     <div className='content-div col-12 col-sm-12 col-md-9 col-lg-9 col-xl-9'>
                         <h3>{singleJob.title}</h3>

@@ -4,7 +4,7 @@ import Footer from '../Footer/Footer'
 import FilterMenu from './FilterMenu'
 import "./FindJobs.scss"
 import MenuIcon from '@mui/icons-material/Menu';
-import { IconButton } from '@mui/material'
+import { IconButton,Button } from '@mui/material'
 import {connect} from 'react-redux'
 import SearchBar from '../utils/SearchBar'
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
@@ -21,19 +21,46 @@ import axios from 'axios'
 import { Link } from 'react-router-dom'
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import {fetchCandidateInfo} from '../redux/user/userActions'
+import Popover from '@mui/material/Popover';
+import Typography from '@mui/material/Typography';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 function FindJobs(props) {
 const [display,setDisplay]=React.useState(false)
 const [jobs,setJobs]=React.useState([])
 const urlParams = new URLSearchParams(window.location.search);
 const [bookmarked,setBookmarked]=React.useState(false)
+const [flag,setFlag] = React.useState(false)
 const title = urlParams.get('title');
 const location = urlParams.get('location');
 const salary = urlParams.get('salary');
+const [sort,setSort]=React.useState(-1)
 console.log(title,location,salary,jobs)
+
+
+const [anchorEl, setAnchorEl] = React.useState(null);
+
+const handleClick = (event) => {
+  setAnchorEl(event.currentTarget);
+};
+
+const handleClose = (s) => {
+    if(s){
+        setSort(s)
+    }
+    console.log(s)
+
+  setAnchorEl(null);
+};
+
+const open = Boolean(anchorEl);
+const id = open ? 'simple-popover' : undefined;
+
 React.useEffect(()=>{
     ///api/job/searchJobs
     if(!title && !location && !salary){
-        axios.get(`${process.env.REACT_APP_DEVELOPMENT}/api/job/getAllJobs`,{headers:{token:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRyaXZlc2hAYmFua3N0ZXIuY29tIiwiX2lkIjoiNjJmM2E3ZjA0ODA4OWE4MDFkM2E3ODA3IiwiaWF0IjoxNjYxMTUyOTUwfQ.yI7xfT8AUAs4NM1S3xsw5xnttnr-cYmHdty0r_itRes"}})
+        axios.get(`${process.env.REACT_APP_DEVELOPMENT}/api/job/getAllJobs?sort=${sort}`,{headers:{token:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRyaXZlc2hAYmFua3N0ZXIuY29tIiwiX2lkIjoiNjJmM2E3ZjA0ODA4OWE4MDFkM2E3ODA3IiwiaWF0IjoxNjYxMTUyOTUwfQ.yI7xfT8AUAs4NM1S3xsw5xnttnr-cYmHdty0r_itRes"}})
         .then(res=>{
             console.log(res)
             setJobs(res.data)
@@ -52,7 +79,7 @@ React.useEffect(()=>{
         })
     }
     
-},[title,location,salary])
+},[title,location,salary,flag,sort])
 
 
 const handleBookmarkAdd = (jobId)=>{
@@ -78,6 +105,41 @@ const handleBookmarkAdd = (jobId)=>{
     }
 
 }
+
+
+const handleJobApply = (apply,singleJob)=>{
+    if(apply){
+        axios.post(`${process.env.REACT_APP_DEVELOPMENT}/api/job/applyJob`,{jobId:singleJob._id},{headers:{token:props.user.user}})
+        .then(res=>{
+            console.log(res)
+            setFlag(!flag)
+        })
+        .catch(err=>{
+            console.log(err)
+        })
+    }else{
+        axios.post(`${process.env.REACT_APP_DEVELOPMENT}/api/job/cancelApplyJob`,{jobId:singleJob._id},{headers:{token:props.user.user}})
+        .then(res=>{
+            console.log(res)
+            setFlag(!flag)
+        })
+        .catch(err=>{
+            console.log(err)
+        })
+    }
+
+}
+const renderApplied = (singleJob)=>{
+    let apply;
+    singleJob.jobCandidates.map(item=>{
+        if(item.user===props.user.userInfo._id){
+            apply=true
+        }else{
+            apply=false
+        }
+    })
+    return apply
+}
 //test comment
   return (
     <div>
@@ -97,17 +159,40 @@ const handleBookmarkAdd = (jobId)=>{
             
             <div className='p-0 col-12 col-sm-12 col-md-7 col-lg-7 col-xl-7 find-jobs-content'>
                 <SearchBar fullWidth={true} />
-                
+                <div className="mt-4">
+                <Button
+                    id="basic-button"
+                    aria-controls={open ? 'basic-menu' : undefined}
+                    aria-haspopup="true"
+                    aria-expanded={open ? 'true' : undefined}
+                    onClick={handleClick}
+                    endIcon={<KeyboardArrowDownIcon />}
+                >
+                    {sort===1?'oldest jobs':"Latest Jobs"}
+                </Button>
+                <Menu
+                    id="basic-menu"
+                    anchorEl={anchorEl}
+                    open={open}
+                    onClose={handleClose}
+                    MenuListProps={{
+                    'aria-labelledby': 'basic-button',
+                    }}
+                >
+                    <MenuItem onClick={()=>handleClose(-1)}>Latest</MenuItem>
+                    <MenuItem onClick={()=>handleClose(1)}>Oldest</MenuItem>
+                </Menu>
+                </div>
                 {
                     jobs.length>0?jobs.map((item,index)=>(
                         <section key={index} className="shadow-sm single-job row m-auto">
                     <div className='img-div col-12 col-sm-12 col-md-1 col-lg-1 col-xl-1'>
-                        <img src={item.createdBy[0].companyImg?`${process.env.REACT_APP_DEVELOPMENT}/api/image/${item.createdBy[0].companyImg}`:'/job-offer.png'} alt="logo1" />
+                        <img src={item.createdBy.companyImg?`${process.env.REACT_APP_DEVELOPMENT}/api/image/${item.createdBy.companyImg}`:'/job-offer.png'} alt="logo1" />
                     </div>
                     <div className='content-div col-12 col-sm-12 col-md-9 col-lg-9 col-xl-9'>
                     <Link className="link" to={`/jobdetail/${item._id}`}>
                         <h3>{item.title}</h3>
-                        <p className="company-name m-0">{item.createdBy[0].companyName}</p>
+                        <p className="company-name m-0">{item.createdBy.companyName}</p>
                         <h4 className="m-0">{item.product}</h4>
                             <div className='row m-auto align-items-center'>
                                 <div>
@@ -154,6 +239,22 @@ const handleBookmarkAdd = (jobId)=>{
                         {item.tags.map((tag,index)=><Chip key={index} className="m-3" label={tag} />)}
                         </div>
                         </Link>
+
+                        <div className="button-div">
+                            {props.user.userType===0?
+                            <>
+                            {!renderApplied(item)?
+                            <Button onClick={()=>handleJobApply(true,item)} fullWidth className="my-3" variant='contained'>Click to Apply For this job</Button>:
+                                
+                            null
+                            }
+                            </>:
+                            <>
+                            <Button fullWidth onClick={()=>props.history.push("/login")} className="my-2" variant='outlined'>Log in to apply</Button>
+                            <Button fullWidth onClick={()=>props.history.push("/signup")} className="my-2" variant='contained'>Register to apply</Button>
+                            </>
+                            }
+                        </div>
 
                     </div>
                     <div className="bookmark-div col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">

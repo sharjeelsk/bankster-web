@@ -51,7 +51,7 @@ function FilterMenu(props) {
     return  <div className='content'>
     <h4><FilterListIcon /> All Filters</h4>
     <hr />
-    <h3>Work From Home</h3>
+    <h3>Work Mode</h3>
     <FormControl>
     <FormLabel id="demo-controlled-radio-buttons-group">Select Work Mode</FormLabel>
     <RadioGroup
