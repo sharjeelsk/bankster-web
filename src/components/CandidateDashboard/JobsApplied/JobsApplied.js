@@ -19,10 +19,12 @@ import SearchIcon from '@mui/icons-material/Search';
 import { Link } from 'react-router-dom';
 import "./JobsApplied.scss"
 import { Button } from '@mui/material';
+import SearchBar2 from '../../utils/SearchBar2';
 function JobsApplied(props) {
     const [display,setDisplay]=React.useState(false)
     const [jobsApplied,setJobsApplied]=React.useState([])
-    React.useEffect(()=>{
+
+    const getAppliedJobs = ()=>{
         axios.get(`${process.env.REACT_APP_DEVELOPMENT}/api/job/candidateJobs`,{headers:{token:props.user.user}})
         .then(res=>{
             console.log(res)
@@ -33,6 +35,10 @@ function JobsApplied(props) {
         .catch(err=>{
             console.log(err)
         })
+    }
+
+    React.useEffect(()=>{
+      getAppliedJobs()
     },[])
 
     const renderJobStatus=(item)=>{
@@ -44,6 +50,19 @@ function JobsApplied(props) {
         })
 
         return status;
+    }
+
+    const handleSearchSubmit = (text)=>{
+        axios.post(`${process.env.REACT_APP_DEVELOPMENT}/api/job/searchAppliedJobs`,{candidateId:props.user.userInfo._id,title:text},{headers:{token:props.user.user}})
+        .then(res=>{
+            console.log(res)
+            if(res.data.msg==="success"){
+                setJobsApplied(res.data.result)
+            }
+        })
+        .catch(err=>{
+            console.log(err)
+        })
     }
 
 
@@ -63,14 +82,15 @@ function JobsApplied(props) {
             <MenuIcon fontSize="inherit" />
              </IconButton>
              </span>
-
+             <h1>Applied Jobs</h1>
+            <SearchBar2 searchText="Search By Job Name..." handleSearchSubmit={handleSearchSubmit} getAllData={getAppliedJobs}  />
             <div className="row my-auto job-head-a">
              {
              jobsApplied.length>0?
              jobsApplied.map((item,index)=><Link key={index} className="link" to={`/jobdetail/${item._id}`}>
              <section className={`col-12 shadow-sm job-apply-head row m-auto ${renderJobStatus(item)}`}>
              <div className='img-div col-12 col-sm-12 col-md-1 col-lg-1 col-xl-1'>
-                 <img src={`${process.env.REACT_APP_DEVELOPMENT}/api/image/${item.createdBy.companyImg}`} alt="logo1" />
+                 <img src={item.createdBy.companyImg?`${process.env.REACT_APP_DEVELOPMENT}/api/image/${item.createdBy.companyImg}`:'/job-offer.png'} alt="logo1" />
              </div>
              <div className='content-div col-12 col-sm-12 col-md-9 col-lg-9 col-xl-9'>
                  <h3 className="m-0">{item.title}</h3>

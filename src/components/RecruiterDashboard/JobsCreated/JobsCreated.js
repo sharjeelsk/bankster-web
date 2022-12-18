@@ -32,7 +32,8 @@ function JobsCreated(props) {
     const [open,setOpen] = React.useState(false)
     const [jobId,setJobId] = React.useState("")
 
-    React.useEffect(()=>{
+
+    const getCreatedJobs = ()=>{
         axios.get(`${process.env.REACT_APP_DEVELOPMENT}/api/job/recruiterJobs`,{headers:{token:props.user.user}})
         .then(res=>{
             console.log(res)
@@ -44,6 +45,10 @@ function JobsCreated(props) {
         .catch(err=>{
             console.log(err)
         })
+    }
+
+    React.useEffect(()=>{
+        getCreatedJobs()
     },[])
 
     const deleteJob =()=>{
@@ -55,7 +60,18 @@ function JobsCreated(props) {
             }
         })
     }
-
+    const handleSearchSubmit = (text)=>{
+        axios.post(`${process.env.REACT_APP_DEVELOPMENT}/api/job/searchCreatedJobs`,{recruiterId:props.user.userInfo._id,title:text},{headers:{token:props.user.user}})
+        .then(res=>{
+            console.log(res)
+            if(res.data.msg==="success"){
+                setJobs(res.data.result)
+            }
+        })
+        .catch(err=>{
+            console.log(err)
+        })
+    }
 
     return (
         <>
@@ -83,7 +99,7 @@ function JobsCreated(props) {
              </span>
 
             <h1>Created Jobs</h1>
-            <SearchBar2 />
+            <SearchBar2 searchText="Search By Job Name..." handleSearchSubmit={handleSearchSubmit} getAllData={getCreatedJobs}  />
             {
                 jobs.length>0?jobs.map((item,index)=>
                 <section key={index}  className={`col-12 shadow-sm job-apply-head row m-auto`} style={{backgroundColor:"white"}}>

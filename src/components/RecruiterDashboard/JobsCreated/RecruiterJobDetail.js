@@ -4,7 +4,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import RecruiterDashhead from '../RecruiterDashhead';
 import axios from 'axios'
 import {connect} from 'react-redux'
-import {storeUserInfo} from '../../redux/user/userActions'
+import {storeUserInfo,fetchRecruiterInfo} from '../../redux/user/userActions'
 import HeaderDash from '../../Header/HeaderDash';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import Rating from '@mui/material/Rating';
@@ -34,12 +34,15 @@ import TabPanel from '@mui/lab/TabPanel';
 import { Button } from '@mui/material';
 import {getAge} from '../../utils/Functions'
 import ChangeJobStatus from './ChangeJobStatus'
+import SearchBar2 from '../../utils/SearchBar2';
+
 function RecruiterJobDetail(props) {
     const [display,setDisplay]=React.useState(false)
     const [singleJob,setSingleJob] = React.useState(null)
     const [value, setValue] = React.useState('1');
     const [open,setOpen] = React.useState(false)
     const [selectedItem,setSelectedItem] = React.useState(null)
+    const [filteredCandidates,setFilteredCandidates] = React.useState([])
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -53,6 +56,7 @@ function RecruiterJobDetail(props) {
             console.log(res)
             if(res.data.msg==="success"){
                 setSingleJob(res.data.result)
+                setFilteredCandidates(res.data.result.jobCandidates)
                 // if(props.user.userInfo.bookmarks.jobs.includes(res.data.result._id)){
                 //     setBookmarked(true)
                 // }
@@ -119,6 +123,45 @@ function RecruiterJobDetail(props) {
         }else{
             return "shortlisted-status px-3 py-2"
         }
+    }
+
+    const handleSearchSubmit = (e)=>{
+            let array = singleJob.jobCandidates.filter(item=>{
+              //console.log(item)
+              let name = item.user.fullName.slice(0,e.length).trim().replace(' ','').toLowerCase();
+              let serachname = e.toLowerCase().replace(' ','').trim();
+              if(name===serachname){
+                return item;
+              }
+            })
+            setFilteredCandidates(array)
+    }
+
+    const getCreatedJobs = ()=>{
+
+    }
+
+    const handleBookmarkAdd = (candidateId,alreadyAdded)=>{
+        if(alreadyAdded){
+            axios.post(`${process.env.REACT_APP_DEVELOPMENT}/api/recruiter/removeBookmarkCandidate`,{candidateId},{headers:{token:props.user.user}})
+            .then(res=>{
+                console.log(res)
+                props.fetchRecruiterInfo(props.user.user)
+            })
+            .catch(err=>{
+                console.log(err)
+            })
+        }else{
+            axios.post(`${process.env.REACT_APP_DEVELOPMENT}/api/recruiter/bookmarkCandidate`,{candidateId},{headers:{token:props.user.user}})
+            .then(res=>{
+                console.log(res)
+                props.fetchRecruiterInfo(props.user.user)
+            })
+            .catch(err=>{
+                console.log(err)
+            })
+        }
+        
     }
 
     return (
@@ -237,7 +280,11 @@ function RecruiterJobDetail(props) {
         </TabPanel>
         <TabPanel value="2">
                 {
-                    singleJob&&singleJob.jobCandidates.length>0?singleJob.jobCandidates.map((item,index)=><section className="candidate-single-job shadow-sm" key={index}>
+                    singleJob&&singleJob.jobCandidates.length>0?
+                    <>
+                    <SearchBar2 searchText="Search By Job Name..." handleSearchSubmit={handleSearchSubmit} getAllData={getCreatedJobs}  />
+                    <div className="mb-5" />
+                    {filteredCandidates.length>0?filteredCandidates.map((item,index)=><section className="candidate-single-job shadow-sm" key={index}>
                         <div className="row m-auto">
                             <div className="col-1">
                             <img src={`${process.env.REACT_APP_DEVELOPMENT}/api/image/${item.user.profilePicture}`} alt="logo1" />
@@ -277,6 +324,20 @@ function RecruiterJobDetail(props) {
                                 </div>
                             </div>}
                             </div>
+
+                            <div className="col-1 bookmark-div" style={{textAlign:"right"}}>
+                            <IconButton onClick={()=>{
+                                if(props.user.userInfo.bookmarks.candidates.includes(item.user._id)){
+                                    handleBookmarkAdd(item.user._id,true)
+                                }else{
+                                    handleBookmarkAdd(item.user._id,false)
+                                }
+                                }}>
+                                {
+                                props.user.userInfo.bookmarks.candidates.includes(item.user._id)?<BookmarkIcon />:<BookmarkBorderIcon />
+                                }
+                            </IconButton>
+                            </div>
                         </div>
                         <div className="row mt-4 mx-auto sub-info">
                             <p className="mx-2"><LocalPhoneIcon sx={{marginRight:.1}} /> <b>{item.user.mobileNo}</b></p>
@@ -303,7 +364,11 @@ function RecruiterJobDetail(props) {
                             </>
                             }
                         </div>
-                    </section>):null
+                    </section>):
+                    <h2>No such candidate found</h2>
+                    }
+                    </>
+                    :<h2>No Candidates have applied so far</h2>
                 }
                 <div className="mb-5 pb-5" />
         </TabPanel>
@@ -332,7 +397,8 @@ const mapStateToProps = ({banksterUser})=>{
 
 const mapDispatchToProps = (dispatch)=>{    
     return {
-        storeUserInfo:(userInfo)=>dispatch(storeUserInfo(userInfo))
+        storeUserInfo:(userInfo)=>dispatch(storeUserInfo(userInfo)),
+        fetchRecruiterInfo:(token)=>dispatch(fetchRecruiterInfo(token))
     }
 }
 

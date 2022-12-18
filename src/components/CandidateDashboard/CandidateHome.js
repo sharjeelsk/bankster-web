@@ -43,7 +43,8 @@ function CandidateHome(props) {
     const [key,setKey]=React.useState("") //key to pass to personal info prop
     const [keyName,setKeyName]=React.useState("")
     const [editData,setEditData]=React.useState(null) //edit data to pass to the edit respective edit component
-    console.log(key,keyName)
+    const [dashboardData,setDashboardData]=React.useState(null)
+    console.log(key,keyName,dashboardData)
     let userInfo = props.user.userInfo
 
     React.useEffect(()=>{
@@ -125,7 +126,7 @@ function CandidateHome(props) {
         
         <div className="row">
             <div className="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 p-0">
-            <CandidateDashhead margin={0} id={1} display={display} />
+            <CandidateDashhead setDashboardData={setDashboardData} margin={0} id={1} display={display} />
             </div>
 
             <div className="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-xl-10 dashboard-container scroll" onClick={()=>display&&setDisplay(false)}>
@@ -259,7 +260,7 @@ function CandidateHome(props) {
                     </div>
 
                     <div className="ml-2">
-                        <h2>1465</h2>
+                        <h2>{props.user.userInfo.profileViewCount}</h2>
                     </div>
                 </div>
                 <div className="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 view-section-child row m-auto align-items-center justify-content-around shadow-sm">
@@ -268,7 +269,7 @@ function CandidateHome(props) {
                     </div>
 
                     <div className="ml-2">
-                        <h2>65</h2>
+                        <h2>{dashboardData&&dashboardData.totalProfileBookmarks[0].total}</h2>
                     </div>
                 </div>
                 <div className="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 view-section-child row m-auto align-items-center justify-content-around shadow-sm">
@@ -277,7 +278,10 @@ function CandidateHome(props) {
                     </div>
 
                     <div className="ml-2">
-                        <h2>45%</h2>
+                    <h2>{dashboardData&&(
+                            Math.ceil((dashboardData.hiredJobs[0].total/
+                            (dashboardData.appliedJobs[0].total))*100)
+                            )}%</h2>
                     </div>
                 </div>
             </section>

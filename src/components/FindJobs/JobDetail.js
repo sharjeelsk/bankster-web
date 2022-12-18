@@ -30,15 +30,26 @@ function JobDetail(props) {
     const [singleJob,setSingleJob] = React.useState(null)
     const [bookmarked,setBookmarked]=React.useState(false)
     const [flag,setFlag] = React.useState(false)
+    const [similarJobs,setSimilarJobs]=React.useState([])
     React.useEffect(()=>{
         axios.post(`${process.env.REACT_APP_DEVELOPMENT}/api/job/singleJob`,{jobId:params.id})
         .then(res=>{
             console.log(res)
             if(res.data.msg==="success"){
                 setSingleJob(res.data.result)
-                if(props.user.userInfo.bookmarks.jobs.includes(res.data.result._id)){
-                    setBookmarked(true)
+                if(props.user.userInfo){
+                    if(props.user.userInfo.bookmarks.jobs.includes(res.data.result._id)){
+                        setBookmarked(true)
+                    }
                 }
+                
+                axios.post(`${process.env.REACT_APP_DEVELOPMENT}/api/job/searchSimilarJobs`,{functionalArea:res.data.result.functionalArea,state:res.data.result.jobLocation.state})
+                .then(res=>{
+                    console.log(res)
+                    if(res.data.msg==="success"){
+                        setSimilarJobs(res.data.result)
+                    }
+                })
             }
         })
         .catch(err=>{
@@ -210,7 +221,7 @@ function JobDetail(props) {
                         <div className="description">
                             <h2 className="pt-2">Job Description</h2>
                             <p>
-                            Pariatur id labore pariatur nulla irure do magna. Enim consectetur pariatur est tempor nostrud aliquip cillum est quis aliquip. Excepteur et excepteur sunt exercitation nulla ad aliqua. Ullamco sint exercitation enim ea exercitation. Est aliqua consectetur consequat nostrud in nisi consequat sint labore. Id ea ut officia velit ipsum magna magna cillum.
+                            {singleJob.jobDescription}
                             </p>
                         </div>
 
@@ -230,7 +241,7 @@ function JobDetail(props) {
                         <div className="description">
                             <h2 className="pt-2">Desired Candidate Profile</h2>
                             <p>
-                                Mollit cupidatat exercitation in aliqua velit reprehenderit commodo deserunt incididunt ut reprehenderit sit culpa. Eiusmod nostrud magna sit irure sit proident est amet aliqua dolore. Aute ipsum sunt ut consectetur. Ipsum cillum est consequat pariatur. Sit exercitation nulla consequat proident quis consequat quis.
+                                {singleJob.desiredProfile}
                             </p>
                             
                         </div>
@@ -244,6 +255,104 @@ function JobDetail(props) {
                 </section>
 
                 }
+
+                <h2>Similar Jobs</h2>
+
+                {
+                    similarJobs.length>0?similarJobs.map((item,index)=>(
+                        <section key={index} className="shadow-sm single-job row m-auto">
+                    <div className='img-div col-12 col-sm-12 col-md-1 col-lg-1 col-xl-1'>
+                        <img src={item.createdBy.companyImg?`${process.env.REACT_APP_DEVELOPMENT}/api/image/${item.createdBy.companyImg}`:'/job-offer.png'} alt="logo1" />
+                    </div>
+                    <div className='content-div col-12 col-sm-12 col-md-9 col-lg-9 col-xl-9'>
+                    <Link className="link" to={`/jobdetail/${item._id}`} target="_blank">
+                        <h3>{item.title}</h3>
+                        {/* <p className="company-name m-0">{item.createdBy.companyName}</p> */}
+                        <h4 className="m-0">{item.product}</h4>
+                            <div className='row m-auto align-items-center'>
+                                <div>
+                                <Rating name="read-only" value={3} readOnly />
+                                </div>
+                                <div>
+                                <p className="total-reviews">(47 Reviews)</p>
+                                </div>
+                            </div>
+                        <div className="row my-2 mx-auto key-features">
+                            <div className="m-1">
+                                <WorkIcon />
+                                <span className='key-headline m-2'>{item.experience.min} - {item.experience.max} Yrs</span>
+                            </div>
+                            <div className="m-1">
+                                <CurrencyRupeeIcon />
+                                <span className='key-headline m-2'>{item.ctc.min} - {item.ctc.max} P.A</span>
+                            </div>
+                            <div className="m-1">
+                                <FmdGoodIcon />
+                                <span className='key-headline m-2'>{item.jobLocation.city} | {item.jobLocation.state} | {item.jobLocation.country}</span>
+                            </div>
+                        </div>
+                        <div className="row my-2 mx-auto key-features">
+                            <div className="m-1">
+                                <ArticleIcon />
+                                <span className='key-headline m-2'>{item.qualification.ug} in CSE</span>
+                            </div>
+                            <div className="m-1">
+                                <DescriptionIcon />
+                                <span className='key-headline m-2'>{item.qualification.pg} in Finance</span>
+                            </div>
+                            <div className="m-1">
+                                <Inventory2Icon />
+                                <span className='key-headline m-2'>{item.industry}</span>
+                            </div>
+                        </div>
+
+                        <div className="description">
+                            {item.jobDescription}
+                        </div>
+
+                        <div className="keys">
+                        {item.tags.map((tag,index)=><Chip key={index} className="m-3" label={tag} />)}
+                        </div>
+                        </Link>
+
+
+                        {/* <div className="button-div">
+                            {props.user.userType===0?
+                            <>
+                            {!renderApplied(item)?
+                            <Button onClick={()=>handleJobApply(true,item)} fullWidth className="my-3" variant='contained'>Click to Apply For this job</Button>:
+                                
+                            null
+                            }
+                            </>:
+                            <>
+                            <Button fullWidth onClick={()=>props.history.push("/login")} className="my-2" variant='outlined'>Log in to apply</Button>
+                            <Button fullWidth onClick={()=>props.history.push("/signup")} className="my-2" variant='contained'>Register to apply</Button>
+                            </>
+                            }
+                        </div> */}
+
+                    </div>
+                    {/* <div className="bookmark-div col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
+                    <IconButton onClick={()=>{
+                        if(!props.user.user){
+                            props.history.push("/login")
+                        }else{
+                            handleBookmarkAdd(item._id)
+                        }
+                        
+                        }}>
+                        {
+                        props.user.user?props.user.userInfo.bookmarks.jobs.includes(item._id)?<BookmarkIcon />:<BookmarkBorderIcon />:
+                        <BookmarkBorderIcon />
+                        }
+                        </IconButton>
+                    </div> */}
+                </section>
+                    )):
+                    <h1>Sorry, No Jobs Available</h1>
+                }
+
 
             </div>
 

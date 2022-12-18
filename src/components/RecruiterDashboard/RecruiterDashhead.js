@@ -77,6 +77,15 @@ const RecruiterDashhead = (props) => {
             </div>
             }
 
+            
+            {id===6?<div className="menu-container-active" onClick={()=>props.history.push('/bookmarksr')}>
+                <p><LocalAtmIcon /> Bookmarks</p>
+            </div>:
+            <div className="menu-container" onClick={()=>props.history.push('/bookmarksr')}>
+            <p><LocalAtmIcon /> Bookmarks</p>
+            </div>
+            }
+
             {props.user.userInfo&&
             <section className="dash-user-cont">
             <div className="row m-auto">

@@ -121,7 +121,7 @@ function Subscription(props) {
              }
             </section>
 
-            {plans.length>0&&<>
+            {props.user.userInfo.paymentHistory.length>0 && plans.length>0?<>
             <h2>Payment History</h2>
             <table className="ui celled table">
             <thead>
@@ -144,7 +144,9 @@ function Subscription(props) {
 
           </tbody>
           </table>
-          </>}
+          </>:
+          <h2>No Payments so far</h2>
+          }
 
              </div>
     </div>

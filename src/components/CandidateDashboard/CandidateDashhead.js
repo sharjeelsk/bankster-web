@@ -29,6 +29,9 @@ const CandidateDashhead = (props) => {
             console.log("dashdata",res)
             if(res.data.result.length>0){
                 setDashboardData(res.data.result[0])
+                if(props.setDashboardData){
+                    props.setDashboardData(res.data.result[0])
+                }
             }
             
         })

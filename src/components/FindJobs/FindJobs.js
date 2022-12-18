@@ -63,7 +63,7 @@ React.useEffect(()=>{
         axios.get(`${process.env.REACT_APP_DEVELOPMENT}/api/job/getAllJobs?sort=${sort}`,{headers:{token:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRyaXZlc2hAYmFua3N0ZXIuY29tIiwiX2lkIjoiNjJmM2E3ZjA0ODA4OWE4MDFkM2E3ODA3IiwiaWF0IjoxNjYxMTUyOTUwfQ.yI7xfT8AUAs4NM1S3xsw5xnttnr-cYmHdty0r_itRes"}})
         .then(res=>{
             console.log(res)
-            setJobs(res.data)
+            setJobs(res.data.result)
         })
         .catch(err=>{
             console.log(err)
@@ -72,7 +72,7 @@ React.useEffect(()=>{
         axios.post(`${process.env.REACT_APP_DEVELOPMENT}/api/job/searchJobs`,{title:title?title:"",city:location?location:"",salary:salary?salary:""},{headers:{token:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRyaXZlc2hAYmFua3N0ZXIuY29tIiwiX2lkIjoiNjJmM2E3ZjA0ODA4OWE4MDFkM2E3ODA3IiwiaWF0IjoxNjYxMTUyOTUwfQ.yI7xfT8AUAs4NM1S3xsw5xnttnr-cYmHdty0r_itRes"}})
         .then(res=>{
             console.log(res)
-            setJobs(res.data)
+            setJobs(res.data.result)
         })
         .catch(err=>{
             console.log(err)
@@ -141,6 +141,17 @@ const renderApplied = (singleJob)=>{
     return apply
 }
 //test comment
+
+const renderImageString = (createdBy)=>{
+    if(Array.isArray(createdBy)){
+        return `${process.env.REACT_APP_DEVELOPMENT}/api/image/${createdBy[0].companyImg}`
+    }else if(createdBy.companyImg){
+        return `${process.env.REACT_APP_DEVELOPMENT}/api/image/${createdBy.companyImg}`
+    }else{
+        return '/job-offer.png'
+    }
+}
+
   return (
     <div>
         <Header id="2" />
@@ -187,12 +198,12 @@ const renderApplied = (singleJob)=>{
                     jobs.length>0?jobs.map((item,index)=>(
                         <section key={index} className="shadow-sm single-job row m-auto">
                     <div className='img-div col-12 col-sm-12 col-md-1 col-lg-1 col-xl-1'>
-                        <img src={item.createdBy.companyImg?`${process.env.REACT_APP_DEVELOPMENT}/api/image/${item.createdBy.companyImg}`:'/job-offer.png'} alt="logo1" />
+                        <img src={renderImageString(item.createdBy)} alt="logo1" />
                     </div>
                     <div className='content-div col-12 col-sm-12 col-md-9 col-lg-9 col-xl-9'>
                     <Link className="link" to={`/jobdetail/${item._id}`}>
                         <h3>{item.title}</h3>
-                        <p className="company-name m-0">{item.createdBy.companyName}</p>
+                        {/* <p className="company-name m-0">{item.createdBy.companyName}</p> */}
                         <h4 className="m-0">{item.product}</h4>
                             <div className='row m-auto align-items-center'>
                                 <div>

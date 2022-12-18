@@ -71,11 +71,11 @@ function CreateSubRecruiter(props) {
             props.user.userInfo.availablePlanCredits.subRecruiters>0?<section className="create-sub-rec">
             <h1>Create Sub Recruiters</h1>
             <form onSubmit={handleSubmit(onSubmit)}>
-            <TextField fullWidth {...register('fullName',{required:true})} label="FullName" variant="outlined" id="outlined-basic" />
-            <TextField fullWidth {...register('email',{required:true})} label="Email" variant="outlined" id="outlined-basic" />
-            <TextField fullWidth {...register('mobileNo',{required:true})} label="Mobile No" variant="outlined" id="outlined-basic" />
-            <TextField fullWidth {...register('password',{required:true})} label="Password" variant="outlined" id="outlined-basic" />
-            <Button type="submit">Create Sub Recruiter</Button>
+            <TextField className="my-3" fullWidth {...register('fullName',{required:true})} label="FullName" variant="outlined" id="outlined-basic" />
+            <TextField className="my-3" fullWidth {...register('email',{required:true})} label="Email" variant="outlined" id="outlined-basic" />
+            <TextField className="my-3" fullWidth {...register('mobileNo',{required:true})} label="Mobile No" variant="outlined" id="outlined-basic" />
+            <TextField className="my-3" fullWidth {...register('password',{required:true})} label="Password" variant="outlined" id="outlined-basic" />
+            <Button variant="contained" type="submit">Create Sub Recruiter</Button>
             </form>
             </section>    
             :

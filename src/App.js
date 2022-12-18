@@ -19,6 +19,7 @@ import CreateJob from './components/RecruiterDashboard/JobsCreated/CreateJob';
 import SubRecruiters from './components/RecruiterDashboard/SubRecruiters/SubRecruiters';
 import CreateSubRecruiter from './components/RecruiterDashboard/SubRecruiters/CreateSubRecruiter';
 import RecruiterJobDetail from './components/RecruiterDashboard/JobsCreated/RecruiterJobDetail';
+import Bookmark from './components/RecruiterDashboard/Bookmark/Bookmark';
 
 import JobDetail from './components/FindJobs/JobDetail';
 import BookmarkedJobs from './components/CandidateDashboard/BookmarkedJobs/BookmarkedJobs';
@@ -60,6 +61,7 @@ function App(props) {
       <Route path="/createjob" component={CreateJob} />
       <Route path="/notificationsR" component={NotificationsR} />
       <Route path="/subscriptionR" component={SubscriptionR} />
+      <Route path="/bookmarksr" component={Bookmark} />
 
       <Route path="/login" component={Login} />
       <Route path="/forgetpassword" component={ForgetPassword} />
