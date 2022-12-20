@@ -15,7 +15,8 @@ function FilterMenu(props) {
   const [functionalArea,setFunctionalArea]=React.useState([])
   const [industry,setIndustry]=React.useState([])
   const [product,setProduct]=React.useState([])
-  const [formValues,setFormValues]=React.useState({workMode:"null",minimumExperience:0,maximumExperience:15,minimumSalary:0,maximumSalary:75,industry:[],functionalArea:[],product:[]})
+  const [cities,setCities]=React.useState(["Mumbai","Delhi","Gurgaon","Bangalore","Hyderabad","Ahmedabad","Chennai","Kolkata","Surat","Pune","Jaipur","Lucknow","Kanpur","Nagpur","Visakhapatnam","Indore","Thane","Chandigarh","Vadodara","Bhopal"])
+  const [formValues,setFormValues]=React.useState({cities:[],workMode:"null",minimumExperience:0,maximumExperience:15,minimumSalary:0,maximumSalary:75,industry:[],functionalArea:[],product:[]})
   React.useEffect(()=>{
     axios.post(`${process.env.REACT_APP_DEVELOPMENT}/api/job/filterJobs`,{
       "workMode":formValues.workMode==="null"?null:formValues.workMode,
@@ -26,6 +27,7 @@ function FilterMenu(props) {
       "functionalArea":formValues.functionalArea.length>0?formValues.functionalArea:null,
       "industry":formValues.industry.length>0?formValues.industry:null,
       "product":formValues.product.length>0?formValues.product:null,
+      "cities":formValues.cities.length>0?formValues.cities:null
     })
     .then(res=>{
       if(res.data.msg==="success"){
@@ -122,6 +124,19 @@ function FilterMenu(props) {
                 setFormValues({...formValues,functionalArea:[...formValues.functionalArea,item.name]})
               }
             }} />} label={item.name} key={index} />)
+        }
+      </FormGroup>
+      <hr />
+      <h3>Location</h3>
+      <FormGroup>
+        {
+            cities&&cities.map((item,index)=><FormControlLabel control={<Checkbox onChange={()=>{
+              if(formValues.cities.includes(item)){
+                setFormValues({...formValues,cities:formValues.cities.filter(i=>i!==item)})
+              }else{
+                setFormValues({...formValues,cities:[...formValues.cities,item]})
+              }
+            }} />} label={item} key={index} />)
         }
       </FormGroup>
       <hr />

@@ -197,7 +197,7 @@ const renderImageString = (createdBy)=>{
                 {
                     jobs.length>0?jobs.map((item,index)=>(
                         <section key={index} className="shadow-sm single-job row m-auto">
-                    <div className='img-div col-12 col-sm-12 col-md-1 col-lg-1 col-xl-1'>
+                    <div className='img-div col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2'>
                         <img src={renderImageString(item.createdBy)} alt="logo1" />
                     </div>
                     <div className='content-div col-12 col-sm-12 col-md-9 col-lg-9 col-xl-9'>
@@ -268,7 +268,7 @@ const renderImageString = (createdBy)=>{
                         </div>
 
                     </div>
-                    <div className="bookmark-div col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
+                    <div className="bookmark-div col-12 col-sm-12 col-md-1 col-lg-1 col-xl-1">
                     <IconButton onClick={()=>{
                         if(!props.user.user){
                             props.history.push("/login")

@@ -157,7 +157,7 @@ function JobDetail(props) {
                 
                 {
                     singleJob&&<section className="shadow-sm single-job row m-auto">
-                    <div className='img-div col-12 col-sm-12 col-md-1 col-lg-1 col-xl-1'>
+                    <div className='img-div col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2'>
                         <img src={singleJob.createdBy.companyImg?`${process.env.REACT_APP_DEVELOPMENT}/api/image/${singleJob.createdBy.companyImg}`:'/job-offer.png'} alt="logo1" />
                     </div>
                     <div className='content-div col-12 col-sm-12 col-md-9 col-lg-9 col-xl-9'>
@@ -247,7 +247,7 @@ function JobDetail(props) {
                         </div>
 
                     </div>
-                    <div className="bookmark-div col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
+                    <div className="bookmark-div col-12 col-sm-12 col-md-1 col-lg-1 col-xl-1">
                         <IconButton onClick={()=>handleBookmarkAdd()}>
                             {bookmarked?<BookmarkIcon />:<BookmarkBorderIcon />}
                         </IconButton>
@@ -261,7 +261,7 @@ function JobDetail(props) {
                 {
                     similarJobs.length>0?similarJobs.map((item,index)=>(
                         <section key={index} className="shadow-sm single-job row m-auto">
-                    <div className='img-div col-12 col-sm-12 col-md-1 col-lg-1 col-xl-1'>
+                    <div className='img-div col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2'>
                         <img src={item.createdBy.companyImg?`${process.env.REACT_APP_DEVELOPMENT}/api/image/${item.createdBy.companyImg}`:'/job-offer.png'} alt="logo1" />
                     </div>
                     <div className='content-div col-12 col-sm-12 col-md-9 col-lg-9 col-xl-9'>

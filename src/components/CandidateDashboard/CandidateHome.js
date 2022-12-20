@@ -26,6 +26,7 @@ import CameraAltIcon from '@mui/icons-material/CameraAlt';
 import {setSnackbar} from '../redux/flags/flagActions'
 import { getAge } from '../utils/Functions';
 import EditProfile from './EditModals/EditProfile';
+import EditProfileImage from './EditModals/EditProfileImage';
 import UploadFileIcon from '@mui/icons-material/UploadFile';
 const Input = styled('input')({
     display: 'none',
@@ -37,6 +38,7 @@ function CandidateHome(props) {
     const [open3,setOpen3] = React.useState(false)
     const [open4,setOpen4] = React.useState(false)
     const [open5,setOpen5]=React.useState(false)
+    const [open6,setOpen6]=React.useState(false)
 
     const [flag,setFlag]=React.useState(false)
 
@@ -165,20 +167,24 @@ function CandidateHome(props) {
             open={open5}
             setOpen={setOpen5}
             />
+            <EditProfileImage
+            open={open6}
+            setOpen={setOpen6}
+            />
             {/* candidate row section */}
             <section className="candidate-info-section row m-auto shadow-sm">
                 <div className="col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 img-cont">
                     <img src={props.user.userInfo.profilePicture?`${process.env.REACT_APP_DEVELOPMENT}/api/image/${props.user.userInfo.profilePicture}`:"/user.png"} alt="profile" />
-                    <div className="mt-4 mb-2" style={{textAlign:"center"}}>
+                    {/* <div className="mt-4 mb-2" style={{textAlign:"center"}}>
                     <label htmlFor="contained-button-file">
                     <Input 
                     onChange={upload}
-                    accept="image/*" id="contained-button-file" multiple type="file" />
-                    <Button  component="span" endIcon={<CameraAltIcon />}>
+                    accept="image/*" id="contained-button-file" multiple type="file" /> */}
+                    <Button onClick={()=>setOpen6(true)} component="span" endIcon={<CameraAltIcon />}>
                     Change image
                     </Button>
-                    </label>
-                    </div>
+                    {/* </label>
+                    </div> */}
                 </div>
                 <div className="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 info-cont">
                 <h1>{userInfo.fullName} <IconButton onClick={()=>setOpen5(true)}><EditIcon /></IconButton></h1>

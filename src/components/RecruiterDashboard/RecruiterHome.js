@@ -30,6 +30,7 @@ import UploadFileIcon from '@mui/icons-material/UploadFile';
 import LinkIcon from '@mui/icons-material/Link';
 import CompanyInfoEdit from './EditModals/CompanyInfoEdit';
 import { Link } from 'react-router-dom';
+import EditProfileImage from './EditModals/EditProfileImage';
 const Input = styled('input')({
     display: 'none',
   });
@@ -41,6 +42,9 @@ function RecruiterHome(props) {
     const [open4,setOpen4] = React.useState(false)
     const [open5,setOpen5]=React.useState(false)
     const [open6,setOpen6] = React.useState(false)
+    const [open7,setOpen7] = React.useState(false)
+
+    const [companyImgFlag,setCompanyImgFlag] = React.useState(false)
 
     const [flag,setFlag]=React.useState(false)
 
@@ -228,20 +232,27 @@ function RecruiterHome(props) {
             open={open6}
             setOpen={setOpen6}
             />
+            <EditProfileImage
+            open={open7}
+            setOpen={setOpen7}
+            companyImg={companyImgFlag}
+            />
             {/* candidate row section */}
             <section className="candidate-info-section row m-auto shadow-sm">
                 <div className="col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 img-cont">
                     <img src={props.user.userInfo.profilePicture?`${process.env.REACT_APP_DEVELOPMENT}/api/image/${props.user.userInfo.profilePicture}`:"/user.png"} alt="profile" />
-                    <div className="mt-4 mb-2" style={{textAlign:"center"}}>
+                    {/* <div className="mt-4 mb-2" style={{textAlign:"center"}}>
                     <label htmlFor="contained-button-file">
                     <Input 
                     onChange={upload}
-                    accept="image/*" id="contained-button-file" multiple type="file" />
-                    <Button  component="span" endIcon={<CameraAltIcon />}>
+                    accept="image/*" id="contained-button-file" multiple type="file" /> */}
+                    <Button onClick={()=>{
+                        setCompanyImgFlag(false)
+                        setOpen7(true)}}  component="span" endIcon={<CameraAltIcon />}>
                     Change image
                     </Button>
-                    </label>
-                    </div>
+                    {/* </label>
+                    </div> */}
                 </div>
                 <div className="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 info-cont">
                     <h1>{userInfo.fullName} <IconButton onClick={()=>setOpen5(true)}><EditIcon /></IconButton></h1>
@@ -352,15 +363,18 @@ function RecruiterHome(props) {
                 <div className="col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
                 <img src={props.user.userInfo.companyImg?`${process.env.REACT_APP_DEVELOPMENT}/api/image/${props.user.userInfo.companyImg}`:"/user.png"} alt="profile" />
                     {!userInfo.subRecruiter&&<div className="mt-4 mb-2" style={{textAlign:"center"}}>
-                    <label htmlFor="contained-button-file-company">
+                    {/* <label htmlFor="contained-button-file-company">
                     <Input 
                     onChange={upload3}
-                    accept="image/*" id="contained-button-file-company" multiple type="file" />
-                    <Button  component="span" endIcon={<CameraAltIcon />}>
+                    accept="image/*" id="contained-button-file-company" multiple type="file" /> */}
+                    <Button onClick={()=>{
+                        setCompanyImgFlag(true)
+                        setOpen7(true)}}  component="span" endIcon={<CameraAltIcon />}>
                     Change image
                     </Button>
-                    </label>
-                    </div>}
+                    {/* </label> */}
+                    </div>
+                    }
                 </div>
                 <div className="col-12 col-sm-12 col-md-10 col-lg-10 col-xl-10 row m-auto">
                 <div className="col-11">
