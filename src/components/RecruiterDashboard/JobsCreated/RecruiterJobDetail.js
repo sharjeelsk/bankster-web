@@ -163,7 +163,25 @@ function RecruiterJobDetail(props) {
         }
         
     }
-
+    const renderImageString = (createdBy)=>{
+        if(Array.isArray(createdBy)){
+            if(createdBy[0].companyImg.length>0){
+                return `${process.env.REACT_APP_DEVELOPMENT}/api/image/${createdBy[0].companyImg}`
+            }else{
+                return '/job-offer.png'
+            }
+            
+        }else if(createdBy.companyImg){
+            if(createdBy.companyImg.length>0){
+                return `${process.env.REACT_APP_DEVELOPMENT}/api/image/${createdBy.companyImg}`
+            }else{
+                return '/job-offer.png'
+            }
+            
+        }else{
+            return '/job-offer.png'
+        }
+    }
     return (
         <>
             <ChangeJobStatus 
@@ -199,11 +217,11 @@ function RecruiterJobDetail(props) {
         {
                     singleJob&&<section className="shadow-sm single-job row m-auto">
                     <div className='img-div col-12 col-sm-12 col-md-1 col-lg-1 col-xl-1'>
-                        <img src={`${process.env.REACT_APP_DEVELOPMENT}/api/image/${singleJob.createdBy.companyImg}`} alt="logo1" />
+                        <img src={singleJob.createdByAdmin?renderImageString(singleJob.createdByAdmin):renderImageString(singleJob.createdBy)} alt="logo1" />
                     </div>
                     <div className='content-div col-12 col-sm-12 col-md-9 col-lg-9 col-xl-9'>
                         <h3>{singleJob.title}</h3>
-                        <p className="company-name m-0">{singleJob.createdBy.companyName}</p>
+                        <p className="company-name m-0">{singleJob.createdByAdmin?singleJob.createdByAdmin.companyName:singleJob.createdBy.companyName}</p>
                         <h4 className="m-0">{singleJob.product}</h4>
                             <div className='row m-auto align-items-center'>
                                 <div>

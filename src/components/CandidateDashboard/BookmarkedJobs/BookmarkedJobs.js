@@ -47,7 +47,25 @@ function BookmarkedJobs(props) {
         return status;
     }
 
-
+    const renderImageString = (createdBy)=>{
+        if(Array.isArray(createdBy)){
+            if(createdBy[0].companyImg.length>0){
+                return `${process.env.REACT_APP_DEVELOPMENT}/api/image/${createdBy[0].companyImg}`
+            }else{
+                return '/job-offer.png'
+            }
+            
+        }else if(createdBy.companyImg){
+            if(createdBy.companyImg.length>0){
+                return `${process.env.REACT_APP_DEVELOPMENT}/api/image/${createdBy.companyImg}`
+            }else{
+                return '/job-offer.png'
+            }
+            
+        }else{
+            return '/job-offer.png'
+        }
+    }
     return (
         <>
 
@@ -71,7 +89,7 @@ function BookmarkedJobs(props) {
              jobsApplied.map((item,index)=><Link key={index} className="link" to={`/jobdetail/${item.job._id}`}>
              <section className={`col-12 shadow-sm job-apply-head row m-auto`} style={{backgroundColor:"white"}}>
              <div className='img-div col-12 col-sm-12 col-md-1 col-lg-1 col-xl-1'>
-                 <img src={`${process.env.REACT_APP_DEVELOPMENT}/api/image/${item.job.createdBy[0].companyImg}`} alt="logo1" />
+                 <img src={item.createdByAdmin?renderImageString(item.createdByAdmin):renderImageString(item.createdBy)} alt="logo1" />
              </div>
              <div className='content-div col-12 col-sm-12 col-md-9 col-lg-9 col-xl-9'>
                  <h3 className="m-0">{item.job.title}</h3>

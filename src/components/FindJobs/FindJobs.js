@@ -144,9 +144,19 @@ const renderApplied = (singleJob)=>{
 
 const renderImageString = (createdBy)=>{
     if(Array.isArray(createdBy)){
-        return `${process.env.REACT_APP_DEVELOPMENT}/api/image/${createdBy[0].companyImg}`
+        if(createdBy[0].companyImg.length>0){
+            return `${process.env.REACT_APP_DEVELOPMENT}/api/image/${createdBy[0].companyImg}`
+        }else{
+            return '/job-offer.png'
+        }
+        
     }else if(createdBy.companyImg){
-        return `${process.env.REACT_APP_DEVELOPMENT}/api/image/${createdBy.companyImg}`
+        if(createdBy.companyImg.length>0){
+            return `${process.env.REACT_APP_DEVELOPMENT}/api/image/${createdBy.companyImg}`
+        }else{
+            return '/job-offer.png'
+        }
+        
     }else{
         return '/job-offer.png'
     }
@@ -198,7 +208,7 @@ const renderImageString = (createdBy)=>{
                     jobs.length>0?jobs.map((item,index)=>(
                         <section key={index} className="shadow-sm single-job row m-auto">
                     <div className='img-div col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2'>
-                        <img src={renderImageString(item.createdBy)} alt="logo1" />
+                        <img src={item.createdByAdmin?renderImageString(item.createdByAdmin):renderImageString(item.createdBy)} alt="logo1" />
                     </div>
                     <div className='content-div col-12 col-sm-12 col-md-9 col-lg-9 col-xl-9'>
                     <Link className="link" to={`/jobdetail/${item._id}`}>
