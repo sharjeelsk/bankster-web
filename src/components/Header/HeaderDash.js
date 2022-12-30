@@ -29,7 +29,7 @@ console.log(props);
 			{props.id==="2"?<Link  className="nav-link active" to="/findjobs">Find Jobs</Link>:<Link  className="nav-link"  to="/findjobs">Find Jobs</Link>}
 			</li>
 			<li className="nav-item">
-			{props.id==="3"?<Link  className="nav-link active" to="/searchcandidates">Candidates</Link>:<Link  className="nav-link"  to="/searchcandidates">Candidates</Link>}
+			{props.id==="3"?<Link  className="nav-link active" to="/SearchCandidateHome">Candidates</Link>:<Link  className="nav-link"  to="/SearchCandidateHome">Candidates</Link>}
 			</li>
 			<li className="nav-item">
 			{props.userToken?

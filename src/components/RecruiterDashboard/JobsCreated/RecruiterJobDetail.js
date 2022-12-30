@@ -316,7 +316,7 @@ function RecruiterJobDetail(props) {
                                     }
                                 }):"User hasn't added featured education"}</p>
                                 <p className="grey-text">{item.user.gender} | {item.user.dob?getAge(item.user.dob):"DOB Missing"}</p>
-                                <p className="grey-text">{item.user.yearsOfExperience?item.user.yearsOfExperience:"Not added"} Years of Experience | {item.user.currentCtc?item.user.currentCtc:"Not added"} CTC | {item.user.product?item.user.product:"Not added"} | {item.user.noticePeriod?item.user.noticePeriod:"Not added"} Weeks Notice Period</p>
+                                <p className="grey-text">{item.user.yearsOfExperience?item.user.yearsOfExperience:"Not added"} Years of Experience | {item.user.currentCtc?item.user.currentCtc:"Not added"} CTC | {item.user.product?item.user.product:"Not added"} | {item.user.noticePeriod?item.user.noticePeriod:"Not added"}</p>
                                 {/* {item.user.workExperience.length>0&&item.user.workExperience.map((we,ind)=>we.current&&<p key={ind} className="bold-text">{we.name} | {we.designation}</p>)} */}
                                 <p className="bold-text">{item.user.education.length>0?`${item.user.education[0].name}, ${item.user.education[0].universityName}`:""}</p>
                             </div>
@@ -338,7 +338,7 @@ function RecruiterJobDetail(props) {
                                 </div>
                                 <div className="ml-3">
                                     <h5>{item.user.fullName}'s Resume</h5>
-                                    <p>Updated on : 25/04/2022</p>
+                                    {/* <p>Updated on : 25/04/2022</p> */}
                                 </div>
                             </div>}
                             </div>

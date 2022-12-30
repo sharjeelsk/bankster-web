@@ -55,7 +55,7 @@ const Login = (props) => {
 
     const onSubmit = (data)=>{
         props.setLoading(true)
-        axios.post(`${process.env.REACT_APP_DEVELOPMENT}/api/candidate/signup`,{
+        axios.post(`${process.env.REACT_APP_DEVELOPMENT}/api/candidate/sendVerificationToken`,{
             "email":data.email,
             "password":values.password,
             "fullName":data.fullName,
@@ -68,9 +68,9 @@ const Login = (props) => {
             props.setLoading(false)
             if(res.data.msg==="success"){
             //setting the user token locally to use it later on any request for candidate
-            props.setUser(res.data.result)
+            //props.setUser(res.data.result)
             //navigation to candidate dashboard
-            props.history.push("/candidatehome")
+            props.history.push("/verificationmail")
             }
             
         })

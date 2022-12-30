@@ -5,8 +5,20 @@ import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
 import EmailIcon from '@mui/icons-material/Email';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import DescriptionIcon from '@mui/icons-material/Description';
+import {getAge} from '../utils/Functions'
+import axios from 'axios'
 function CandidateCard(props) {
     console.log(props)
+    const renderEmployementString = ()=>{
+        if(props.fresher){
+            return "Fresher"
+        }else if(props.workExperience.filter(i=>i.current===true).length>0){
+            let strobj = props.workExperience.filter(i=>i.current===true)[0]
+            return `${strobj.designation} | ${strobj.name}`
+        }else{
+            return "Currently Unemployed"
+        }
+    }
   return (
     <div className="candidate-card shadow-sm row m-auto">
         <div className="col-1 img-div">
@@ -16,20 +28,31 @@ function CandidateCard(props) {
             <div className="row m-auto">
                 <div className="p-0 col-6">
                 <h3>{props.fullName}</h3>
-                <p>B.Tech CSE, IIT Bombay</p>
-                <p>(One More Key)</p>
+                <p className="bold-text">{renderEmployementString()}</p>
+                <p className="bold-text">{props.education.length>0?props.education.map(i=>{
+                    if(i.featuredEducation){
+                        return i.name + ', ' + i.universityName;
+                    }
+                }):"Featured Education Not Added"}</p>
+                <p className="grey-text">{props.gender} | {props.dob?getAge(props.dob):"DOB Missing"}</p>
+                <p className="grey-text">{props.yearsOfExperience?props.yearsOfExperience:'Not Added'} Years of Experience | {props.currentCtc} CTC | {props.product} | {props.noticePeriod}</p>
                 </div>
                 {props.resume.length>0&&<div onClick={()=>{
                     window.open(`${process.env.REACT_APP_DEVELOPMENT}/api/pdf/${props.resume}`, '_blank');
-                    //window.location.href=`${process.env.REACT_APP_DEVELOPMENT}/api/pdf/${props.resume}`
-                    //window.location.href()
+                    axios.post(`${process.env.REACT_APP_DEVELOPMENT}/api/candidate/increaseProfileCount`,{candidateId:props._id},{headers:{token:props.user.user}})
+                    .then(res=>{
+                        console.log(res)
+                    })
+                    .catch(err=>{
+                        console.log(err)
+                    })
                 }} className="p-0 col-5 resume-cont row m-auto align-items-center shadow-sm">
                     <div className="">
                         <DescriptionIcon />
                     </div>
                     <div className="ml-2">
                         <h5>{props.fullName}'s Resume</h5>
-                        <p>Updated on : 25/04/2022</p>
+                        <p className="mt-1">Click to view resume</p>
                     </div>
                 </div>}
             </div>

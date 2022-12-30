@@ -51,8 +51,9 @@ function EditProfile(props) {
             setValue("mobileNo",userInfo.mobileNo)
             setValue("resumeTagline",userInfo.resumeTagline)
             setValue("mobileNo",userInfo.mobileNo)
-            setValue("noticePeriod",userInfo.noticePeriod)
-            setFormValues({state:userInfo.userLocation.state,city:userInfo.userLocation.city,product:userInfo.product})
+            setValue("yearsOfExperience",userInfo.yearsOfExperience)
+            setValue("currentCtc",userInfo.currentCtc)
+            setFormValues({state:userInfo.userLocation.state,city:userInfo.userLocation.city,product:userInfo.product,noticePeriod:userInfo.noticePeriod})
             setDob(userInfo.dob)
             var config = {
               method: 'get',
@@ -80,11 +81,11 @@ function EditProfile(props) {
 
     const onSubmit = (data)=>{
         console.log(data)
-        props.setLoading(true)
-        axios.post(`${process.env.REACT_APP_DEVELOPMENT}/api/candidate/editCandidateProfile`,{...data,dob,userLocation:{...formValues,country:"India"},gender,product:formValues.product},{headers:{token:props.user.user}})
+        //props.setLoading(true)
+        axios.post(`${process.env.REACT_APP_DEVELOPMENT}/api/candidate/editCandidateProfile`,{...data,dob,userLocation:{...formValues,country:"India"},gender,product:formValues.product,noticePeriod:formValues.noticePeriod},{headers:{token:props.user.user}})
         .then(res=>{
             console.log(res)
-            props.setLoading(false)
+            //props.setLoading(false)
             props.fetchCandidateInfo(props.user.user)
             props.setOpen(false)
         })
@@ -108,7 +109,7 @@ function EditProfile(props) {
           console.log(error);
         });
   }
-
+console.log(formValues)
 
 
   return (
@@ -196,7 +197,21 @@ function EditProfile(props) {
                     />
                     </div>
 
-                    <TextField
+                    <div className="my-4">
+                    <Autocomplete
+                    fullWidth
+                    value={formValues.noticePeriod}
+                    onChange={(event, newValue) => {
+                    setFormValues({...formValues,noticePeriod:newValue});
+                    }}
+                    id="controllable-states-demo"
+                    options={['7 Days','30 Days','60 Days','90 Days','Immediate Joiner','Currently Serving Notice Period']}
+                    // getOptionLabel={(option) => option.name}
+                    renderInput={(params) => <TextField {...params} label="Choose Notice Period"/>}
+                    />
+                    </div>
+
+                    {/* <TextField
                     className="mb-3"
                     inputProps={{ maxLength: 200 }}
                     {...register("noticePeriod",{required:true})}
@@ -207,7 +222,7 @@ function EditProfile(props) {
                       label={"Notice Period (in Weeks)"}
                       fullWidth
                       variant="outlined"
-                    />
+                    /> */}
 
                     <TextField
                     className="mb-3"

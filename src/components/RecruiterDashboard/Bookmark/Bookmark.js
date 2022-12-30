@@ -141,7 +141,7 @@ function Bookmark(props) {
                                     }
                                 }):"User hasn't added featured education"}</p>
                                 <p className="grey-text">{item.gender} | {item.dob?getAge(item.dob):"DOB Missing"}</p>
-                                <p className="grey-text">{item.yearsOfExperience?item.yearsOfExperience:"Not added"} Years of Experience | {item.currentCtc?item.currentCtc:"Not added"} CTC | {item.product?item.product:"Not added"} | {item.noticePeriod?item.noticePeriod:"Not added"} Weeks Notice Period</p>
+                                <p className="grey-text">{item.yearsOfExperience?item.yearsOfExperience:"Not added"} Years of Experience | {item.currentCtc?item.currentCtc:"Not added"} CTC | {item.product?item.product:"Not added"} | {item.noticePeriod?item.noticePeriod:"Not added"}</p>
                                 {/* {item.workExperience.length>0&&item.workExperience.map((we,ind)=>we.current&&<p key={ind} className="bold-text">{we.name} | {we.designation}</p>)} */}
                                 <p className="bold-text">{item.education.length>0?`${item.education[0].name}, ${item.education[0].universityName}`:""}</p>
                             </div>

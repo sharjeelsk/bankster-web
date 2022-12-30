@@ -195,7 +195,7 @@ function CandidateHome(props) {
                     }
                 }):"Add Featured Education"}</p>
                     <p className="grey-text">{userInfo.gender} | {userInfo.dob?getAge(userInfo.dob):"DOB Missing"}</p>
-                    <p className="grey-text">{userInfo.yearsOfExperience} Years of Experience | {userInfo.currentCtc} CTC | {userInfo.product} | {userInfo.noticePeriod} Weeks Notice Period</p>
+                    <p className="grey-text">{userInfo.yearsOfExperience} Years of Experience | {userInfo.currentCtc} CTC | {userInfo.product} | {userInfo.noticePeriod}</p>
                         <div className="row m-auto sub-info">
                         <p className="mx-2"><LocalPhoneIcon sx={{marginRight:.1}} /> <b>{userInfo.mobileNo}</b></p>
                             <p className="mx-2"><AlternateEmailIcon sx={{marginRight:.1}} /> <b>{userInfo.email}</b></p>

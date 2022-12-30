@@ -33,7 +33,9 @@ import Snackbar from './components/utils/Snackbar'
 import SimpleBackdrop from './components/utils/SimpleBackdrop';
 import ForgetPassword from './components/Login/ForgetPassword';
 
-
+import VerificationMail from './components/utils/VerificationMail';
+import LottieComponent from './components/utils/Lottie';
+import SearchCandidateHome from './components/FindCandidates/SearchCandidateHome';
 
 function App(props) {
   return (
@@ -45,6 +47,7 @@ function App(props) {
       <Route path="/findjobs" component={FindJobs} />
       <Route path="/JobDetail/:id" component={JobDetail} />
       <Route path="/searchcandidates" component={SearchCandidates} />
+      <Route path="/SearchCandidateHome" component={SearchCandidateHome} />
       <Route path="/findcandidates" component={FindCandidates} />
 
       <Route path="/candidatehome" component={CandidateHome} />
@@ -68,6 +71,8 @@ function App(props) {
       <Route path="/signup" component={Singup} />
       <Route path="/Loginrecruiter" component={Loginrecruiter} />
       <Route path="/Singuprecruiter" component={Singuprecruiter} />
+      <Route path="/verificationmail" component={VerificationMail} />
+      <Route path="/verificationsuccess/:token/:type" component={LottieComponent} />
 
     </Switch>
     </>

@@ -148,7 +148,7 @@ const Login = (props) => {
     let subscription = allPlans.filter(item=>item.name===plan)[0]
     console.log(data,subscription)
     if(paymentMethod==="Offline"){
-    props.setLoading(true)
+        props.setLoading(true)
         axios.post(`${process.env.REACT_APP_DEVELOPMENT}/api/recruiter/signup`,{
         "email":data.email,
         "password":values.password,
@@ -183,16 +183,19 @@ const Login = (props) => {
           }
       })
     }else if(plan==="Free"){
-    props.setLoading(true)
-
-      axios.post(`${process.env.REACT_APP_DEVELOPMENT}/api/recruiter/signup`,{
+      delete subscription._id
+      console.log(subscription)
+      props.setLoading(true)
+      
+      axios.post(`${process.env.REACT_APP_DEVELOPMENT}/api/recruiter/sendVerificationToken`,{
         "email":data.email,
         "password":values.password,
         "fullName":data.fullName,
         "mobileNo":data.mobileNo,
         "companyName":data.company,
         "designation":data.designation,
-        "subscriptionId":"635a98177ca2905a363e4dcb"
+        "subscriptionId":"635a98177ca2905a363e4dcb",
+        plan:subscription
       })
       .then(res=>{
           console.log(res)
@@ -200,9 +203,9 @@ const Login = (props) => {
           setError("")
           if(res.data.msg==="success"){
               //setting the user token locally to use it later on any request for recruiter
-          props.setUser(res.data.result)
+          //props.setUser(res.data.result)
           //navigation to recruiter dashboard
-          props.history.push("/recruiterhome")
+          props.history.push("/verificationmail")
           }
           
       })
