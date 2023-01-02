@@ -14,6 +14,9 @@
             margin: auto;
         }
     }
+    .active-noti{
+        background-color: $secondary;
+    }
     .notification-parent:hover{
         cursor: pointer;
         background-color: $secondary;

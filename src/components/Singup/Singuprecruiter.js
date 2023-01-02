@@ -270,7 +270,7 @@ const Login = (props) => {
                 <TextField
                 xs={12} md={6} sm={12} xm={12}
                   label="Email"
-                  {...register('email',{required:true})}
+                  {...register('email',{required:true,pattern:/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/})}
                   error={errors.email?true:false}
                   id="outlined-start-adornment"
                   sx={{ m: 1, width: "35ch" }}
@@ -343,7 +343,7 @@ const Login = (props) => {
                 </Box>
 
                 <TextField
-                {...register('mobileNo',{required:true})}
+                {...register('mobileNo',{required:true,maxLength:10})}
                 error={errors.mobileNo?true:false}
                 xs={12} md={6} sm={12} xm={12}
                   label="Mobile Number"

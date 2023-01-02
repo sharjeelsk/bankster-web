@@ -30,6 +30,7 @@ function FilterMenu(props) {
       "cities":formValues.cities.length>0?formValues.cities:null
     })
     .then(res=>{
+      console.log(res)
       if(res.data.msg==="success"){
         if(props.setJobs){
           props.setJobs(res.data.result)

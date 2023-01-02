@@ -117,7 +117,8 @@ const Login = (props) => {
                                 <div className="main_dev">
                                     <h1 style={{ marginLeft: '7rem' }}>Register</h1>
                                     <TextField
-                                    {...register('email',{required:true})}
+                                    {...register('email',{required:true,pattern:/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/})}
+                                    error={errors.email?true:false}
                                         xs={12} md={6} sm={12} xm={12}
                                         label="Email"
                                         id="outlined-start-adornment"
@@ -189,7 +190,7 @@ const Login = (props) => {
                                     <TextField
                                         xs={12} md={6} sm={12} xm={12}
                                         label="Mobile Number"
-                                        {...register('mobileNo',{required:true})}
+                                        {...register('mobileNo',{required:true,maxLength:10})}
                                         // name="numberformat"
                                         // type="number"
                                         id="outlined-start-adornment"

@@ -121,7 +121,8 @@ console.log(values)
                 xs={12} md={6} sm={12} xm={12}
                   label="Email"
                   id="outlined-start-adornment"
-                  {...register('email',{required:true})}
+                  {...register('email',{required:true,pattern:/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/})}
+                  error={errors.email?true:false}
                   sx={{ m: 1, width: "35ch" }}
                   InputProps={{
                     startAdornment: (

@@ -430,7 +430,7 @@ function RecruiterHome(props) {
                     </div>
 
                     <div className="ml-2">
-                        <h2>{dashboardData&&(
+                        <h2>{dashboardData&&Math.ceil(
                             (dashboardData.hiredCandidates[0].total/
                             (dashboardData.hiredCandidates[0].total+dashboardData.pendingCandidates[0].total+dashboardData.rejectedCandidates[0].total))*100
                             )}%</h2>

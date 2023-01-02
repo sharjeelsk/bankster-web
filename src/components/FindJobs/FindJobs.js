@@ -35,8 +35,10 @@ const [flag,setFlag] = React.useState(false)
 const title = urlParams.get('title');
 const location = urlParams.get('location');
 const salary = urlParams.get('salary');
+const [jobTags,setJobTags] = React.useState(null)
+const [companyImg,setCompanyImg] = React.useState(null)
 const [sort,setSort]=React.useState(-1)
-console.log(title,location,salary,jobs)
+console.log(title,location,salary,jobs,props)
 
 
 const [anchorEl, setAnchorEl] = React.useState(null);
@@ -59,25 +61,45 @@ const id = open ? 'simple-popover' : undefined;
 
 React.useEffect(()=>{
     ///api/job/searchJobs
-    if(!title && !location && !salary){
-        axios.get(`${process.env.REACT_APP_DEVELOPMENT}/api/job/getAllJobs?sort=${sort}`,{headers:{token:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRyaXZlc2hAYmFua3N0ZXIuY29tIiwiX2lkIjoiNjJmM2E3ZjA0ODA4OWE4MDFkM2E3ODA3IiwiaWF0IjoxNjYxMTUyOTUwfQ.yI7xfT8AUAs4NM1S3xsw5xnttnr-cYmHdty0r_itRes"}})
-        .then(res=>{
-            console.log(res)
-            setJobs(res.data.result)
-        })
-        .catch(err=>{
-            console.log(err)
-        })
-    }else{
-        axios.post(`${process.env.REACT_APP_DEVELOPMENT}/api/job/searchJobs`,{title:title?title:"",city:location?location:"",salary:salary?salary:""},{headers:{token:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRyaXZlc2hAYmFua3N0ZXIuY29tIiwiX2lkIjoiNjJmM2E3ZjA0ODA4OWE4MDFkM2E3ODA3IiwiaWF0IjoxNjYxMTUyOTUwfQ.yI7xfT8AUAs4NM1S3xsw5xnttnr-cYmHdty0r_itRes"}})
-        .then(res=>{
-            console.log(res)
-            setJobs(res.data.result)
-        })
-        .catch(err=>{
-            console.log(err)
-        })
-    }
+    setTimeout(() => {
+        if(title || location || salary){
+            axios.post(`${process.env.REACT_APP_DEVELOPMENT}/api/job/searchJobs`,{title:title?title:"",city:location?location:"",salary:salary?salary:""},{headers:{token:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRyaXZlc2hAYmFua3N0ZXIuY29tIiwiX2lkIjoiNjJmM2E3ZjA0ODA4OWE4MDFkM2E3ODA3IiwiaWF0IjoxNjYxMTUyOTUwfQ.yI7xfT8AUAs4NM1S3xsw5xnttnr-cYmHdty0r_itRes"}})
+            .then(res=>{
+                console.log(res)
+                setJobs(res.data.result)
+            })
+            .catch(err=>{
+                console.log(err)
+            })
+        }else if(props.location.state){
+            console.log("inside location")
+            axios.post(`${process.env.REACT_APP_DEVELOPMENT}/api/job/searchKeyJob`,{...props.location.state})
+            .then(res=>{
+                console.log(res)
+                if(res.data.result.length>0){
+                    setJobs(res.data.result)
+                }
+            })
+        }
+        else{
+            axios.get(`${process.env.REACT_APP_DEVELOPMENT}/api/job/getAllJobs?sort=${sort}`,{headers:{token:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRyaXZlc2hAYmFua3N0ZXIuY29tIiwiX2lkIjoiNjJmM2E3ZjA0ODA4OWE4MDFkM2E3ODA3IiwiaWF0IjoxNjYxMTUyOTUwfQ.yI7xfT8AUAs4NM1S3xsw5xnttnr-cYmHdty0r_itRes"}})
+            .then(res=>{
+                console.log(res)
+                setJobs(res.data.result)
+            })
+            .catch(err=>{
+                console.log(err)
+            })
+        }
+    }, 1000);
+    axios.get(`${process.env.REACT_APP_DEVELOPMENT}/api/admin/getFeaturedData`)
+    .then(res=>{
+        console.log(res)
+        if(res.data.result.length>0){
+            setCompanyImg(res.data.result.filter(item=>item.type==="companyImg"))
+            setJobTags(res.data.result.filter(item=>item.type==="jobTag"))
+        }
+    })
     
 },[title,location,salary,flag,sort])
 
@@ -143,7 +165,6 @@ const renderApplied = (singleJob)=>{
 //test comment
 
 const renderImageString = (createdBy)=>{
-    console.log(createdBy)
     if(createdBy){
         if(Array.isArray(createdBy) && createdBy.length>0){
             if(createdBy[0].companyImg.length>0){
@@ -164,6 +185,26 @@ const renderImageString = (createdBy)=>{
         }
     }
 
+}
+
+const findJob = (type,value)=>{
+    if(type==="companyImg"){
+        axios.post(`${process.env.REACT_APP_DEVELOPMENT}/api/job/searchJobViaCompany`,{companyName:value})
+        .then(res=>{
+            console.log(res)
+            if(res.data.result.length>0){
+                setJobs(res.data.result)
+            }
+        })
+    }else if(type==="jobTag"){
+        axios.post(`${process.env.REACT_APP_DEVELOPMENT}/api/job/searchJobViaTag`,{tags:[value]})
+        .then(res=>{
+            console.log(res)
+            if(res.data.result.length>0){
+                setJobs(res.data.result)
+            }
+        })
+    }
 }
 
   return (
@@ -311,31 +352,18 @@ const renderImageString = (createdBy)=>{
             <div className='p-0 col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 right-section-job'>
                 <section className="shadow-sm search-container">
                     <h4><SearchIcon /> Search Jobs Via Company</h4>
-                    <img src="/logo2.png" alt="logo2" />
-                    <img src="/logo3.png" alt="logo2" />
-                    <img src="/logo4.png" alt="logo2" />
-                    <img src="/logo2.png" alt="logo2" />
-                    <img src="/logo3.png" alt="logo2" />
-                    <img src="/logo4.png" alt="logo2" />
-                    <img src="/logo2.png" alt="logo2" />
-                    <img src="/logo3.png" alt="logo2" />
-                    <img src="/logo4.png" alt="logo2" />
-                    <img src="/logo2.png" alt="logo2" />
-                    <img src="/logo3.png" alt="logo2" />
-                    <img src="/logo4.png" alt="logo2" />
-                    <img src="/logo2.png" alt="logo2" />
-                    <img src="/logo3.png" alt="logo2" />
-                    <img src="/logo4.png" alt="logo2" />
+                    
+                    {
+                        companyImg&&companyImg.map((item,index)=><img onClick={()=>findJob(item.type,item.name)} key={index} src={`${process.env.REACT_APP_DEVELOPMENT}/api/image/${item.img}`} alt="logo2" />)
+                    }
                 </section>
 
                 <section className="shadow-sm search-container">
                     <h4><SearchIcon /> Search Jobs Via Tags</h4>
-                    <Chip className="m-2" label="Clickable" onClick={()=>null} />
-                    <Chip className="m-2" label="Clickable" onClick={()=>null} />
-                    <Chip className="m-2" label="Clickable" onClick={()=>null} />
-                    <Chip className="m-2" label="Clickable" onClick={()=>null} />
-                    <Chip className="m-2" label="Clickable" onClick={()=>null} />
-                    <Chip className="m-2" label="Clickable" onClick={()=>null} />
+                    
+                    {
+                        jobTags&&jobTags.map((item,index)=><Chip key={index} onClick={()=>findJob(item.type,item.name)} className="m-2" label={item.name} />)
+                    }
                 </section>
             </div>
         </section>

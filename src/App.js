@@ -37,12 +37,15 @@ import VerificationMail from './components/utils/VerificationMail';
 import LottieComponent from './components/utils/Lottie';
 import SearchCandidateHome from './components/FindCandidates/SearchCandidateHome';
 
+import ScrollToTop from './ScrollToTop';
+
 function App(props) {
   return (
     <>
     <Snackbar />
     <SimpleBackdrop  open={props.loading} />
     <Switch>
+      <ScrollToTop>
       <Route exact path="/" component={Home} />
       <Route path="/findjobs" component={FindJobs} />
       <Route path="/JobDetail/:id" component={JobDetail} />
@@ -73,7 +76,7 @@ function App(props) {
       <Route path="/Singuprecruiter" component={Singuprecruiter} />
       <Route path="/verificationmail" component={VerificationMail} />
       <Route path="/verificationsuccess/:token/:type" component={LottieComponent} />
-
+      </ScrollToTop>
     </Switch>
     </>
   );

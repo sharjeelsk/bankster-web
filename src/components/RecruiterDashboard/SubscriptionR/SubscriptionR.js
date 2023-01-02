@@ -80,7 +80,7 @@ function Subscription(props) {
 
     const renderPlanName = (id)=>{
       let plan = plans.filter(item=>item._id===id)[0]
-      return plan.name;
+      return plan.name?plan.name:"";
     }
 
     const renderCreatedAt = (expiry)=>{
@@ -143,13 +143,13 @@ function Subscription(props) {
             </section>
 
             
-          <div style={{ height: '40vh', width: '100%' }}>
+          {plans.length>0&&<div style={{ height: '40vh', width: '100%' }}>
                 <DataGrid
                     rows={props.user.userInfo.paymentHistory.map((item,index)=>({...item,id:index+1}))}
                     columns={columns2}
                     autoPageSize
                 />
-            </div>
+          </div>}
 
             </>
             }

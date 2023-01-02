@@ -109,7 +109,8 @@ const Login = (props) => {
                   label="Email"
                   id="outlined-start-adornment"
                   sx={{ m: 1, width: "35ch" }}
-                  {...register('email',{required:true})}
+                  {...register('email',{required:true,pattern:/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/})}
+                  error={errors.email?true:false}
                   InputProps={{
                     startAdornment: (
                       <InputAdornment position="start"></InputAdornment>

@@ -15,7 +15,7 @@ console.log(props);
         <div className="rounded" style={{margin:"auto 0"}}>
         <nav className="navbar navbar-expand-md navbar-dark bg-dark   navbarclass " >
 	<div className="container-fluid">
-        <Link to="/"><img src='/banksterlogo.png' height={30} width={150} alt="eventfavicon" /></Link>
+	<Link to="/"><img src='/banksterfullAsset.png' height={65} width={150} alt="eventfavicon" /></Link>
 		{/* <Link className="navbar-brand"  style={{color:"black"}} to="/"><img style={{height:"6vh"}} src={Logo} /></Link> */}
 	<button className="navbar-toggler custom-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive">
 		<span className="navbar-toggler-icon" ></span>

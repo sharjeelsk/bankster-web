@@ -5,6 +5,10 @@ $darkpink:#ff3d8b;
 $primary-font:'Montserrat', sans-serif;
 $secondary-font:'Roboto', sans-serif;
 
+.cp:hover{
+  cursor: pointer;
+}
+
 h1,h2,h3,h5{
   font-family: $primary-font;
 }
@@ -95,6 +99,10 @@ p,span{
   border-radius: 100%;
 }
 
+.mobile-visible{
+  display: none;
+}
+
 @media (max-width: 992px) {
 
 }
@@ -117,5 +125,8 @@ p,span{
   }
   .mobile-center{
     text-align: center;
+  }
+  .mobile-visible{
+    display: visible;
   }
 }

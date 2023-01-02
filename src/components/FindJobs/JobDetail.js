@@ -31,6 +31,8 @@ function JobDetail(props) {
     const [bookmarked,setBookmarked]=React.useState(false)
     const [flag,setFlag] = React.useState(false)
     const [similarJobs,setSimilarJobs]=React.useState([])
+    const [jobTags,setJobTags] = React.useState(null)
+const [companyImg,setCompanyImg] = React.useState(null)
     React.useEffect(()=>{
         axios.post(`${process.env.REACT_APP_DEVELOPMENT}/api/job/singleJob`,{jobId:params.id})
         .then(res=>{
@@ -55,9 +57,37 @@ function JobDetail(props) {
         .catch(err=>{
             console.log(err)
         })
+        axios.get(`${process.env.REACT_APP_DEVELOPMENT}/api/admin/getFeaturedData`)
+        .then(res=>{
+            console.log(res)
+            if(res.data.result.length>0){
+                setCompanyImg(res.data.result.filter(item=>item.type==="companyImg"))
+                setJobTags(res.data.result.filter(item=>item.type==="jobTag"))
+            }
+        })
     },[flag])
 
-
+    const findJob = (type,value)=>{
+        props.history.push("/findjobs")
+        // if(type==="companyImg"){
+        //     axios.post(`${process.env.REACT_APP_DEVELOPMENT}/api/job/searchJobViaCompany`,{companyName:value})
+        //     .then(res=>{
+        //         console.log(res)
+        //         if(res.data.result.length>0){
+        //             setJobs(res.data.result)
+        //         }
+        //     })
+        // }else if(type==="jobTag"){
+        //     axios.post(`${process.env.REACT_APP_DEVELOPMENT}/api/job/searchJobViaTag`,{tags:[value]})
+        //     .then(res=>{
+        //         console.log(res)
+        //         if(res.data.result.length>0){
+        //             setJobs(res.data.result)
+        //         }
+        //     })
+        // }
+    }
+    
     const renderApplied = ()=>{
         let apply;
         singleJob.jobCandidates.map(item=>{
@@ -136,24 +166,27 @@ function JobDetail(props) {
         
     }
     const renderImageString = (createdBy)=>{
-        if(Array.isArray(createdBy)){
-            if(createdBy[0].companyImg.length>0){
-                return `${process.env.REACT_APP_DEVELOPMENT}/api/image/${createdBy[0].companyImg}`
+        if(createdBy){
+            if(Array.isArray(createdBy) && createdBy.length>0){
+                if(createdBy[0].companyImg.length>0){
+                    return `${process.env.REACT_APP_DEVELOPMENT}/api/image/${createdBy[0].companyImg}`
+                }else{
+                    return '/job-offer.png'
+                }
+                
+            }else if(createdBy.companyImg){
+                if(createdBy.companyImg.length>0){
+                    return `${process.env.REACT_APP_DEVELOPMENT}/api/image/${createdBy.companyImg}`
+                }else{
+                    return '/job-offer.png'
+                }
+                
             }else{
                 return '/job-offer.png'
             }
-            
-        }else if(createdBy.companyImg){
-            if(createdBy.companyImg.length>0){
-                return `${process.env.REACT_APP_DEVELOPMENT}/api/image/${createdBy.companyImg}`
-            }else{
-                return '/job-offer.png'
-            }
-            
-        }else{
-            return '/job-offer.png'
         }
-    }
+      
+      }
   return (
 <div>
         <Header id="2" />
@@ -378,31 +411,18 @@ function JobDetail(props) {
             <div className='p-0 col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 right-section-job'>
                 <section className="shadow-sm search-container">
                     <h4><SearchIcon /> Search Jobs Via Company</h4>
-                    <img src="/logo2.png" alt="logo2" />
-                    <img src="/logo3.png" alt="logo2" />
-                    <img src="/logo4.png" alt="logo2" />
-                    <img src="/logo2.png" alt="logo2" />
-                    <img src="/logo3.png" alt="logo2" />
-                    <img src="/logo4.png" alt="logo2" />
-                    <img src="/logo2.png" alt="logo2" />
-                    <img src="/logo3.png" alt="logo2" />
-                    <img src="/logo4.png" alt="logo2" />
-                    <img src="/logo2.png" alt="logo2" />
-                    <img src="/logo3.png" alt="logo2" />
-                    <img src="/logo4.png" alt="logo2" />
-                    <img src="/logo2.png" alt="logo2" />
-                    <img src="/logo3.png" alt="logo2" />
-                    <img src="/logo4.png" alt="logo2" />
+                    
+                    {
+                        companyImg&&companyImg.map((item,index)=><img onClick={()=>findJob(item.type,item.name)} key={index} src={`${process.env.REACT_APP_DEVELOPMENT}/api/image/${item.img}`} alt="logo2" />)
+                    }
                 </section>
 
                 <section className="shadow-sm search-container">
                     <h4><SearchIcon /> Search Jobs Via Tags</h4>
-                    <Chip className="m-2" label="Clickable" onClick={()=>null} />
-                    <Chip className="m-2" label="Clickable" onClick={()=>null} />
-                    <Chip className="m-2" label="Clickable" onClick={()=>null} />
-                    <Chip className="m-2" label="Clickable" onClick={()=>null} />
-                    <Chip className="m-2" label="Clickable" onClick={()=>null} />
-                    <Chip className="m-2" label="Clickable" onClick={()=>null} />
+                    
+                    {
+                        jobTags&&jobTags.map((item,index)=><Chip key={index} onClick={()=>findJob(item.type,item.name)} className="m-2" label={item.name} />)
+                    }
                 </section>
             </div>
         </section>

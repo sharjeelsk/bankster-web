@@ -36,7 +36,7 @@ const RecruiterDashhead = (props) => {
         
             
         <div className={display?"shadow-lg dashhead":'dashhead displayhidden'}>
-            <h1>Hi, {props.user.userInfo&&props.user.userInfo.fullName}</h1>
+            <h1 className="head-heading">Hi, {props.user.userInfo&&props.user.userInfo.fullName}</h1>
             {id===1?<div onClick={()=>props.history.push('/recruiterhome')} className="menu-container-active">
                 <p><HomeIcon /> Your Profile</p>
             </div>:
