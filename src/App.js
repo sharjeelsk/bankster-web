@@ -39,6 +39,12 @@ import SearchCandidateHome from './components/FindCandidates/SearchCandidateHome
 
 import ScrollToTop from './ScrollToTop';
 
+// pages
+import About from './components/Pages/About';
+import PrivacyPolicy from './components/Pages/PrivacyPolicy';
+import Terms from './components/Pages/Terms';
+import FAQ from './components/Pages/FAQ';
+
 function App(props) {
   return (
     <>
@@ -76,6 +82,13 @@ function App(props) {
       <Route path="/Singuprecruiter" component={Singuprecruiter} />
       <Route path="/verificationmail" component={VerificationMail} />
       <Route path="/verificationsuccess/:token/:type" component={LottieComponent} />
+
+
+
+      <Route path="/aboutus" component={About} />
+      <Route path="/privacypolicy" component={PrivacyPolicy} />
+      <Route path="/terms" component={Terms} />
+      <Route path="/faq" component={FAQ} />
       </ScrollToTop>
     </Switch>
     </>

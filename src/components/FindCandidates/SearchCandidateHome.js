@@ -41,15 +41,26 @@ function SearchCandidateHome(props) {
         }
     }
 
+    const renderHide = ()=>{
+        if(!props.user.user){
+            return true
+        }else if(props.user.userInfo.subscription!=="635a98177ca2905a363e4dcb" || props.user.userInfo.subscription!=="6379d060497ca6b7d0b6ab56" || props.user.userInfo.subscription!=="6379d0c2497ca6b7d0b6ab58"){
+            return false
+        }else{
+            return true
+        }
+    }
+
   return (
     <div>
         <Header id="3" />
-        {!error?<>
         {data&&<section className="search-candidate-home">
+        <img className="my-3 width-100" src="/banners/bannerCandidate1.png" alt="oneplus" />
         <h1 className="px-3">Featured Candidates</h1>
          {
             data.featuredCandidates.map((item,index)=><div key={index}>
                 <CandidateCard 
+                hide={renderHide()}
                 {...item}
                 />
             </div>)
@@ -62,12 +73,13 @@ function SearchCandidateHome(props) {
         {
             data.immediateJoiner.map((item,index)=><div key={index}>
                 <CandidateCard 
+                hide={renderHide()}
                 {...item}
                 />
             </div>)
          }  
         </section>}
-        </>:renderError()}
+        <img className="my-3 width-100" src="/banners/bannerCandidate2.png" alt="oneplus" />
         <Footer />
     </div>
   )

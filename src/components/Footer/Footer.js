@@ -27,22 +27,22 @@ function Footer() {
             </div>
             <div className="col-12 col-sm-12 col-md-7 col-lg-7 col-xl-7 content row m-auto">
                 <div className="col-4">
-                <Link className="link" to="#">About Us</Link>
-                <Link className="link" to="#">Career</Link>
-                <Link className="link" to="#">Employer Dashboard</Link>
-                <Link className="link" to="#">Terms and Conditions</Link>
+                <Link className="link" to="/aboutus">About Us</Link>
+                <Link className="link" to="/privacypolicy">Privacy Policy</Link>
+                <Link className="link" to="/faq">FAQ's</Link>
+                <Link className="link" to="/terms">Terms and Conditions</Link>
                 </div>
                 <div className="col-4">
-                <Link className="link" to="#">About Us</Link>
-                <Link className="link" to="#">Career</Link>
-                <Link className="link" to="#">Employer Dashboard</Link>
-                <Link className="link" to="#">Terms and Conditions</Link>
+                <Link className="link" to="#">Careers</Link>
+                <Link className="link" to="#">Refund Policy</Link>
+                <Link className="link" to="#">Contact Us</Link>
+                <Link className="link" to="#">Find Jobs</Link>
                 </div>
                 <div className="col-4">
-                <Link className="link" to="#">About Us</Link>
-                <Link className="link" to="#">Career</Link>
-                <Link className="link" to="#">Employer Dashboard</Link>
-                <Link className="link" to="#">Terms and Conditions</Link>
+                <Link className="link" to="#">Find Candidates</Link>
+                <Link className="link" to="#">Candidate SignUp</Link>
+                <Link className="link" to="#">Recruiter SignUp</Link>
+                {/* <Link className="link" to="#">Terms and Conditions</Link> */}
                 </div>
             </div>
             <div className="col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 footer-headline">

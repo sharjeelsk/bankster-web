@@ -98,6 +98,8 @@ function Home(props) {
            <img src="/logo2.png" alt="logo1" />
            </div>
 
+           <img className="my-3" src="/banners/banner1.png" alt="oneplus" />
+
            <div className="bankster-jobs">
             <h3><span className="primarycolorwh">Bankster</span> Jobs</h3>
                 <section className="job-card-head row m-auto justify-content-between">
@@ -128,6 +130,8 @@ function Home(props) {
                     
                 </div>
            </div>
+
+           <img className="my-3" src="/banners/banner2.png" alt="oneplus" />
 
            <div className="bankster-jobs mt-5">
             <h3><span className="primarycolorwh">Featured</span> Jobs</h3>
@@ -185,6 +189,8 @@ function Home(props) {
                 }
                 </section>
            </div>
+
+           <img className="my-3" src="/banners/banner3.png" alt="oneplus" />
 
                 <Footer />
         </div>

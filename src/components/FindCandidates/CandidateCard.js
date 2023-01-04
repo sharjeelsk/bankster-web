@@ -19,6 +19,30 @@ function CandidateCard(props) {
             return "Currently Unemployed"
         }
     }
+
+    const renderEmployementStringHide = ()=>{
+        if(props.fresher){
+            return "Fr***"
+        }else if(props.workExperience.filter(i=>i.current===true).length>0){
+            let strobj = props.workExperience.filter(i=>i.current===true)[0]
+            return `${strobj.designation.substr(0,strobj.designation.length-3)}*** | ${strobj.name.substr(0,strobj.name.length-3)} ***`
+        }else{
+            return "Currently ****"
+        }
+    }
+    const stringHide = (string,type)=>{
+        if(props.hide && type==="fullName"){
+            return `**** ${string.split(" ")[1]}`
+        }else if(props.hide && type==="mobileNo"){
+            return `${string.substr(0,2)} ****** ${string.substr(8,10)}`
+        }else if(props.hide && type==="email"){
+            return `******* @${string.split("@")[1]}`
+        }
+        else{
+            return string
+        }
+    }
+
   return (
     <div className="candidate-card shadow-sm row m-auto">
         <div className="col-1 img-div">
@@ -27,8 +51,8 @@ function CandidateCard(props) {
         <div className="col-11 content-div">
             <div className="row m-auto">
                 <div className="p-0 col-6">
-                <h3>{props.fullName}</h3>
-                <p className="bold-text">{renderEmployementString()}</p>
+                <h3>{stringHide(props.fullName,"fullName")}</h3>
+                <p className="bold-text">{props.hide?renderEmployementStringHide():renderEmployementString()}</p>
                 <p className="bold-text">{props.education.length>0?props.education.map(i=>{
                     if(i.featuredEducation){
                         return i.name + ', ' + i.universityName;
@@ -58,8 +82,8 @@ function CandidateCard(props) {
             </div>
 
             <div className="my-3">
-            <span className='keys'><LocalPhoneIcon /> {props.mobileNo}</span>
-            <span className='ml-3 keys'><EmailIcon /> {props.email}</span>
+            <span className='keys'><LocalPhoneIcon /> {stringHide(props.mobileNo,"mobileNo")}</span>
+            <span className='ml-3 keys'><EmailIcon /> {stringHide(props.email,"email")}</span>
             <span className='ml-3 keys'><LocationOnIcon /> {props.userLocation.city} | {props.userLocation.state}</span>
             </div>
 
