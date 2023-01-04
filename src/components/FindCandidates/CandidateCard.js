@@ -46,7 +46,7 @@ function CandidateCard(props) {
   return (
     <div className="candidate-card shadow-sm row m-auto">
         <div className="col-3 img-div">
-            <img src="/avatar.png" alt="avatar" />
+            <img src={props.profilePicture?`${process.env.REACT_APP_DEVELOPMENT}/api/image/${props.profilePicture}`:"/avatar.png"} alt="avatar" />
         </div>
         <div className="col-9 content-div">
             <div className="row m-auto">
@@ -58,12 +58,12 @@ function CandidateCard(props) {
                         return i.name + ', ' + i.universityName;
                     }
                 }):"Featured Education Not Added"}</p>
-                <p className="grey-text">Gender: {props.gender} | DOB: {props.dob?getAge(props.dob):"DOB Missing"}</p>
+                <p className="grey-text"><b>Gender:</b> {props.gender} | <b>DOB:</b> {props.dob?getAge(props.dob):"DOB Missing"}</p>
                 <p className="grey-text">
-                    Years of Experience: {props.yearsOfExperience?props.yearsOfExperience:'Not Added'}<br /><br />
-                    Current CTC: {props.currentCtc}<br /><br />
-                    Product: {props.product} <br /><br />
-                    Notice Period: {props.noticePeriod}<br />
+                    <b>Years of Experience:</b> {props.yearsOfExperience?props.yearsOfExperience:'Not Added'}<br /><br />
+                    <b>Current CTC:</b> {props.currentCtc}<br /><br />
+                    <b>Product:</b> {props.product} <br /><br />
+                    <b>Notice Period:</b> {props.noticePeriod}<br />
                 </p>
                 </div>
             </div>
