@@ -45,12 +45,12 @@ function CandidateCard(props) {
 
   return (
     <div className="candidate-card shadow-sm row m-auto">
-        <div className="col-1 img-div">
+        <div className="col-3 img-div">
             <img src="/avatar.png" alt="avatar" />
         </div>
-        <div className="col-11 content-div">
+        <div className="col-9 content-div">
             <div className="row m-auto">
-                <div className="p-0 col-6">
+                <div className="p-0 col-12">
                 <h3>{stringHide(props.fullName,"fullName")}</h3>
                 <p className="bold-text">{props.hide?renderEmployementStringHide():renderEmployementString()}</p>
                 <p className="bold-text">{props.education.length>0?props.education.map(i=>{
@@ -58,10 +58,22 @@ function CandidateCard(props) {
                         return i.name + ', ' + i.universityName;
                     }
                 }):"Featured Education Not Added"}</p>
-                <p className="grey-text">{props.gender} | {props.dob?getAge(props.dob):"DOB Missing"}</p>
-                <p className="grey-text">{props.yearsOfExperience?props.yearsOfExperience:'Not Added'} Years of Experience | {props.currentCtc} CTC | {props.product} | {props.noticePeriod}</p>
+                <p className="grey-text">Gender: {props.gender} | DOB: {props.dob?getAge(props.dob):"DOB Missing"}</p>
+                <p className="grey-text">
+                    Years of Experience: {props.yearsOfExperience?props.yearsOfExperience:'Not Added'}<br /><br />
+                    Current CTC: {props.currentCtc}<br /><br />
+                    Product: {props.product} <br /><br />
+                    Notice Period: {props.noticePeriod}<br />
+                </p>
                 </div>
-                {props.resume.length>0&&<div onClick={()=>{
+            </div>
+
+            <div className="my-3">
+            <p className='keys'><LocalPhoneIcon /> {stringHide(props.mobileNo,"mobileNo")}</p>
+            <p className='keys'><EmailIcon /> {stringHide(props.email,"email")}</p>
+            <p className='keys'><LocationOnIcon /> {props.userLocation.city} | {props.userLocation.state}</p>
+            </div>
+            {(props.resume.length>0 && !props.hide)&&<div onClick={()=>{
                     window.open(`${process.env.REACT_APP_DEVELOPMENT}/api/pdf/${props.resume}`, '_blank');
                     axios.post(`${process.env.REACT_APP_DEVELOPMENT}/api/candidate/increaseProfileCount`,{candidateId:props._id},{headers:{token:props.user.user}})
                     .then(res=>{
@@ -70,7 +82,7 @@ function CandidateCard(props) {
                     .catch(err=>{
                         console.log(err)
                     })
-                }} className="p-0 col-5 resume-cont row m-auto align-items-center shadow-sm">
+                }} className="p-0 resume-cont row m-auto align-items-center shadow-sm">
                     <div className="">
                         <DescriptionIcon />
                     </div>
@@ -79,16 +91,6 @@ function CandidateCard(props) {
                         <p className="mt-1">Click to view resume</p>
                     </div>
                 </div>}
-            </div>
-
-            <div className="my-3">
-            <span className='keys'><LocalPhoneIcon /> {stringHide(props.mobileNo,"mobileNo")}</span>
-            <span className='ml-3 keys'><EmailIcon /> {stringHide(props.email,"email")}</span>
-            <span className='ml-3 keys'><LocationOnIcon /> {props.userLocation.city} | {props.userLocation.state}</span>
-            </div>
-
-            <p>{props.resumeTagline}</p>
-            {props.skills.map((item,index)=><Chip key={index} className="mx-2 my-1" label={item} />)}
 
         </div>
     </div>

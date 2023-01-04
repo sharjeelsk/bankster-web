@@ -5,10 +5,11 @@ import axios from 'axios'
 import CandidateCard from './CandidateCard'
 import { Button } from '@mui/material'
 import {connect} from 'react-redux'
+import ReplayIcon from '@mui/icons-material/Replay';
 
 function SearchCandidateHome(props) {
     const [data,setData] = React.useState(null)
-    const [limit1,setLimit1] = React.useState(1)
+    const [limit1,setLimit1] = React.useState(10)
     const [error,setError] = React.useState(null)
     React.useEffect(()=>{
         axios.post(`${process.env.REACT_APP_DEVELOPMENT}/api/candidate/getCandidateHomeData`,{limit:limit1},{headers:{token:props.user.user}})
@@ -59,7 +60,7 @@ function SearchCandidateHome(props) {
         <h1 className="px-3">Featured Candidates</h1>
         <div className="row m-auto">
          {
-            data.featuredCandidates.map((item,index)=><div className="col-6" key={index}>
+            data.featuredCandidates.map((item,index)=><div className="col-3" key={index}>
                 <CandidateCard 
                 hide={renderHide()}
                 {...item}
@@ -70,14 +71,16 @@ function SearchCandidateHome(props) {
          <div style={{textAlign:"center"}}>
         <Button
         variant="outlined"
+        className="my-4"
         onClick={()=>setLimit1(limit1+1)}
+        endIcon={<ReplayIcon />}
         >Load More</Button>
         </div>
         
         <h1 className="px-3">Immediate Joiner</h1>
         <div className="row m-auto">
         {
-            data.immediateJoiner.map((item,index)=><div className="col-6" key={index}>
+            data.immediateJoiner.map((item,index)=><div className="col-3" key={index}>
                 <CandidateCard 
                 hide={renderHide()}
                 {...item}
