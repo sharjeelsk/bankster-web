@@ -57,27 +57,34 @@ function SearchCandidateHome(props) {
         {data&&<section className="search-candidate-home">
         <img className="my-3 width-100" src="/banners/bannerCandidate1.png" alt="oneplus" />
         <h1 className="px-3">Featured Candidates</h1>
+        <div className="row m-auto">
          {
-            data.featuredCandidates.map((item,index)=><div key={index}>
+            data.featuredCandidates.map((item,index)=><div className="col-6" key={index}>
                 <CandidateCard 
                 hide={renderHide()}
                 {...item}
                 />
             </div>)
          }   
+         </div>
+         <div style={{textAlign:"center"}}>
         <Button
+        variant="outlined"
         onClick={()=>setLimit1(limit1+1)}
         >Load More</Button>
+        </div>
         
         <h1 className="px-3">Immediate Joiner</h1>
+        <div className="row m-auto">
         {
-            data.immediateJoiner.map((item,index)=><div key={index}>
+            data.immediateJoiner.map((item,index)=><div className="col-6" key={index}>
                 <CandidateCard 
                 hide={renderHide()}
                 {...item}
                 />
             </div>)
          }  
+         </div>
         </section>}
         <img className="my-3 width-100" src="/banners/bannerCandidate2.png" alt="oneplus" />
         <Footer />
