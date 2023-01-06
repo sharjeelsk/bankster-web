@@ -24,6 +24,8 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
+import {renderRating} from '../../utils/Functions'
+import {useForm} from 'react-hook-form'
 function CreateJob(props) {
     const [display,setDisplay]=React.useState(false)
     const [ug,setUg]=React.useState([])
@@ -44,6 +46,8 @@ function CreateJob(props) {
 
     const [singleRole,setSingleRole] = React.useState("")
     const [jobTag,setJobTag] = React.useState("")
+
+    const {handleSubmit,formState:{errors},register}=useForm()
 
     console.log("creaet job props", props)
 
@@ -193,6 +197,10 @@ function CreateJob(props) {
 
     console.log(formValues,states)
 
+    const onSubmit =(data)=>{
+        console.log(data)
+    }
+
     return (
         <>
 
@@ -220,9 +228,10 @@ function CreateJob(props) {
 
             </section>
             :<section className="create-job row m-auto">
+                {/* <form onSubmit={()=>handleSubmit(onSubmit)}> */}
                 <div className="col-5 job-form">
                     <h2>Create Job</h2>
-                    <TextField disabled={props.location.state?true:false} value={formValues.title} onChange={(e)=>setFormValues({...formValues,title:e.target.value})} fullWidth variant='outlined' id="outlined-basic" label="Job Title" className="mt-2 mb-3" />
+                    <TextField inputProps={{maxLength:30}} disabled={props.location.state?true:false} value={formValues.title} onChange={(e)=>setFormValues({...formValues,title:e.target.value})} fullWidth variant='outlined' id="outlined-basic" label="Job Title" className="mt-2 mb-3" />
                     <div className="my-4">
                     <Autocomplete
                     fullWidth
@@ -484,10 +493,24 @@ function CreateJob(props) {
                         <h4 className="m-0">{formValues.product}</h4>
                             <div className='row m-auto align-items-center'>
                                 <div>
-                                <Rating name="read-only" value={3} readOnly />
+                                <Rating name="read-only" value={renderRating({
+                                    age:{min:formValues.minimumAge,max:formValues.maximumAge},
+                                    ctc:{min:formValues.minimumSalary,max:formValues.maximumSalary},
+                                    experience:{min:formValues.minimumExperience,max:formValues.maximumExperience},
+                                    jobLocation:{state:formValues.state,city:formValues.city},
+                                    qualification:{ug:formValues.ug,pg:formValues.pg},
+                                    functionalArea:formValues.functionalArea,
+                                    industry:formValues.industry,
+                                    product:formValues.product,
+                                    roleResp:formValues.rolesAndResponsibilities,
+                                    tags:formValues.jobTags,
+                                    companyName:formValues.companyName,
+                                    companyInfo:formValues.companyInfo,
+                                    desiredProfile:formValues.desiredProfile
+                                })} readOnly />
                                 </div>
                                 <div>
-                                <p className="total-reviews">(47 Reviews)</p>
+                                <p className="total-reviews">(Job Ratings will be based on complete filling of data)</p>
                                 </div>
                             </div>
 
@@ -563,6 +586,7 @@ function CreateJob(props) {
 
                 }
                 </div>
+                {/* </form> */}
             </section>}
 
 

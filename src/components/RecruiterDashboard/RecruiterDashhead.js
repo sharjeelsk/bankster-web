@@ -10,10 +10,17 @@ import EventAvailableOutlinedIcon from '@mui/icons-material/EventAvailableOutlin
 import LocalAtmIcon from '@mui/icons-material/LocalAtm';
 import PersonIcon from '@mui/icons-material/Person';
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
+import NotificationsIcon from '@mui/icons-material/Notifications';
 import {connect} from 'react-redux'
 import {Button} from '@mui/material'
 import axios from 'axios'
 import { deleteUser } from '../redux/user/userActions';
+import GroupAddIcon from '@mui/icons-material/GroupAdd';
+import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
+import PeopleOutlineIcon from '@mui/icons-material/PeopleOutline';
+import GroupIcon from '@mui/icons-material/Group';
+import BookmarksIcon from '@mui/icons-material/Bookmarks';
+import BookmarksOutlinedIcon from '@mui/icons-material/BookmarksOutlined';
 const RecruiterDashhead = (props) => {
     console.log(props);
     let {id,display} = props
@@ -54,10 +61,10 @@ const RecruiterDashhead = (props) => {
             }
 
             {id===3?<div className="menu-container-active" onClick={()=>props.history.push('/notificationsr')}>
-                <p><EventAvailableIcon /> Notifications</p>
+                <p><NotificationsIcon /> Notifications</p>
             </div>:
             <div className="menu-container" onClick={()=>props.history.push('/notificationsr')} >
-            <p><EventAvailableOutlinedIcon /> Notifications</p>
+            <p><NotificationsNoneIcon /> Notifications</p>
             </div>
             }
 
@@ -70,19 +77,19 @@ const RecruiterDashhead = (props) => {
             }
 
             {id===5?<div className="menu-container-active" onClick={()=>props.history.push('/subrecruiters')}>
-                <p><LocalAtmIcon /> Sub Recruiters</p>
+                <p><GroupIcon /> Sub Recruiters</p>
             </div>:
             <div className="menu-container" onClick={()=>props.history.push('/subrecruiters')}>
-            <p><LocalAtmIcon /> Sub Recruiters</p>
+            <p><PeopleOutlineIcon /> Sub Recruiters</p>
             </div>
             }
 
             
             {id===6?<div className="menu-container-active" onClick={()=>props.history.push('/bookmarksr')}>
-                <p><LocalAtmIcon /> Bookmarks</p>
+                <p><BookmarksIcon /> Bookmarks</p>
             </div>:
             <div className="menu-container" onClick={()=>props.history.push('/bookmarksr')}>
-            <p><LocalAtmIcon /> Bookmarks</p>
+            <p><BookmarksOutlinedIcon /> Bookmarks</p>
             </div>
             }
 

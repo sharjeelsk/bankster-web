@@ -226,7 +226,7 @@ const Login = (props) => {
                                     {error.length>0&&<Alert className="alert" severity="error">{error}</Alert>}
 
                                     <Button type="submit" sx={{ m: 1, width: "42ch" }} variant="contained">
-                                        SINGUP
+                                        signup
                                     </Button>
                                     <p style={{
                                         marginLeft:'5rem'
@@ -245,7 +245,7 @@ const Login = (props) => {
                                         sx={{ m: 1, width: "42ch" }}
                                         startIcon={<PersonAddAltIcon />}
                                     >
-                                        <Link to='/Singuprecruiter'  style={{color:'#ff3d8b'}}> Register as a recruiter</Link>
+                                        <Link to='/SignupRecruiter'  style={{color:'#ff3d8b'}}> Register as a recruiter</Link>
                                     </Button>
                                 </div>
                             </Grid>

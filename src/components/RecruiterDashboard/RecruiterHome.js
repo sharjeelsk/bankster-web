@@ -260,7 +260,7 @@ function RecruiterHome(props) {
                     if(i.featuredEducation){
                         return i.name + ', ' + i.universityName;
                     }
-                }):"Add Education Info"}</p>
+                }):null}</p>
                     <p className="grey-text">{userInfo.gender} | {userInfo.dob?getAge(userInfo.dob):"DOB Missing"}</p>
                         <div className="row m-auto sub-info">
                             <p className="mx-2"><LocalPhoneIcon sx={{marginRight:.1}} /> <b>{userInfo.mobileNo}</b></p>
@@ -269,7 +269,7 @@ function RecruiterHome(props) {
                         </div>
                     <p className="resume-tagline grey-text">{userInfo.resumeTagline?userInfo.resumeTagline:"Tagline Missing"}</p>
                     <div className="row m-auto chip-div">
-                    {userInfo.skills.length>0?userInfo.skills.map((item,index)=><Chip label={item} key={index} className="mx-2" color="primary" />):<p style={{color:"red",fontWeight:"bold"}}>You haven't added any skills yet, add from the skills section below</p>}
+                    {userInfo.skills.length>0?userInfo.skills.map((item,index)=><Chip label={item} key={index} className="mx-2" color="primary" />):null}
                     </div>
                 </div>
                 <div className="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 resume-div">

@@ -22,6 +22,7 @@ import Chip from '@mui/material/Chip';
 import SearchIcon from '@mui/icons-material/Search';
 import { Link } from 'react-router-dom'
 import {fetchCandidateInfo} from '../redux/user/userActions'
+import {renderRating} from '../utils/Functions'
 function JobDetail(props) {
     let params = useParams();
     console.log(props)
@@ -187,6 +188,45 @@ const [companyImg,setCompanyImg] = React.useState(null)
         }
       
       }
+
+
+// const renderRating = ()=>{
+//     let total = 0;
+//     if(singleJob.age.min && singleJob.age.max){
+//         total = total +1;
+//     }
+//     if(singleJob.ctc.min && singleJob.ctc.max){
+//         total = total+1;
+//     }
+//     if(singleJob.experience.min && singleJob.experience.max){
+//         total = total+1;
+//     }
+//     if(singleJob.jobLocation.state && singleJob.jobLocation.city){
+//         total = total+1;
+//     }
+//     if(singleJob.qualification.ug && singleJob.qualification.pg){
+//         total = total+1;
+//     }
+//     if(singleJob.functionalArea && singleJob.industry && singleJob.product){
+//         total = total+1;
+//     }
+//     if(singleJob.roleResp.length>0){
+//         total = total+1;
+//     }
+//     if(singleJob.tags.length>0){
+//         total = total+1;
+//     }
+//     if(singleJob.companyName.length>0 && singleJob.companyInfo.length>0){
+//         total = total+1;
+//     }
+//     if(singleJob.desiredProfile){
+//         total = total+1;
+//     }
+//     console.log(total)
+//     return total/2
+    
+// }
+
   return (
 <div>
         <Header id="2" />
@@ -217,7 +257,7 @@ const [companyImg,setCompanyImg] = React.useState(null)
                         <h4 className="m-0">{singleJob.product}</h4>
                             <div className='row m-auto align-items-center'>
                                 <div>
-                                <Rating name="read-only" value={3} readOnly />
+                                <Rating name="read-only" value={renderRating(singleJob)} readOnly />
                                 </div>
                                 <div>
                                 <p className="total-reviews">(47 Reviews)</p>
@@ -322,7 +362,7 @@ const [companyImg,setCompanyImg] = React.useState(null)
                         <h4 className="m-0">{item.product}</h4>
                             <div className='row m-auto align-items-center'>
                                 <div>
-                                <Rating name="read-only" value={3} readOnly />
+                                <Rating name="read-only" value={renderRating(item)} readOnly />
                                 </div>
                                 <div>
                                 <p className="total-reviews">(47 Reviews)</p>

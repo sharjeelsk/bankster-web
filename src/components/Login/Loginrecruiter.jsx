@@ -162,7 +162,7 @@ const Login = (props) => {
                   Login
                 </Button>
                 <p>
-                  <Link to='/Singuprecruiter'  style={{color:'#ff3d8b'}}>New to Bankster? Create a Account on Bankster</Link>
+                  <Link to='/SignupRecruiter'  style={{color:'#ff3d8b'}}>New to Bankster? Create a Account on Bankster</Link>
                 </p>
                 <Divider
                   variant="middle"

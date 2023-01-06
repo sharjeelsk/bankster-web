@@ -27,7 +27,7 @@ import BookmarkedJobs from './components/CandidateDashboard/BookmarkedJobs/Bookm
 import Login from './components/Login/Login';
 import Singup from './components/Singup/Singup';
 import Loginrecruiter from './components/Login/Loginrecruiter';
-import Singuprecruiter from './components/Singup/Singuprecruiter';
+import SignupRecruiter from './components/Singup/SignupRecruiter';
 
 import Snackbar from './components/utils/Snackbar'
 import SimpleBackdrop from './components/utils/SimpleBackdrop';
@@ -79,7 +79,7 @@ function App(props) {
       <Route path="/forgetpassword" component={ForgetPassword} />
       <Route path="/signup" component={Singup} />
       <Route path="/Loginrecruiter" component={Loginrecruiter} />
-      <Route path="/Singuprecruiter" component={Singuprecruiter} />
+      <Route path="/SignupRecruiter" component={SignupRecruiter} />
       <Route path="/verificationmail" component={VerificationMail} />
       <Route path="/verificationsuccess/:token/:type" component={LottieComponent} />
 

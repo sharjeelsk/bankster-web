@@ -253,7 +253,7 @@ const Login = (props) => {
              }} />  */}
              
              {
-              allPlans.length>0?allPlans.map((item,index)=>
+              allPlans.length>0?allPlans.map((item,index)=>!item.custom&&
               <div className="shadow-sm plan-auth-cont">
               <h1>{item.name}</h1>
               <h2>${item.amount}/month</h2>
@@ -442,7 +442,7 @@ const Login = (props) => {
                {error.length>0&&<Alert className="alert" severity="error">{error}</Alert>}
 
                 <Button type="submit" sx={{ m: 1, width: "42ch" }} variant="contained">
-                  SINGUP
+                  signup
                 </Button>
                 <p style={{
                                         marginLeft:'5rem'

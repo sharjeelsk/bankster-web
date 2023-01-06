@@ -24,8 +24,10 @@ import {fetchCandidateInfo} from '../redux/user/userActions'
 import Popover from '@mui/material/Popover';
 import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
+import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import MenuItem from '@mui/material/MenuItem';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import {renderRating} from '../utils/Functions'
 function FindJobs(props) {
 const [display,setDisplay]=React.useState(false)
 const [jobs,setJobs]=React.useState([])
@@ -38,6 +40,7 @@ const salary = urlParams.get('salary');
 const [jobTags,setJobTags] = React.useState(null)
 const [companyImg,setCompanyImg] = React.useState(null)
 const [sort,setSort]=React.useState(-1)
+const [limit,setLimit] = React.useState({req1:20,req2:20,req3:20})
 console.log(title,location,salary,jobs,props)
 
 
@@ -63,7 +66,7 @@ React.useEffect(()=>{
     ///api/job/searchJobs
     setTimeout(() => {
         if(title || location || salary){
-            axios.post(`${process.env.REACT_APP_DEVELOPMENT}/api/job/searchJobs`,{title:title?title:"",city:location?location:"",salary:salary?salary:""},{headers:{token:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRyaXZlc2hAYmFua3N0ZXIuY29tIiwiX2lkIjoiNjJmM2E3ZjA0ODA4OWE4MDFkM2E3ODA3IiwiaWF0IjoxNjYxMTUyOTUwfQ.yI7xfT8AUAs4NM1S3xsw5xnttnr-cYmHdty0r_itRes"}})
+            axios.post(`${process.env.REACT_APP_DEVELOPMENT}/api/job/searchJobs`,{title:title?title:"",city:location?location:"",salary:salary?salary:"",limit:limit.req1},{headers:{token:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRyaXZlc2hAYmFua3N0ZXIuY29tIiwiX2lkIjoiNjJmM2E3ZjA0ODA4OWE4MDFkM2E3ODA3IiwiaWF0IjoxNjYxMTUyOTUwfQ.yI7xfT8AUAs4NM1S3xsw5xnttnr-cYmHdty0r_itRes"}})
             .then(res=>{
                 console.log(res)
                 setJobs(res.data.result)
@@ -73,7 +76,7 @@ React.useEffect(()=>{
             })
         }else if(props.location.state){
             console.log("inside location")
-            axios.post(`${process.env.REACT_APP_DEVELOPMENT}/api/job/searchKeyJob`,{...props.location.state})
+            axios.post(`${process.env.REACT_APP_DEVELOPMENT}/api/job/searchKeyJob`,{...props.location.state,limit:limit.req2})
             .then(res=>{
                 console.log(res)
                 if(res.data.result.length>0){
@@ -82,7 +85,7 @@ React.useEffect(()=>{
             })
         }
         else{
-            axios.get(`${process.env.REACT_APP_DEVELOPMENT}/api/job/getAllJobs?sort=${sort}`,{headers:{token:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRyaXZlc2hAYmFua3N0ZXIuY29tIiwiX2lkIjoiNjJmM2E3ZjA0ODA4OWE4MDFkM2E3ODA3IiwiaWF0IjoxNjYxMTUyOTUwfQ.yI7xfT8AUAs4NM1S3xsw5xnttnr-cYmHdty0r_itRes"}})
+            axios.post(`${process.env.REACT_APP_DEVELOPMENT}/api/job/getAllJobs?sort=${sort}`,{limit:limit.req3})
             .then(res=>{
                 console.log(res)
                 setJobs(res.data.result)
@@ -101,7 +104,7 @@ React.useEffect(()=>{
         }
     })
     
-},[title,location,salary,flag,sort])
+},[title,location,salary,flag,sort,limit])
 
 
 const handleBookmarkAdd = (jobId)=>{
@@ -262,7 +265,7 @@ const findJob = (type,value)=>{
                         <h4 className="m-0">{item.product}</h4>
                             <div className='row m-auto align-items-center'>
                                 <div>
-                                <Rating name="read-only" value={3} readOnly />
+                                <Rating name="read-only" value={renderRating(item)} readOnly />
                                 </div>
                                 <div>
                                 <p className="total-reviews">(47 Reviews)</p>
@@ -342,6 +345,15 @@ const findJob = (type,value)=>{
                 </section>
                     )):
                     <h1>Sorry, No Jobs Available for "{title}"</h1>
+                }
+                {
+                    jobs.length>0?
+                    <div style={{textAlign:"center"}}>
+                    <Button onClick={()=>{
+                        setLimit({req1:limit.req1+20,req2:limit.req2+20,req3:limit.req3+20})
+                    }} endIcon={<RestartAltIcon />} variant="outlined">Load More</Button>
+                    </div>
+                    :null
                 }
 
               

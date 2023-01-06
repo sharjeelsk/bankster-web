@@ -5,6 +5,7 @@ import "./Footer.scss"
 import FacebookIcon from '@mui/icons-material/Facebook';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import InstagramIcon from '@mui/icons-material/Instagram';
+import TwitterIcon from '@mui/icons-material/Twitter';
 function Footer() {
   return (
     <div className="footer">
@@ -23,7 +24,7 @@ function Footer() {
         </section>
         <section className="footer-main row m-auto">
             <div className="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 logo">
-                <img src="/banksterlogo.png" alt="banksterlogo" />
+                <img src="/banksterfullAsset.png" alt="banksterlogo" />
             </div>
             <div className="col-12 col-sm-12 col-md-7 col-lg-7 col-xl-7 content row m-auto">
                 <div className="col-4">
@@ -36,12 +37,12 @@ function Footer() {
                 <Link className="link" to="#">Careers</Link>
                 <Link className="link" to="#">Refund Policy</Link>
                 <Link className="link" to="#">Contact Us</Link>
-                <Link className="link" to="#">Find Jobs</Link>
+                <Link className="link" to="/findjobs">Find Jobs</Link>
                 </div>
                 <div className="col-4">
-                <Link className="link" to="#">Find Candidates</Link>
-                <Link className="link" to="#">Candidate SignUp</Link>
-                <Link className="link" to="#">Recruiter SignUp</Link>
+                <Link className="link" to="/findcandidates">Find Candidates</Link>
+                <Link className="link" to="/signup">Candidate SignUp</Link>
+                <Link className="link" to="/SignupRecruiter">Recruiter SignUp</Link>
                 {/* <Link className="link" to="#">Terms and Conditions</Link> */}
                 </div>
             </div>
@@ -50,19 +51,22 @@ function Footer() {
             </div>
             <div className="bottom-footer col-10 row m-auto align-items-center">
                 <div className="col-12 col-sm-12 col-md-5 col-lg-5 col-xl-5">
-                    Lorem officia enim deserunt ea ex nostrud aliqua id enim consequat consequat Lorem eu dolore.
+                Get the right job here at BanksterIndia
                 </div>
                 <div className="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
-                    support@bankster.com
+                banksterindia@gmail.com
                 </div>
                 <div className="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
-                    <IconButton>
+                    <IconButton onClick={()=> window.open("https://www.facebook.com/banksterindia/", "_blank")}>
                         <FacebookIcon />
                     </IconButton>
-                    <IconButton>
+                    <IconButton onClick={()=> window.open("https://www.linkedin.com/in/kaanush-kumar-57563b88/", "_blank")}>
                         <LinkedInIcon />
                     </IconButton>
-                    <IconButton>
+                    <IconButton onClick={()=> window.open("https://twitter.com/Bankster_India/", "_blank")}>
+                        <TwitterIcon />
+                    </IconButton>
+                    <IconButton onClick={()=> window.open("https://www.instagram.com/bankingjob/", "_blank")}>
                         <InstagramIcon />
                     </IconButton>
                 </div>
