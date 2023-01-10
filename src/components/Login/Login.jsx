@@ -67,7 +67,7 @@ console.log(values)
         props.setUser(res.data.result)
         props.storeUserType(0)
         //navigation to candidate dashboard
-        props.setSnackbar({type:"success",text:"Welcome Back Sharjeel!",open:true})
+        props.setSnackbar({type:"success",text:"Welcome Back!",open:true})
         props.history.push("/candidatehome")
       }
       

@@ -44,6 +44,8 @@ import About from './components/Pages/About';
 import PrivacyPolicy from './components/Pages/PrivacyPolicy';
 import Terms from './components/Pages/Terms';
 import FAQ from './components/Pages/FAQ';
+import RefundPolicy from './components/Pages/RefundPolicy';
+import Contact from './components/Pages/Contact'
 
 function App(props) {
   return (
@@ -89,6 +91,8 @@ function App(props) {
       <Route path="/privacypolicy" component={PrivacyPolicy} />
       <Route path="/terms" component={Terms} />
       <Route path="/faq" component={FAQ} />
+      <Route path="/refundpolicy" component={RefundPolicy} />
+      <Route path="/contactus" component={Contact} />
       </ScrollToTop>
     </Switch>
     </>

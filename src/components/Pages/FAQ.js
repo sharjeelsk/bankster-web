@@ -9,14 +9,14 @@ function FAQ() {
     <Header />
         <div className="page-section">
         <h1>FAQ Us</h1>
-        <div>
-        <b>Does it cost anything to me?</b><br />
-        Candidate registration on Shine.com is free of cost.<br />
-        <b>How do I register on Banksterindia.com?</b><br />
-        It's a simple 2-step process. Just log on to www.shine.com and click on "”New User? Register Now!” button on the right side of the page.<br />
-        Step 1: Fill in your details<br />
-        Step 2: Activate your registration by clicking on the link sent to you in the welcome email.<br />
-        </div>
+        <h2>Does it cost anything to me?</h2>
+        <p>Candidate registration on BanksterIndia is free of cost.</p>
+
+        <h2>How do I register on Banksterindia.com?</h2>
+        <p>It's a simple 2-step process. Just log on to www.banksterindia and click on the signup button on the right side of the page.</p>
+        <p>Step 1: Fill in your details</p>
+        <p>Step 2: Activate your registration by clicking on the link sent to you in the welcome email.</p>
+
 
         <h2>Do I need a valid email id for registration?</h2>
         <p>Yes, you need a valid email id to register on BanksterIndia. The same email id will be used to communicate with you in the future. We value your privacy, and we hate spam as much as you do. We are not going to spam or sell your email address to any third party. We still need your email account to be able to provide you with your Job related information or for any other career related notifications you may choose.</p>

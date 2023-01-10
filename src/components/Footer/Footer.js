@@ -35,8 +35,8 @@ function Footer() {
                 </div>
                 <div className="col-4">
                 <Link className="link" to="#">Careers</Link>
-                <Link className="link" to="#">Refund Policy</Link>
-                <Link className="link" to="#">Contact Us</Link>
+                <Link className="link" to="/refundpolicy">Refund Policy</Link>
+                <Link className="link" to="/contactus">Contact Us</Link>
                 <Link className="link" to="/findjobs">Find Jobs</Link>
                 </div>
                 <div className="col-4">
