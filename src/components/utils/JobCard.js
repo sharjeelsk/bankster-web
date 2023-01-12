@@ -57,14 +57,14 @@ const renderNameString = (createdBy)=>{
         </div>
         <div className="col-8">
             <h5 className='companyname'>{props.createdByAdmin?renderNameString(props.createdByAdmin):renderNameString(props.createdBy)}</h5>
-            <p className="companylocation">New York, USA</p>
+            <p className="companylocation">{props.jobLocation.city}, {props.jobLocation.state}</p>
         </div>
     </div>
     <h4 className="jobname">{props.title}</h4>
     <h5 className="product">{props.product}</h5>
     <p className="description">{props.jobDescription.length>100?`${props.jobDescription.substring(0,100)} ...`:props.jobDescription}</p>
     <p className="ctc"><span className="amount">₹{numberWithCommas(props.ctc.min)} - ₹{numberWithCommas(props.ctc.max)}</span></p>
-    <Button onClick={()=>props.history.push(`/JobDetail/${props._id}`)} fullWidth className="apply" variant="contained">Apply Now</Button>
+    <Button onClick={()=>props.history.push(`/JobDetail/${props._id}`)} fullWidth className="mt-auto apply" variant="contained">Apply Now</Button>
 </div>
   )
 }

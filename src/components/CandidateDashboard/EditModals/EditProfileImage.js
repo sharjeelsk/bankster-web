@@ -94,10 +94,13 @@ function EditProfileImage(props) {
     const formdata = new FormData();
     if(outputFile){
       formdata.append('file',outputFile)
-      formdata.append('collectionName',"Candidate")
-      formdata.append('type',"image")
+      formdata.append('candidateId',props.user.userInfo._id)
+      if(props.user.userInfo.profilePicture.length>0){
+        formdata.append('img',props.user.userInfo.profilePicture)
+      }
+      
       //props.setLoading(true)
-    axios.post(`${process.env.REACT_APP_DEVELOPMENT}/upload`,formdata,{headers:{Accept:'application/json','Content-Type':"multipart/form-data",token:props.user.user}})
+    axios.post(`${process.env.REACT_APP_DEVELOPMENT}/upload-candidate-image`,formdata,{headers:{Accept:'application/json','Content-Type':"multipart/form-data",token:props.user.user}})
     .then(res=>{
         //props.setLoading(false)
         //props.getUserInfo(props.user.user)

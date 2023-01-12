@@ -95,14 +95,13 @@ function EditProfileImage(props) {
     if(props.companyImg){
       if(outputFile){
         formdata.append('file',outputFile)
-        formdata.append('collectionName',"Recruiter")
-        formdata.append('type',"image")
-        formdata.append('profile',false)
+        formdata.append('recruiterId',props.user.userInfo._id)
+        formdata.append('companyImg',true)
         if(props.user.userInfo.companyImg.length>0){
-          formdata.append('previousfile',props.user.userInfo.companyImg)
+          formdata.append('img',props.user.userInfo.companyImg)
         }
         //props.setLoading(true)
-      axios.post(`${process.env.REACT_APP_DEVELOPMENT}/upload`,formdata,{headers:{Accept:'application/json','Content-Type':"multipart/form-data",token:props.user.user}})
+      axios.post(`${process.env.REACT_APP_DEVELOPMENT}/upload-recruiter-image`,formdata,{headers:{Accept:'application/json','Content-Type':"multipart/form-data",token:props.user.user}})
       .then(res=>{
           //props.setLoading(false)
           //props.getUserInfo(props.user.user)
@@ -119,14 +118,12 @@ function EditProfileImage(props) {
     }else{
       if(outputFile){
         formdata.append('file',outputFile)
-        formdata.append('collectionName',"Recruiter")
-        formdata.append('type',"image")
-        formdata.append('profile',true)
+        formdata.append('recruiterId',props.user.userInfo._id)
         if(props.user.userInfo.profilePicture.length>0){
-          formdata.append('previousfile',props.user.userInfo.profilePicture)
+          formdata.append('img',props.user.userInfo.profilePicture)
         }
         //props.setLoading(true)
-      axios.post(`${process.env.REACT_APP_DEVELOPMENT}/upload`,formdata,{headers:{Accept:'application/json','Content-Type':"multipart/form-data",token:props.user.user}})
+      axios.post(`${process.env.REACT_APP_DEVELOPMENT}/upload-recruiter-image`,formdata,{headers:{Accept:'application/json','Content-Type':"multipart/form-data",token:props.user.user}})
       .then(res=>{
           //props.setLoading(false)
           //props.getprops.user.UserInfo(props.user.user)

@@ -69,33 +69,7 @@ function RecruiterHome(props) {
         })
     },[flag])
 //cinnebt
-    const upload = (e)=>{
-        //profile image
-        console.log(e.target.files[0])
-        const formdata = new FormData();
-        if(!Array.isArray(e.target.files[0])){
-          formdata.append('file',e.target.files[0])
-          formdata.append('collectionName',"Recruiter")
-          formdata.append('type',"image")
-          formdata.append('profile',true)
-          if(userInfo.profilePicture.length>0){
-            formdata.append('previousfile',userInfo.profilePicture)
-          }
-          //props.setLoading(true)
-        axios.post(`${process.env.REACT_APP_DEVELOPMENT}/upload`,formdata,{headers:{Accept:'application/json','Content-Type':"multipart/form-data",token:props.user.user}})
-        .then(res=>{
-            //props.setLoading(false)
-            //props.getUserInfo(props.user.user)
-            console.log(res)
-            props.setSnackbar({type:"success",text:"Profile Changed Successfully",open:true})
-            setFlag(!flag)
-          
-        })
-        .catch(err=>{
-          //props.setLoading(false)
-        })
-    }
-    }
+
 
     const upload2 = (e)=>{
         //company gstin
@@ -103,19 +77,19 @@ function RecruiterHome(props) {
         const formdata = new FormData();
         if(!Array.isArray(e.target.files[0])){
           formdata.append('file',e.target.files[0])
-          formdata.append('collectionName',"Recruiter")
-          formdata.append('type',"pdf")
+          formdata.append('dataType',"gstin")
+          formdata.append("recruiterId",props.user.userInfo._id)
           if(userInfo.gstin.length>0){
-            formdata.append('previousfile',userInfo.gstin)
+            formdata.append('img',userInfo.gstin)
           }
           //props.setLoading(true)
           console.log(formdata)
-        axios.post(`${process.env.REACT_APP_DEVELOPMENT}/upload`,formdata,{headers:{Accept:'application/json','Content-Type':"multipart/form-data",token:props.user.user}})
+        axios.post(`${process.env.REACT_APP_DEVELOPMENT}/upload-recruiter-data`,formdata,{headers:{Accept:'application/json','Content-Type':"multipart/form-data",token:props.user.user}})
         .then(res=>{
             //props.setLoading(false)
             //props.getUserInfo(props.user.user)
             console.log(res)
-            props.setSnackbar({type:"success",text:"Resume Updated Successfully",open:true})
+            props.setSnackbar({type:"success",text:"GSTIN Updated Successfully",open:true})
             setFlag(!flag)
           
         })
@@ -125,33 +99,7 @@ function RecruiterHome(props) {
     }
     }
 
-    const upload3 = (e)=>{
-        //company image
-        console.log(e.target.files[0])
-        const formdata = new FormData();
-        if(!Array.isArray(e.target.files[0])){
-          formdata.append('file',e.target.files[0])
-          formdata.append('collectionName',"Recruiter")
-          formdata.append('type',"image")
-          formdata.append('profile',false)
-          if(userInfo.companyImg.length>0){
-            formdata.append('previousfile',userInfo.companyImg)
-          }
-          //props.setLoading(true)
-        axios.post(`${process.env.REACT_APP_DEVELOPMENT}/upload`,formdata,{headers:{Accept:'application/json','Content-Type':"multipart/form-data",token:props.user.user}})
-        .then(res=>{
-            //props.setLoading(false)
-            //props.getUserInfo(props.user.user)
-            console.log(res)
-            props.setSnackbar({type:"success",text:"Company Image Changed Successfully",open:true})
-            setFlag(!flag)
-          
-        })
-        .catch(err=>{
-          //props.setLoading(false)
-        })
-    }
-    }
+
 
     const upload4 = (e)=>{
         //company pan
@@ -159,14 +107,13 @@ function RecruiterHome(props) {
         const formdata = new FormData();
         if(!Array.isArray(e.target.files[0])){
           formdata.append('file',e.target.files[0])
-          formdata.append('collectionName',"Recruiter")
-          formdata.append('type',"image")
-          formdata.append('profile','pan')
+          formdata.append('dataType',"pan")
+          formdata.append("recruiterId",props.user.userInfo._id)
           if(userInfo.pan.length>0){
-            formdata.append('previousfile',userInfo.pan)
+            formdata.append('img',userInfo.pan)
           }
           //props.setLoading(true)
-        axios.post(`${process.env.REACT_APP_DEVELOPMENT}/upload`,formdata,{headers:{Accept:'application/json','Content-Type':"multipart/form-data",token:props.user.user}})
+        axios.post(`${process.env.REACT_APP_DEVELOPMENT}/upload-recruiter-data`,formdata,{headers:{Accept:'application/json','Content-Type':"multipart/form-data",token:props.user.user}})
         .then(res=>{
             //props.setLoading(false)
             //props.getUserInfo(props.user.user)
@@ -314,7 +261,7 @@ function RecruiterHome(props) {
                             <div className="col-2">
                                 <InsertDriveFileIcon color="primary" />
                             </div>
-                            <div className="col-8 underline-hover" onClick={()=>window.open(`${process.env.REACT_APP_DEVELOPMENT}/api/image/${userInfo.pan}`, '_blank')}>
+                            <div className="col-8 underline-hover" onClick={()=>window.open(`${process.env.REACT_APP_DEVELOPMENT}/api/pdf/${userInfo.pan}`, '_blank')}>
                                 <h4>{userInfo.fullName}'s Pan.{userInfo.pan.split(".")[1]}</h4>
                                 <p>Click to view pan</p>
                             </div>

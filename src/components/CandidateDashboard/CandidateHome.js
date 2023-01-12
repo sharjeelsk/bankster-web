@@ -62,39 +62,17 @@ function CandidateHome(props) {
         })
     },[flag])
 
-    const upload = (e)=>{
-        console.log(e.target.files[0])
-        const formdata = new FormData();
-        if(!Array.isArray(e.target.files[0])){
-          formdata.append('file',e.target.files[0])
-          formdata.append('collectionName',"Candidate")
-          formdata.append('type',"image")
-          //props.setLoading(true)
-        axios.post(`${process.env.REACT_APP_DEVELOPMENT}/upload`,formdata,{headers:{Accept:'application/json','Content-Type':"multipart/form-data",token:props.user.user}})
-        .then(res=>{
-            //props.setLoading(false)
-            //props.getUserInfo(props.user.user)
-            console.log(res)
-            props.setSnackbar({type:"success",text:"Profile Changed Successfully",open:true})
-            setFlag(!flag)
-          
-        })
-        .catch(err=>{
-          //props.setLoading(false)
-        })
-    }
-    }
 
     const upload2 = (e)=>{
         console.log(e.target.files[0])
         const formdata = new FormData();
         if(!Array.isArray(e.target.files[0])){
           formdata.append('file',e.target.files[0])
-          formdata.append('collectionName',"Candidate")
-          formdata.append('type',"pdf")
+          formdata.append('candidateId',props.user.userInfo._id)
+          formdata.append('img',props.user.userInfo.resume)
           //props.setLoading(true)
           console.log(formdata)
-        axios.post(`${process.env.REACT_APP_DEVELOPMENT}/upload`,formdata,{headers:{Accept:'application/json','Content-Type':"multipart/form-data",token:props.user.user}})
+        axios.post(`${process.env.REACT_APP_DEVELOPMENT}/upload-candidate-resume`,formdata,{headers:{Accept:'application/json','Content-Type':"multipart/form-data",token:props.user.user}})
         .then(res=>{
             //props.setLoading(false)
             //props.getUserInfo(props.user.user)
