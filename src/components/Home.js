@@ -66,18 +66,18 @@ function Home(props) {
             showIndicators={false}
             showThumbs={false}
             >
-                <div className="row mx-5 align-items-center justify-content-center">
+                <div className="row mx-5 justify-content-center">
                     {
                         jobData.totalLocations
                         .slice(0,jobData.totalLocations.length/2)
-                        .map((item,index)=><p className="m-2" key={index}>{item._id}</p>)
+                        .map((item,index)=><p className="mx-2" key={index}>{item._id} |</p>)
                     }
                 </div>
-                <div className="row mx-5 align-items-center justify-content-center">
+                <div className="row mx-5 justify-content-center">
                     {
                         jobData.totalLocations
                         .slice(jobData.totalLocations.length/2,jobData.totalLocations.length)
-                        .map((item,index)=><p className="m-2" key={index}>{item._id}</p>)
+                        .map((item,index)=><p className="mx-2" key={index}>{item._id} |</p>)
                     }
                 </div>
                 {/* <div className="row mx-3">
@@ -90,15 +90,56 @@ function Home(props) {
             </Carousel>
             </>}
 
-           <div className="partner-section">
-           <h3>Our <span className="primarycolorwh">Partners</span></h3>
-           <img src="/logo2.png" alt="logo1" />
-           <img src="/logo3.png" alt="logo1" />
-           <img src="/logo4.png" alt="logo1" />
-           <img src="/logo2.png" alt="logo1" />
-           </div>
+            <h3>Our <span className="primarycolorwh">Partners</span></h3>
 
-           <img className="my-3" src="/banners/banner1.png" alt="oneplus" />
+            <Carousel autoPlay
+            infiniteLoop
+            showIndicators={false}
+            showThumbs={false}
+            >
+                <div className="row mx-5 justify-content-center">
+                    {
+                        <div className='partner-section'>
+                        <img src="/logo2.png" alt="logo1" />
+                        <img src="/logo2.png" alt="logo1" />
+                        <img src="/logo2.png" alt="logo1" />
+                        <img src="/logo2.png" alt="logo1" />
+                        <img src="/logo2.png" alt="logo1" />
+                        <img src="/logo2.png" alt="logo1" />
+                        <img src="/logo2.png" alt="logo1" />
+                        <img src="/logo2.png" alt="logo1" />
+                        <img src="/logo2.png" alt="logo1" />
+                        <img src="/logo2.png" alt="logo1" />
+                        </div>
+                    }
+                </div>
+                <div className="row mx-5 justify-content-center">
+                    {
+                        <div className='partner-section'>
+                        <img src="/logo2.png" alt="logo1" />
+                        <img src="/logo2.png" alt="logo1" />
+                        <img src="/logo2.png" alt="logo1" />
+                        <img src="/logo2.png" alt="logo1" />
+                        <img src="/logo2.png" alt="logo1" />
+                        <img src="/logo2.png" alt="logo1" />
+                        <img src="/logo2.png" alt="logo1" />
+                        <img src="/logo2.png" alt="logo1" />
+                        <img src="/logo2.png" alt="logo1" />
+                        <img src="/logo2.png" alt="logo1" />
+                        </div>
+                    }
+                </div>
+                {/* <div className="row mx-3">
+                    {
+                        jobData.totalLocations
+                        .slice(0,jobData.totalLocations.length/2)
+                        .map((item,index)=><p className="m-2" key={index}>{item._id}</p>)
+                    }
+                </div> */}
+            </Carousel>
+
+
+
 
            <div className="bankster-jobs">
             <h3><span className="primarycolorwh">Bankster</span> Jobs</h3>
@@ -112,8 +153,8 @@ function Home(props) {
  
            <div className="row m-auto popular-role-head">
                 <div className="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 left">
-                    <h4>Popular Products on Bankster</h4>
-                    <p>Ullamco elit ut ullamco magna eu Lorem amet cupidatat aliqua excepteur anim elit in.</p>
+                    <h4>Popular Products Job on Bankster</h4>
+                    <p>These are the popular products having high number of jobs.</p>
                 </div>
                 <div className="col-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 right row m-auto justify-content-between">
                     {
@@ -131,7 +172,6 @@ function Home(props) {
                 </div>
            </div>
 
-           <img className="my-3" src="/banners/banner2.png" alt="oneplus" />
 
            <div className="bankster-jobs mt-5">
             <h3><span className="primarycolorwh">Featured</span> Jobs</h3>
@@ -149,7 +189,7 @@ function Home(props) {
                 </div>
                 <div className="col-12 col-sm-12 col-md-8 col-lg-8 col-xl-8">
                     <h4>Get Matched the most valuable jobs, Just Drop Your CV at <span className="primarycolorwh">Bankster India</span></h4>
-                    <p>
+                    <p style={{color:"black"}}> 
                     Get Matched for the most valuable jobs, Just Drop Your CV at Bankster India. 
                     Just upload your cv in a few steps and get the right job at the right place at the right time 
                     <br />
@@ -164,7 +204,7 @@ function Home(props) {
                     <span style={{color:"black"}}><b>Step 5: In the upper right corner you will see the upload cv button, click on that button and attach your updated cv.   </b></span>
                     <br />
 
-                    We will get back to you on the availability of a position suitable for your profile. 
+                    <p style={{color:"black"}}>We will get back to you on the availability of a position suitable for your profile. </p>
 
                     </p>
                 </div>
@@ -190,7 +230,7 @@ function Home(props) {
                 </section>
            </div>
 
-           <img className="my-3" src="/banners/banner3.png" alt="oneplus" />
+           <img className="my-3" src="/banners/banner1.png" alt="oneplus" />
 
                 <Footer />
         </div>

@@ -34,7 +34,7 @@ function Footer() {
                 <Link className="link" to="/terms">Terms and Conditions</Link>
                 </div>
                 <div className="col-4">
-                <Link className="link" to="#">Careers</Link>
+                <Link className="link" to="/blogs">Blogs</Link>
                 <Link className="link" to="/refundpolicy">Refund Policy</Link>
                 <Link className="link" to="/contactus">Contact Us</Link>
                 <Link className="link" to="/findjobs">Find Jobs</Link>

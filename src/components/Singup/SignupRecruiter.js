@@ -33,6 +33,7 @@ const Login = (props) => {
   const [plan, setPlan] = React.useState('');
   const [paymentMethod,setPaymentMethod]=React.useState('Online')
   const [error,setError]=React.useState("")
+  const [candidateTotal,setCandidateTotal] = React.useState("...")
 
   const handleRadioChange = (event) => {
     setPlan(event.target.value);
@@ -119,6 +120,11 @@ const Login = (props) => {
     })
     .catch(err=>{
       console.log(err)
+    })
+    axios.get(`${process.env.REACT_APP_DEVELOPMENT}/api/candidate/getAllCandidatesLength`)
+    .then(res=>{
+      console.log(res)
+      setCandidateTotal(res.data.result)
     })
   },[])
 
@@ -240,8 +246,8 @@ const Login = (props) => {
                 marginLeft:'5%'
                 ,fontSize: '3em'
               }}>
-                Get Job to <br />
-                <span  className="primarycolorwh">2440</span> Jobs <br /> Applicants
+                Get Access to <br />
+                <span  className="primarycolorwh">{candidateTotal}</span> Candidate <br /> Applications
               </h1>
               <h5    style={{
                 marginLeft:'5%'
@@ -257,8 +263,11 @@ const Login = (props) => {
               <div className="shadow-sm plan-auth-cont">
               <h1>{item.name}</h1>
               <h2>${item.amount}/month</h2>
-              <p><TaskAltIcon /> {item.cvAccess} resume access</p>
-              <p><TaskAltIcon /> {item.jobPostings} job postings</p>
+              {/* <p><TaskAltIcon /> {item.cvAccess} resume access</p>
+              <p><TaskAltIcon /> {item.jobPostings} job postings</p> */}
+              {
+                item.features.map((i,ind)=><p key={ind}><TaskAltIcon /> {i}</p>)
+              }
              </div> 
               ):null
              }

@@ -32,7 +32,8 @@ const {handleSubmit,formState:{errors},register}=useForm()
 
             </div>
             <div className="col-8">
-                map
+                <img className="w-100" src="/location.png" alt="location" />
+                <p className="mt-3"><b>Address:</b> 21 I-Block, 21, Sector 3, Gurugram, Haryana 122022</p>
             </div>
         </div>
         

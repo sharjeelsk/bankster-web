@@ -1,5 +1,9 @@
 @import  "../../App.scss";
 
+.bg-pink{
+    background-color: $secondary;
+}
+
 .page-section{
     padding: 0 5%;
     h1{
@@ -19,4 +23,23 @@
             font-family: $secondary-font;
         }
     }
+    .blog-container{
+        background-color: $secondary;
+        img{
+            display: block;
+            margin: auto;
+            border-radius: 100%;
+            width: 100%;
+        }
+        .blog-head{
+            padding: 2%;
+            margin: 2% 10% !important;
+            background-color: white;
+            border-radius: 10px;
+        }
+    }
+}
+
+.w-100{
+    width: 100%;
 }

@@ -29,6 +29,7 @@ const Login = (props) => {
     const {handleSubmit,register,formState:{errors}}=useForm();
     const [radio,setRadio] = React.useState('true')
     const [error,setError]=React.useState("")
+    const [jobTotal,setJobTotal] = React.useState("...")
     const [values, setValues] = React.useState({
         email: "",
         password: "",
@@ -85,6 +86,14 @@ const Login = (props) => {
         })
     }
 
+    React.useEffect(()=>{
+        axios.get(`${process.env.REACT_APP_DEVELOPMENT}/api/job/getJobTotal`)
+        .then(res=>{
+          console.log(res)
+          setJobTotal(res.data.result)
+        })
+    },[])
+
     return (
         <div>
             <section>
@@ -100,8 +109,8 @@ const Login = (props) => {
                                     marginLeft: '5%'
                                     , fontSize: '3em'
                                 }}>
-                                    Get Job to <br />
-                                    <span className="primarycolorwh">1740</span> Jobs
+                                    Get Access to <br />
+                                    <span className="primarycolorwh">{jobTotal}</span> Jobs
                                 </h1>
                                 <h5 style={{
                                     marginLeft: '5%'
