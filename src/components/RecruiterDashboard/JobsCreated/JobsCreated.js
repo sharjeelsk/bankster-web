@@ -134,7 +134,7 @@ function JobsCreated(props) {
                             <Rating name="read-only" value={3} readOnly />
                             </div>
                             <div>
-                            <p className="total-reviews">(47 Reviews)</p>
+                            <p className="total-reviews">(Based on Job Details)</p>
                             </div>
                         </div>
                     <div className="row my-2 mx-auto key-features">

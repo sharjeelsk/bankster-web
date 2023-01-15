@@ -31,14 +31,14 @@ const renderNameString = (createdBy)=>{
   if(createdBy){
       if(Array.isArray(createdBy) && createdBy.length>0){
           if(createdBy[0].companyName.length>0){
-              return createdBy[0].companyName
+              return createdBy[0].companyName.length>15?`${createdBy[0].companyName.substring(0,100)} ...`:createdBy[0].companyName
           }else{
               return ""
           }
           
       }else if(createdBy.companyName){
           if(createdBy.companyName.length>0){
-              return createdBy.companyName
+              return createdBy.companyName.length>15?`${createdBy.companyName.substring(0,100)} ...`:createdBy.companyName
           }else{
               return ""
           }
@@ -60,7 +60,7 @@ const renderNameString = (createdBy)=>{
             <p className="companylocation">{props.jobLocation.city}, {props.jobLocation.state}</p>
         </div>
     </div>
-    <h4 className="jobname">{props.title}</h4>
+    <h4 className="jobname">{props.title.length>15?`${props.title.substring(0,15)} ...`:props.title}</h4>
     <h5 className="product">{props.product}</h5>
     <p className="description">{props.jobDescription.length>100?`${props.jobDescription.substring(0,100)} ...`:props.jobDescription}</p>
     <p className="ctc"><span className="amount">₹{numberWithCommas(props.ctc.min)} - ₹{numberWithCommas(props.ctc.max)}</span></p>

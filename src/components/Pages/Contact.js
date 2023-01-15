@@ -33,7 +33,8 @@ const {handleSubmit,formState:{errors},register}=useForm()
             </div>
             <div className="col-8">
                 <img className="w-100" src="/location.png" alt="location" />
-                <p className="mt-3"><b>Address:</b> 21 I-Block, 21, Sector 3, Gurugram, Haryana 122022</p>
+                <p className="mt-3"><b>Address:</b> Unit No -3, H 272. Bharat Tower, Palam Vihar, Near Krishna Chowk, Gurugram, Haryana, India</p>
+                <p className="mt-3"><b>Email:</b> info@banksterindia.com</p>
             </div>
         </div>
         

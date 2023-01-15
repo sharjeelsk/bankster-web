@@ -14,7 +14,7 @@ function CandidateCard(props) {
             return "Fresher"
         }else if(props.workExperience.filter(i=>i.current===true).length>0){
             let strobj = props.workExperience.filter(i=>i.current===true)[0]
-            return `${strobj.designation} | ${strobj.name}`
+            return `${strobj.designation.length>15?`${strobj.designation.substring(0,15)}..`:strobj.designation} | ${strobj.name.length>15?`${strobj.name.substring(0,15)}..`:strobj.name}`
         }else{
             return "Currently Unemployed"
         }
@@ -32,11 +32,14 @@ function CandidateCard(props) {
     }
     const stringHide = (string,type)=>{
         if(props.hide && type==="fullName"){
-            return `**** ${string.split(" ")[1]}`
+            let finalString = `**** ${string.split(" ")[1]}`
+            return finalString.length>15?`${finalString.substring(0,15)} ...`:finalString
         }else if(props.hide && type==="mobileNo"){
-            return `${string.substr(0,2)} ****** ${string.substr(8,10)}`
+            let finalString = `${string.substr(0,2)} ****** ${string.substr(8,10)}`
+            return finalString.length>15?`${finalString.substring(0,15)} ...`:finalString
         }else if(props.hide && type==="email"){
-            return `******* @${string.split("@")[1]}`
+            let finalString = `******* @${string.split("@")[1]}`
+            return finalString.length>15?`${finalString.substring(0,15)} ...`:finalString
         }
         else{
             return string
@@ -44,7 +47,7 @@ function CandidateCard(props) {
     }
 
   return (
-    <div className="candidate-card shadow-sm row m-auto">
+    <div className="candidate-card shadow-sm row my- mx-auto">
         <div className="col-3 img-div">
             <img src={props.profilePicture?`${process.env.REACT_APP_DEVELOPMENT}/api/image/${props.profilePicture}`:"/avatar.png"} alt="avatar" />
         </div>

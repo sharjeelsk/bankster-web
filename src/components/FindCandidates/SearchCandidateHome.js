@@ -56,11 +56,10 @@ function SearchCandidateHome(props) {
     <div>
         <Header id="3" />
         {data&&<section className="search-candidate-home">
-        <img className="my-3 width-100" src="/banners/bannerCandidate1.png" alt="oneplus" />
         <h1 className="px-3">Featured Candidates</h1>
         <div className="row m-auto">
          {
-            data.featuredCandidates.map((item,index)=><div className="col-3" key={index}>
+            data.featuredCandidates.map((item,index)=><div className="col-3" style={{marginTop:"2%",marginBottom:"2%"}} key={index}>
                 <CandidateCard 
                 hide={renderHide()}
                 {...item}
@@ -80,7 +79,19 @@ function SearchCandidateHome(props) {
         <h1 className="px-3">Immediate Joiner</h1>
         <div className="row m-auto">
         {
-            data.immediateJoiner.map((item,index)=><div className="col-3" key={index}>
+            data.immediateJoiner.map((item,index)=><div className="col-3" style={{marginTop:"2%",marginBottom:"2%"}} key={index}>
+                <CandidateCard 
+                hide={renderHide()}
+                {...item}
+                />
+            </div>)
+         }  
+         </div>
+
+         <h1 className="px-3">Latest Candidates</h1>
+        <div className="row m-auto">
+        {
+            data.latestCandidate.map((item,index)=><div className="col-3" style={{marginTop:"2%",marginBottom:"2%"}} key={index}>
                 <CandidateCard 
                 hide={renderHide()}
                 {...item}

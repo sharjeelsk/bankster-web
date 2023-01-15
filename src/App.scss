@@ -27,7 +27,9 @@ p,span{
   font-size: 1.5em;
   color: black;
 }
-
+.cursor-pointer:hover{
+  cursor: pointer;
+}
 .underline-hover:hover{
   text-decoration: underline;
   cursor: pointer;

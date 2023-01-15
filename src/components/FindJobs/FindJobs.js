@@ -34,14 +34,15 @@ const [jobs,setJobs]=React.useState([])
 const urlParams = new URLSearchParams(window.location.search);
 const [bookmarked,setBookmarked]=React.useState(false)
 const [flag,setFlag] = React.useState(false)
-const title = urlParams.get('title');
-const location = urlParams.get('location');
-const salary = urlParams.get('salary');
+let title = urlParams.get('title');
+let location = urlParams.get('location');
+let salary = urlParams.get('salary');
 const [jobTags,setJobTags] = React.useState(null)
 const [companyImg,setCompanyImg] = React.useState(null)
 const [sort,setSort]=React.useState(-1)
 const [limit,setLimit] = React.useState({req1:20,req2:20,req3:20})
-console.log(title,location,salary,jobs,props)
+const [keyword,setKeyword] = React.useState("")
+console.log(title)
 
 
 const [anchorEl, setAnchorEl] = React.useState(null);
@@ -64,11 +65,16 @@ const id = open ? 'simple-popover' : undefined;
 
 React.useEffect(()=>{
     ///api/job/searchJobs
-    setTimeout(() => {
-        if(title || location || salary){
+    // if (window.performance) {
+    //     if (window.performance.navigation.type === 1) {
+    //       props.location.search("")
+    //     } 
+    //   }
+        if(title!==null){
             axios.post(`${process.env.REACT_APP_DEVELOPMENT}/api/job/searchJobs`,{title:title?title:"",city:location?location:"",salary:salary?salary:"",limit:limit.req1},{headers:{token:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRyaXZlc2hAYmFua3N0ZXIuY29tIiwiX2lkIjoiNjJmM2E3ZjA0ODA4OWE4MDFkM2E3ODA3IiwiaWF0IjoxNjYxMTUyOTUwfQ.yI7xfT8AUAs4NM1S3xsw5xnttnr-cYmHdty0r_itRes"}})
             .then(res=>{
                 console.log(res)
+                setKeyword(title)
                 setJobs(res.data.result)
             })
             .catch(err=>{
@@ -94,7 +100,6 @@ React.useEffect(()=>{
                 console.log(err)
             })
         }
-    }, 1000);
     axios.get(`${process.env.REACT_APP_DEVELOPMENT}/api/admin/getFeaturedData`)
     .then(res=>{
         console.log(res)
@@ -105,6 +110,21 @@ React.useEffect(()=>{
     })
     
 },[title,location,salary,flag,sort,limit])
+
+
+const getAllJobs = ()=>{
+    axios.post(`${process.env.REACT_APP_DEVELOPMENT}/api/job/searchJobs`,{title:"",limit:limit.req1})
+    .then(res=>{
+        console.log(res)
+        setKeyword(title)
+        setJobs(res.data.result)
+    })
+    .catch(err=>{
+        console.log(err)
+    })
+}
+
+
 
 
 const handleBookmarkAdd = (jobId)=>{
@@ -195,17 +215,19 @@ const findJob = (type,value)=>{
         axios.post(`${process.env.REACT_APP_DEVELOPMENT}/api/job/searchJobViaCompany`,{companyName:value})
         .then(res=>{
             console.log(res)
-            if(res.data.result.length>0){
-                setJobs(res.data.result)
+            if(res.data.result.length<=0){
+                setKeyword(value)
             }
+            setJobs(res.data.result)
         })
     }else if(type==="jobTag"){
         axios.post(`${process.env.REACT_APP_DEVELOPMENT}/api/job/searchJobViaTag`,{tags:[value]})
         .then(res=>{
             console.log(res)
-            if(res.data.result.length>0){
-                setJobs(res.data.result)
+            if(res.data.result.length<=0){
+                setKeyword(value)
             }
+                setJobs(res.data.result)
         })
     }
 }
@@ -229,7 +251,7 @@ const findJob = (type,value)=>{
             <div className='p-0 col-12 col-sm-12 col-md-7 col-lg-7 col-xl-7 find-jobs-content'>
                 <SearchBar fullWidth={true} />
                 <div className="mt-4">
-                <Button
+                <span className="ml-3"><b>Sort:</b></span> <Button
                     id="basic-button"
                     aria-controls={open ? 'basic-menu' : undefined}
                     aria-haspopup="true"
@@ -251,6 +273,7 @@ const findJob = (type,value)=>{
                     <MenuItem onClick={()=>handleClose(-1)}>Latest</MenuItem>
                     <MenuItem onClick={()=>handleClose(1)}>Oldest</MenuItem>
                 </Menu>
+                <span className="ml-3"><b>View:</b></span><Button className="ml-auto" onClick={()=>getAllJobs()}>All Jobs</Button>
                 </div>
                 {
                     jobs.length>0?jobs.map((item,index)=>(
@@ -261,14 +284,14 @@ const findJob = (type,value)=>{
                     <div className='content-div col-12 col-sm-12 col-md-9 col-lg-9 col-xl-9'>
                     <Link className="link" to={`/jobdetail/${item._id}`}>
                         <h3>{item.title}</h3>
-                        {/* <p className="company-name m-0">{item.createdBy.companyName}</p> */}
+                        <p className="company-name m-0">{item.createdBy?item.createdBy.companyName:item.createdByAdmin.companyName}</p>
                         <h4 className="m-0">{item.product}</h4>
                             <div className='row m-auto align-items-center'>
                                 <div>
                                 <Rating name="read-only" value={renderRating(item)} readOnly />
                                 </div>
                                 <div>
-                                <p className="total-reviews">(47 Reviews)</p>
+                                <p className="total-reviews">(Based on Job Details)</p>
                                 </div>
                             </div>
                         <div className="row my-2 mx-auto key-features">
@@ -344,7 +367,7 @@ const findJob = (type,value)=>{
                     </div>
                 </section>
                     )):
-                    <h1>Sorry, No Jobs Available for "{title}"</h1>
+                    <h1>Sorry, No Jobs Available for "{keyword}"</h1>
                 }
                 {
                     jobs.length>0?
@@ -366,7 +389,7 @@ const findJob = (type,value)=>{
                     <h4><SearchIcon /> Search Jobs Via Company</h4>
                     
                     {
-                        companyImg&&companyImg.map((item,index)=><img onClick={()=>findJob(item.type,item.name)} key={index} src={`${process.env.REACT_APP_DEVELOPMENT}/api/image/${item.img}`} alt="logo2" />)
+                        companyImg&&companyImg.map((item,index)=><img className="cursor-pointer" onClick={()=>findJob(item.type,item.name)} key={index} src={`${process.env.REACT_APP_DEVELOPMENT}/api/image/${item.img}`} alt="logo2" />)
                     }
                 </section>
 

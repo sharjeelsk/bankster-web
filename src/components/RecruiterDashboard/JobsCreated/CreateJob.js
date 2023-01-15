@@ -170,27 +170,30 @@ function CreateJob(props) {
             creditId:props.user.userInfo.availablePlanCredits._id
         }
         console.log(obj)
-        if(props.location.state){
-            //edit job
-            axios.post(`${process.env.REACT_APP_DEVELOPMENT}/api/job/editJob`,{jobObject:obj,jobId:props.location.state._id},{headers:{token:props.user.user}})
-            .then(res=>{
-                console.log(res)
-                props.history.push('/jobscreated')
-            })
-            .catch(err=>{
-                console.log(err)
-            })
-        }else{
-            //create job
-            axios.post(`${process.env.REACT_APP_DEVELOPMENT}/api/job/createJob`,{...obj},{headers:{token:props.user.user}})
-            .then(res=>{
-                console.log(res)
-                props.history.push('/jobscreated')
-            })
-            .catch(err=>{
-                console.log(err)
-            })
+        if(formValues.jobDescription.length>100){
+            if(props.location.state){
+                //edit job
+                axios.post(`${process.env.REACT_APP_DEVELOPMENT}/api/job/editJob`,{jobObject:obj,jobId:props.location.state._id},{headers:{token:props.user.user}})
+                .then(res=>{
+                    console.log(res)
+                    props.history.push('/jobscreated')
+                })
+                .catch(err=>{
+                    console.log(err)
+                })
+            }else{
+                //create job
+                axios.post(`${process.env.REACT_APP_DEVELOPMENT}/api/job/createJob`,{...obj},{headers:{token:props.user.user}})
+                .then(res=>{
+                    console.log(res)
+                    props.history.push('/jobscreated')
+                })
+                .catch(err=>{
+                    console.log(err)
+                })
+            }
         }
+        
         
     }
 
@@ -376,6 +379,7 @@ function CreateJob(props) {
                     fullWidth
                     value={formValues.jobDescription}
                     onChange={(e)=>setFormValues({...formValues,jobDescription:e.target.value})}
+                    error={formValues.jobDescription.length<=100?true:false}
                     className="my-3"
                     id="filled-multiline-static"
                     label="Job Description"
@@ -383,6 +387,7 @@ function CreateJob(props) {
                     rows={4}
                     variant="filled"
                     />
+                    <p className="my-2">Job Description should be greater than 100 characters</p>
 
                     <div className="row my-3 mx-auto align-items-center">
                         <div className="col-10 p-0">
