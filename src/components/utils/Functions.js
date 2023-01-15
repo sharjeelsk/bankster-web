@@ -10,7 +10,25 @@ export function getAge(dateString)
     }
     return age;
 }
-
+export const renderImageString = (createdBy)=>{
+    if(createdBy && Array.isArray(createdBy)){
+        if(createdBy[0].companyImg.length>0){
+            return `${process.env.REACT_APP_DEVELOPMENT}/api/image/${createdBy[0].companyImg}`
+        }else{
+            return '/job-offer.png'
+        }
+        
+    }else if(createdBy && createdBy.companyImg){
+        if(createdBy.companyImg.length>0){
+            return `${process.env.REACT_APP_DEVELOPMENT}/api/image/${createdBy.companyImg}`
+        }else{
+            return '/job-offer.png'
+        }
+        
+    }else{
+        return '/job-offer.png'
+    }
+}
 export const renderRating = (singleJob)=>{
     let total = 0;
     if(singleJob.age.min && singleJob.age.max){

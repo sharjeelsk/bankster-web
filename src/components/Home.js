@@ -158,7 +158,8 @@ function Home(props) {
                 </div>
                 <div className="col-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 right row m-auto justify-content-between">
                     {
-                        jobData&&jobData.product.map((item,index)=><div key={index} onClick={()=>props.history.push("/findjobs",{key:"product",value:item._id})} className="shadow single-card col-5 row m-auto align-items-center justify-content-between">
+                        jobData&&jobData.product.map((item,index)=>
+                        <div key={index} onClick={()=>props.history.push("/findjobs",{key:"product",value:item._id})} className="shadow single-card col-12 col-sm-12 col-md-5 col-lg-5 col-xl-5 row m-auto align-items-center justify-content-between">
                         <div>
                         <h4>{item._id}</h4>
                         <p>{item.count} jobs</p>
@@ -230,7 +231,7 @@ function Home(props) {
                 </section>
            </div>
 
-           <img className="my-3" src="/banners/banner1.png" alt="oneplus" />
+           <img className="w-100 my-3" src="/banners/banner1.png" alt="oneplus" />
 
                 <Footer />
         </div>

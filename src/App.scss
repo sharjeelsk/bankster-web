@@ -118,10 +118,10 @@ p,span{
 }
 @media (max-width: 576px) {
   .alert{
-    position: absolute;
-    bottom: 0;
-    z-index: 5;
-    left: 0%;
+    // position: absolute;
+    // bottom: 0;
+    // z-index: 5;
+    // left: 0%;
   }
   .display-mobile{
     display: contents;
@@ -132,7 +132,13 @@ p,span{
   .mobile-center{
     text-align: center;
   }
+  .mobile-right{
+    text-align: right;
+  }
   .mobile-visible{
     display: visible;
+  }
+  .mo-m-2{
+    margin: 3% 0 !important;
   }
 }

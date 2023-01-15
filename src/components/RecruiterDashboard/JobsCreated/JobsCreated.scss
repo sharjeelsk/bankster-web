@@ -56,3 +56,25 @@
 .bold-text{
     font-weight: bold;
 }
+
+
+@media (max-width: 992px) {
+
+}
+@media (max-width: 768px) {
+
+
+}
+@media (max-width: 576px) {
+.candidate-single-job{
+    .tagline{
+        margin: 2% !important;
+    }
+    .status-div{
+        margin: 5% 0 !important;
+    }
+    .resume-cont{
+        margin: 5% 0 !important;
+    }
+}
+}

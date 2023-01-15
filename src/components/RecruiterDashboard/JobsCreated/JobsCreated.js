@@ -169,7 +169,7 @@ function JobsCreated(props) {
    
    
                 </div>
-                <div className="bookmark-div col-2">
+                <div className="bookmark-div col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 mobile-right">
                    <IconButton onClick={()=>props.history.push("/createjob",item)}>
                     <EditIcon sx={{fontSize:23}} />
                    </IconButton>

@@ -65,14 +65,14 @@ function JobsApplied(props) {
         })
     }
     const renderImageString = (createdBy)=>{
-        if(Array.isArray(createdBy)){
+        if(createdBy && Array.isArray(createdBy)){
             if(createdBy[0].companyImg.length>0){
                 return `${process.env.REACT_APP_DEVELOPMENT}/api/image/${createdBy[0].companyImg}`
             }else{
                 return '/job-offer.png'
             }
             
-        }else if(createdBy.companyImg){
+        }else if(createdBy && createdBy.companyImg){
             if(createdBy.companyImg.length>0){
                 return `${process.env.REACT_APP_DEVELOPMENT}/api/image/${createdBy.companyImg}`
             }else{

@@ -19,6 +19,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import { Link } from 'react-router-dom';
 import "../JobsApplied/JobsApplied.scss"
 import {Button} from '@mui/material'
+import {renderImageString} from '../../utils/Functions'
 
 function BookmarkedJobs(props) {
     const [display,setDisplay]=React.useState(false)
@@ -47,25 +48,7 @@ function BookmarkedJobs(props) {
         return status;
     }
 
-    const renderImageString = (createdBy)=>{
-        if(Array.isArray(createdBy)){
-            if(createdBy[0].companyImg.length>0){
-                return `${process.env.REACT_APP_DEVELOPMENT}/api/image/${createdBy[0].companyImg}`
-            }else{
-                return '/job-offer.png'
-            }
-            
-        }else if(createdBy.companyImg){
-            if(createdBy.companyImg.length>0){
-                return `${process.env.REACT_APP_DEVELOPMENT}/api/image/${createdBy.companyImg}`
-            }else{
-                return '/job-offer.png'
-            }
-            
-        }else{
-            return '/job-offer.png'
-        }
-    }
+
     return (
         <>
 
@@ -86,7 +69,7 @@ function BookmarkedJobs(props) {
             <div className="row my-auto job-head-a">
              {
              jobsApplied.length>0?
-             jobsApplied.map((item,index)=><Link key={index} className="link" to={`/jobdetail/${item.job._id}`}>
+             jobsApplied.map((item,index)=>Object.keys(item.job).length>2&&<Link key={index} className="link" to={`/jobdetail/${item.job._id}`}>
              <section className={`col-12 shadow-sm job-apply-head row m-auto`} style={{backgroundColor:"white"}}>
              <div className='img-div col-12 col-sm-12 col-md-1 col-lg-1 col-xl-1'>
                  <img src={item.createdByAdmin?renderImageString(item.createdByAdmin):renderImageString(item.createdBy)} alt="logo1" />

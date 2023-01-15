@@ -231,7 +231,19 @@ const findJob = (type,value)=>{
         })
     }
 }
+const checkDisabled = (item)=>{
+    let disabled = false;
+    if(props.user.user){
+        item.jobCandidates.map(item=>{
+            if(item.user===props.user.userInfo._id){
+                disabled = true
+            }
+        })
+    }
 
+    return disabled
+    
+}
   return (
     <div>
         <Header id="2" />
@@ -284,7 +296,8 @@ const findJob = (type,value)=>{
                     <div className='content-div col-12 col-sm-12 col-md-9 col-lg-9 col-xl-9'>
                     <Link className="link" to={`/jobdetail/${item._id}`}>
                         <h3>{item.title}</h3>
-                        <p className="company-name m-0">{item.createdBy?item.createdBy.companyName:item.createdByAdmin.companyName}</p>
+                        {/* <p className="company-name m-0">{item.createdBy?item.createdBy.companyName:item.createdByAdmin.companyName}</p> */}
+                        <p className="company-name m-0">{item.companyName}</p>
                         <h4 className="m-0">{item.product}</h4>
                             <div className='row m-auto align-items-center'>
                                 <div>
@@ -336,7 +349,7 @@ const findJob = (type,value)=>{
                             {props.user.userType===0?
                             <>
                             {!renderApplied(item)?
-                            <Button onClick={()=>handleJobApply(true,item)} fullWidth className="my-3" variant='contained'>Click to Apply For this job</Button>:
+                            <Button disabled={checkDisabled(item)} onClick={()=>handleJobApply(true,item)} fullWidth className="my-3" variant='contained'>Click to Apply For this job</Button>:
                                 
                             null
                             }

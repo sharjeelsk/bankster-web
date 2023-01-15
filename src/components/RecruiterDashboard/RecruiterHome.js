@@ -329,10 +329,10 @@ function RecruiterHome(props) {
                 <h3>{userInfo.companyName}</h3>
                 <p className="grey-text">{userInfo.companyDescription}</p>
                 <div className="row m-auto">
-                    <div className="col-6 key-holders">
+                    <div className="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 key-holders">
                         <p><LocationOnIcon /> {userInfo.companyLocation.city}, {userInfo.companyLocation.state}</p>
                     </div>
-                    <div className="col-6 key-holders">
+                    <div className="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 key-holders">
                         <Link to={{ pathname: userInfo.companyUrl }} target="_blank"><p><LinkIcon /> {userInfo.companyUrl}</p></Link>
                     </div>
                 </div>
@@ -341,7 +341,7 @@ function RecruiterHome(props) {
                     userInfo.companyTags.map((item,index)=><Chip key={index} color="primary" className="m-2" label={item} />)
                 }
                 </div>
-                <div className="col-1">
+                <div className="col-12 col-sm-12 col-md-1 col-lg-1 col-xl-1 mobile-right">
                     {!userInfo.subRecruiter&&<IconButton onClick={()=>setOpen6(true)}>
                         <EditIcon />
                     </IconButton>}
@@ -377,10 +377,16 @@ function RecruiterHome(props) {
                     </div>
 
                     <div className="ml-2">
-                        <h2>{dashboardData&&Math.ceil(
+                        <h2>{
+                        dashboardData!==null&&(isNaN(Math.ceil(
                             (dashboardData.hiredCandidates[0].total/
                             (dashboardData.hiredCandidates[0].total+dashboardData.pendingCandidates[0].total+dashboardData.rejectedCandidates[0].total))*100
-                            )}%</h2>
+                            ))?0:
+                            (Math.ceil(
+                                (dashboardData.hiredCandidates[0].total/
+                                (dashboardData.hiredCandidates[0].total+dashboardData.pendingCandidates[0].total+dashboardData.rejectedCandidates[0].total))*100
+                                )))
+                        }%</h2>
                     </div>
                 </div>
             </section>

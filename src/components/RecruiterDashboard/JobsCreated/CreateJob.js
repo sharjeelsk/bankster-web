@@ -232,7 +232,7 @@ function CreateJob(props) {
             </section>
             :<section className="create-job row m-auto">
                 {/* <form onSubmit={()=>handleSubmit(onSubmit)}> */}
-                <div className="col-5 job-form">
+                <div className="col-12 col-sm-12 col-md-5 col-lg-5 col-xl-5 job-form">
                     <h2>Create Job</h2>
                     <TextField inputProps={{maxLength:30}} disabled={props.location.state?true:false} value={formValues.title} onChange={(e)=>setFormValues({...formValues,title:e.target.value})} fullWidth variant='outlined' id="outlined-basic" label="Job Title" className="mt-2 mb-3" />
                     <div className="my-4">
@@ -484,7 +484,7 @@ function CreateJob(props) {
 
 
                 </div>
-                <div className="col-7 sample-form">
+                <div className="col-12 col-sm-12 col-md-7 col-lg-7 col-xl-7 sample-form">
                     <h2 className="sample-form-main-heading">Sample Form</h2>
                     <p style={{textAlign:"center"}}>After entering the details your job will look like this</p>
                     {

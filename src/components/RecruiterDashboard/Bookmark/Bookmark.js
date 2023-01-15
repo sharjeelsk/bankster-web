@@ -129,10 +129,10 @@ function Bookmark(props) {
                 candidates.length>0?candidates.map((item,index)=>
                 <section className="candidate-single-job shadow-sm" key={index}>
                         <div className="row m-auto">
-                            <div className="col-1">
+                            <div className="col-3 col-sm-1 col-md-1 col-lg-1 col-xl-1">
                             <img src={`${process.env.REACT_APP_DEVELOPMENT}/api/image/${item.profilePicture}`} alt="logo1" />
                             </div>
-                            <div className="col-5">
+                            <div className="col-9 col-sm-5 col-md-5 col-lg-5 col-xl-5">
                                 <h2>{item.fullName}</h2>
                                 <p className="bold-text">{renderEmployementString(item)}</p>
                                 <p className="bold-text">{item.education.length>0?item.education.map(i=>{
@@ -145,7 +145,7 @@ function Bookmark(props) {
                                 {/* {item.workExperience.length>0&&item.workExperience.map((we,ind)=>we.current&&<p key={ind} className="bold-text">{we.name} | {we.designation}</p>)} */}
                                 <p className="bold-text">{item.education.length>0?`${item.education[0].name}, ${item.education[0].universityName}`:""}</p>
                             </div>
-                            <div className="col-5">
+                            <div className="col-10 col-sm-10 col-md-5 col-lg-5 col-xl-5">
                             {item.resume.length>0&&<div onClick={()=>{
                                 window.open(`${process.env.REACT_APP_DEVELOPMENT}/api/pdf/${item.resume}`, '_blank');
                                 axios.post(`${process.env.REACT_APP_DEVELOPMENT}/api/candidate/increaseProfileCount`,{candidateId:item._id},{headers:{token:props.user.user}})
@@ -187,7 +187,7 @@ function Bookmark(props) {
                             <p className="mx-2"><AlternateEmailIcon sx={{marginRight:.1}} /> <b>{item.email}</b></p>
                             <p className="mx-2"><LocationOnIcon sx={{marginRight:.1}} /> <b>{item.userLocation.city}, {item.userLocation.state}</b></p>
                         </div>
-                        <p>{item.resumeTagline}</p>
+                        <p className="tagline">{item.resumeTagline}</p>
                         {
                             item.skills.map((i,index)=><Chip label={i} key={index} color="primary" className="m-2" />)
                         }

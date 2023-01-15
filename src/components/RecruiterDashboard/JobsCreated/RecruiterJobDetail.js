@@ -289,7 +289,7 @@ function RecruiterJobDetail(props) {
                         </div>
 
                     </div>
-                    <div className="bookmark-div col-2">
+                    <div className="bookmark-div col-12 col-sm-2 col-md-2 col-lg-2 col-xl-2">
                         <h2>{singleJob.jobCandidates.length} Applied</h2>
                     </div>
                 </section>
@@ -304,10 +304,10 @@ function RecruiterJobDetail(props) {
                     <div className="mb-5" />
                     {filteredCandidates.length>0?filteredCandidates.map((item,index)=><section className="candidate-single-job shadow-sm" key={index}>
                         <div className="row m-auto">
-                            <div className="col-1">
+                            <div className="col-3 col-sm-3 col-md-1 col-lg-1 col-xl-1">
                             <img src={`${process.env.REACT_APP_DEVELOPMENT}/api/image/${item.user.profilePicture}`} alt="logo1" />
                             </div>
-                            <div className="col-5">
+                            <div className="col-9 col-sm-9 col-md-5 col-lg-5 col-xl-5">
                                 <h2>{item.user.fullName}</h2>
                                 <p className="bold-text">{renderEmployementString(item.user)}</p>
                                 <p className="bold-text">{item.user.education.length>0?item.user.education.map(i=>{
@@ -320,7 +320,7 @@ function RecruiterJobDetail(props) {
                                 {/* {item.user.workExperience.length>0&&item.user.workExperience.map((we,ind)=>we.current&&<p key={ind} className="bold-text">{we.name} | {we.designation}</p>)} */}
                                 <p className="bold-text">{item.user.education.length>0?`${item.user.education[0].name}, ${item.user.education[0].universityName}`:""}</p>
                             </div>
-                            <div className="col-5">
+                            <div className="col-10 col-sm-10 col-md-5 col-lg-5 col-xl-5">
                             {item.user.resume.length>0&&<div onClick={()=>{
                                 window.open(`${process.env.REACT_APP_DEVELOPMENT}/api/pdf/${item.user.resume}`, '_blank');
                                 axios.post(`${process.env.REACT_APP_DEVELOPMENT}/api/candidate/increaseProfileCount`,{candidateId:item.user._id},{headers:{token:props.user.user}})
@@ -337,13 +337,13 @@ function RecruiterJobDetail(props) {
                                     <DescriptionIcon sx={{fontSize:25}} color="primary" />
                                 </div>
                                 <div className="ml-3">
-                                    <h5>{item.user.fullName}'s Resume</h5>
+                                    <h5>{item.user.fullName.split(" ")[0]}'s Resume</h5>
                                     {/* <p>Updated on : 25/04/2022</p> */}
                                 </div>
                             </div>}
                             </div>
 
-                            <div className="col-1 bookmark-div" style={{textAlign:"right"}}>
+                            <div className="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1 bookmark-div" style={{textAlign:"right"}}>
                             <IconButton onClick={()=>{
                                 if(props.user.userInfo.bookmarks.candidates.includes(item.user._id)){
                                     handleBookmarkAdd(item.user._id,true)
@@ -362,11 +362,11 @@ function RecruiterJobDetail(props) {
                             <p className="mx-2"><AlternateEmailIcon sx={{marginRight:.1}} /> <b>{item.user.email}</b></p>
                             <p className="mx-2"><LocationOnIcon sx={{marginRight:.1}} /> <b>{item.user.userLocation.city}, {item.user.userLocation.state}</b></p>
                         </div>
-                        <p>{item.user.resumeTagline}</p>
+                        <p className="tagline">{item.user.resumeTagline}</p>
                         {
                             item.user.skills.map((i,index)=><Chip label={i} key={index} color="primary" className="m-2" />)
                         }
-                        <div style={{textAlign:"right"}}>
+                        <div className="status-div" style={{textAlign:"right"}}>
                             {item.status==="Pending"?<>
                             <Button color="error" onClick={()=>handleReject(item._id,item.user._id)}>Reject</Button>|
                             <Button color="info" onClick={()=>handleShortlist(item._id,item.user._id)}>Shortlist</Button>|

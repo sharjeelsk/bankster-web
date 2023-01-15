@@ -262,10 +262,12 @@ function CandidateHome(props) {
                     </div>
 
                     <div className="ml-2">
-                    <h2>{dashboardData&&(
-                            Math.ceil((dashboardData.hiredJobs[0].total/
+                    <h2>{dashboardData&&
+                            isNaN(Math.ceil((dashboardData.hiredJobs[0].total/
+                            (dashboardData.appliedJobs[0].total))*100))?0:Math.ceil((dashboardData.hiredJobs[0].total/
                             (dashboardData.appliedJobs[0].total))*100)
-                            )}%</h2>
+                            
+                        }%</h2>
                     </div>
                 </div>
             </section>

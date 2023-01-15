@@ -262,7 +262,7 @@ const Login = (props) => {
               allPlans.length>0?allPlans.map((item,index)=>!item.custom&&
               <div className="shadow-sm plan-auth-cont">
               <h1>{item.name}</h1>
-              <h2>${item.amount}/month</h2>
+              <h2>₹{item.amount}/month</h2>
               {/* <p><TaskAltIcon /> {item.cvAccess} resume access</p>
               <p><TaskAltIcon /> {item.jobPostings} job postings</p> */}
               {

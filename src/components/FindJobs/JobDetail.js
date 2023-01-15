@@ -190,42 +190,19 @@ const [companyImg,setCompanyImg] = React.useState(null)
       }
 
 
-// const renderRating = ()=>{
-//     let total = 0;
-//     if(singleJob.age.min && singleJob.age.max){
-//         total = total +1;
-//     }
-//     if(singleJob.ctc.min && singleJob.ctc.max){
-//         total = total+1;
-//     }
-//     if(singleJob.experience.min && singleJob.experience.max){
-//         total = total+1;
-//     }
-//     if(singleJob.jobLocation.state && singleJob.jobLocation.city){
-//         total = total+1;
-//     }
-//     if(singleJob.qualification.ug && singleJob.qualification.pg){
-//         total = total+1;
-//     }
-//     if(singleJob.functionalArea && singleJob.industry && singleJob.product){
-//         total = total+1;
-//     }
-//     if(singleJob.roleResp.length>0){
-//         total = total+1;
-//     }
-//     if(singleJob.tags.length>0){
-//         total = total+1;
-//     }
-//     if(singleJob.companyName.length>0 && singleJob.companyInfo.length>0){
-//         total = total+1;
-//     }
-//     if(singleJob.desiredProfile){
-//         total = total+1;
-//     }
-//     console.log(total)
-//     return total/2
+const checkDisabled = (item)=>{
+    let disabled = false;
+    if(props.user.user){
+        item.jobCandidates.map(i=>{
+            if(i.user._id===props.user.userInfo._id){
+                disabled = true
+            }
+        })
+    }
+
+    return disabled
     
-// }
+}
 
   return (
 <div>
@@ -253,7 +230,8 @@ const [companyImg,setCompanyImg] = React.useState(null)
                     </div>
                     <div className='content-div col-12 col-sm-12 col-md-9 col-lg-9 col-xl-9'>
                         <h3>{singleJob.title}</h3>
-                        <p className="company-name m-0">{singleJob.createdByAdmin?singleJob.createdByAdmin.companyName:singleJob.createdBy.companyName}</p>
+                        {/* <p className="company-name m-0">{singleJob.createdByAdmin?singleJob.createdByAdmin.companyName:singleJob.createdBy.companyName}</p> */}
+                        <p className="company-name m-0">{singleJob.companyName}</p>
                         <h4 className="m-0">{singleJob.product}</h4>
                             <div className='row m-auto align-items-center'>
                                 <div>
@@ -268,7 +246,7 @@ const [companyImg,setCompanyImg] = React.useState(null)
                             {props.user.userType===0?
                             <>
                             {!renderApplied()?
-                            <Button onClick={()=>handleJobApply(true)} fullWidth className="my-3" variant='contained'>Click to Apply For this job</Button>:
+                            <Button disabled={checkDisabled(singleJob)} onClick={()=>handleJobApply(true)} fullWidth className="my-3" variant='contained'>Click to Apply For this job</Button>:
                                 
                             renderCancelButton()
                             }
@@ -398,7 +376,7 @@ const [companyImg,setCompanyImg] = React.useState(null)
                         </div>
 
                         <div className="description">
-                            {item.jobDescription}
+                        {item.jobDescription.length>180?`${item.jobDescription.substring(0,180)} ...`:item.jobDescription}
                         </div>
 
                         <div className="keys">
