@@ -7,18 +7,46 @@
     text-align: center;
     padding-top: 2%;
 }
+
+.box-container{
+    height: 15vh;
+    position: absolute;
+    overflow: scroll;
+    width: 100%;
+    background-color: white;
+    margin-top: 4% !important;
+    .box-head{
+        padding: 1% 3%;
+        p{
+            text-align: left;
+            padding: .5% 0;
+            font-weight: 500;
+        }
+    }
+    .active{
+        background-color: $secondary;
+        color: black !important;
+    }
+    .box-head:hover{
+        background-color: $secondary;
+        cursor: pointer;
+    }
+
+}
 .searchbar-container{
-    width: 40%;
-    padding: .8%;
+    width: 60%;
+    padding: .8% .8% 1.5% .8%;
     border-radius: 20px;
     text-align: center;
     background-color: white;
     .searchbarinputbox{
+        
         input{
             width: 100%;
             border: none;
-            padding: 1% 0%;
-            
+            padding: 1% 2%;
+            font-weight: 500;
+            padding-bottom: 2%;
         }
         .borderleft{
             border-left: 2px solid rgb(238, 238, 238);
@@ -28,8 +56,7 @@
             outline: none;
         }
         input::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
-            color: #ccc;
-            font-weight: bold;
+            color: grey;
             font-family: $secondary-font;
           }
     }

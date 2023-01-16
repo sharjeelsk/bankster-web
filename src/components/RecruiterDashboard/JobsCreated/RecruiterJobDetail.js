@@ -248,11 +248,11 @@ function RecruiterJobDetail(props) {
                         <div className="row my-2 mx-auto key-features">
                             <div className="m-1">
                                 <ArticleIcon />
-                                <span className='key-headline m-2'>{singleJob.qualification.ug} in CSE</span>
+                                <span className='key-headline m-2'>{singleJob.qualification.ug}</span>
                             </div>
                             <div className="m-1">
                                 <DescriptionIcon />
-                                <span className='key-headline m-2'>{singleJob.qualification.pg} in Finance</span>
+                                <span className='key-headline m-2'>{singleJob.qualification.pg}</span>
                             </div>
                             <div className="m-1">
                                 <Inventory2Icon />

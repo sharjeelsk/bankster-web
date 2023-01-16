@@ -37,7 +37,7 @@ const [companyImg,setCompanyImg] = React.useState(null)
     React.useEffect(()=>{
         axios.post(`${process.env.REACT_APP_DEVELOPMENT}/api/job/singleJob`,{jobId:params.id})
         .then(res=>{
-            console.log(res)
+            console.log("sinleJob",res)
             if(res.data.msg==="success"){
                 setSingleJob(res.data.result)
                 if(props.user.userInfo){
@@ -189,6 +189,73 @@ const [companyImg,setCompanyImg] = React.useState(null)
       
       }
 
+      const renderImageString2 = (createdBy)=>{
+        if(createdBy){
+            if(Array.isArray(createdBy) && createdBy.length>0){
+                if(createdBy[0].profilePicture.length>0){
+                    return `${process.env.REACT_APP_DEVELOPMENT}/api/image/${createdBy[0].profilePicture}`
+                }else{
+                    return '/job-offer.png'
+                }
+                
+            }else if(createdBy.profilePicture){
+                if(createdBy.profilePicture.length>0){
+                    return `${process.env.REACT_APP_DEVELOPMENT}/api/image/${createdBy.profilePicture}`
+                }else{
+                    return '/job-offer.png'
+                }
+                
+            }else{
+                return '/job-offer.png'
+            }
+        }
+      
+      }
+
+      const renderRecruiterName = (createdBy)=>{
+        if(createdBy){
+            if(Array.isArray(createdBy) && createdBy.length>0){
+                if(createdBy[0].fullName.length>0){
+                    return `${createdBy[0].fullName}`
+                }else{
+                    return ''
+                }
+                
+            }else if(createdBy.fullName){
+                if(createdBy.fullName.length>0){
+                    return `${createdBy.fullName}`
+                }else{
+                    return ''
+                }
+                
+            }else{
+                return ''
+            }
+        }
+      }
+
+      const renderRecruiterCompany = (createdBy)=>{
+        if(createdBy){
+            if(Array.isArray(createdBy) && createdBy.length>0){
+                if(createdBy[0].companyName.length>0){
+                    return `${createdBy[0].companyName}`
+                }else{
+                    return ''
+                }
+                
+            }else if(createdBy.companyName){
+                if(createdBy.companyName.length>0){
+                    return `${createdBy.companyName}`
+                }else{
+                    return ''
+                }
+                
+            }else{
+                return ''
+            }
+        }
+      }
+
 
 const checkDisabled = (item)=>{
     let disabled = false;
@@ -275,11 +342,11 @@ const checkDisabled = (item)=>{
                         <div className="row my-2 mx-auto key-features">
                             <div className="m-1">
                                 <ArticleIcon />
-                                <span className='key-headline m-2'>{singleJob.qualification.ug} in CSE</span>
+                                <span className='key-headline m-2'>{singleJob.qualification.ug}</span>
                             </div>
                             <div className="m-1">
                                 <DescriptionIcon />
-                                <span className='key-headline m-2'>{singleJob.qualification.pg} in Finance</span>
+                                <span className='key-headline m-2'>{singleJob.qualification.pg}</span>
                             </div>
                             <div className="m-1">
                                 <Inventory2Icon />
@@ -313,6 +380,19 @@ const checkDisabled = (item)=>{
                                 {singleJob.desiredProfile}
                             </p>
                             
+                        </div>
+                        
+                        <div className="description">
+                        <h4 className="grey-text mb-5 pb-2">Created By</h4>
+                        <div className="recruiter-info shadow-sm row m-auto align-items-center">
+                            <div className="col-2 img-div">
+                            <img src={singleJob.createdByAdmin?renderImageString(singleJob.createdByAdmin):renderImageString2(singleJob.createdBy)} alt="logo1" />
+                            </div>
+                            <div className="col-8 content-div">
+                                <h3>{singleJob.createdByAdmin?renderRecruiterName(singleJob.createdByAdmin):renderRecruiterName(singleJob.createdBy)}</h3>
+                                <p>{singleJob.createdByAdmin?renderRecruiterCompany(singleJob.createdByAdmin):renderRecruiterCompany(singleJob.createdBy)}</p>
+                            </div>
+                        </div>
                         </div>
 
                     </div>
@@ -363,11 +443,11 @@ const checkDisabled = (item)=>{
                         <div className="row my-2 mx-auto key-features">
                             <div className="m-1">
                                 <ArticleIcon />
-                                <span className='key-headline m-2'>{item.qualification.ug} in CSE</span>
+                                <span className='key-headline m-2'>{item.qualification.ug}</span>
                             </div>
                             <div className="m-1">
                                 <DescriptionIcon />
-                                <span className='key-headline m-2'>{item.qualification.pg} in Finance</span>
+                                <span className='key-headline m-2'>{item.qualification.pg}</span>
                             </div>
                             <div className="m-1">
                                 <Inventory2Icon />

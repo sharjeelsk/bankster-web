@@ -14,7 +14,7 @@ import axios from 'axios'
 import SearchIcon from '@mui/icons-material/Search';
 function FilterMenu(props) {
   const [functionalArea,setFunctionalArea]=React.useState([])
-  const [limit,setLimit] = React.useState({limit1:5,limit2:5,limit3:5})
+  const [limit,setLimit] = React.useState({limit1:5,limit2:5,limit3:5,limit4:5})
   const [industry,setIndustry]=React.useState([])
   const [product,setProduct]=React.useState([])
   const [cities,setCities]=React.useState(["Mumbai","Delhi","Gurgaon","Bangalore","Hyderabad","Ahmedabad","Chennai","Kolkata","Surat","Pune","Jaipur","Lucknow","Kanpur","Nagpur","Visakhapatnam","Indore","Thane","Chandigarh","Vadodara","Bhopal"])
@@ -145,7 +145,10 @@ function FilterMenu(props) {
       <h3>Location</h3>
       <FormGroup>
         {
-            cities&&cities.map((item,index)=><FormControlLabel control={<Checkbox onChange={()=>{
+            cities&&
+            cities
+            .slice(0,limit.limit4)
+            .map((item,index)=><FormControlLabel control={<Checkbox onChange={()=>{
               if(formValues.cities.includes(item)){
                 setFormValues({...formValues,cities:formValues.cities.filter(i=>i!==item)})
               }else{
@@ -154,6 +157,7 @@ function FilterMenu(props) {
             }} />} label={item} key={index} />)
         }
       </FormGroup>
+      <Button onClick={()=>setLimit({...limit,limit4:limit.limit4+5})}>Load More</Button>
       <hr />
       <Button onClick={()=>handleSearch()} startIcon={<SearchIcon />} fullWidth variant="contained">Search Jobs</Button>
     </div>

@@ -26,6 +26,7 @@ import {useForm} from 'react-hook-form'
 const Login = (props) => {
   const {handleSubmit,formState:{errors},register} = useForm()
   const [error,setError]=React.useState("")
+  const [jobTotal,setJobTotal] = React.useState("...")
   const [values, setValues] = React.useState({
     email: "",
     password: "",
@@ -81,7 +82,13 @@ console.log(values)
       }
   })
   }
-
+  React.useEffect(()=>{
+    axios.get(`${process.env.REACT_APP_DEVELOPMENT}/api/job/getJobTotal`)
+    .then(res=>{
+      console.log(res)
+      setJobTotal(res.data.result)
+    })
+},[])
   return (
     <div>
       <section>
@@ -93,21 +100,21 @@ console.log(values)
         <Box display="" mx="" my="" sx="">
           <Grid container spacing={0}>
             <Grid item xs={12} md={6} sm={12} xm={12}>
-              <h1 style={{
-                marginLeft:'5%'
-                ,fontSize: '3em'
-              }}>
-                Get Job to <br />
-                <span  className="primarycolorwh">1740</span> Jobs
-              </h1>
-              <h5    style={{
-                marginLeft:'5%'
-              }}>By Registering On Our Platform </h5>
-              <img src="/login.png" alt="" className="logimg"   style={{
-                width:'65%',
-                marginLeft:'5%'
-                
-             }} /> 
+            <h1 style={{
+                                    marginLeft: '5%'
+                                    , fontSize: '3em'
+                                }}>
+                                    Get Access to <br />
+                                    <span className="primarycolorwh">{jobTotal}</span> Jobs
+                                </h1>
+                                <h5 style={{
+                                    marginLeft: '5%'
+                                }}>By Registering On Our Platform </h5>
+                                <img src="/login.png" alt="" className="logimg" style={{
+                                    width: '65%',
+                                    marginLeft: '5%'
+
+                                }} />
             </Grid>
 
             <Grid item   xs={12} md={6} sm={12} xm={12}>

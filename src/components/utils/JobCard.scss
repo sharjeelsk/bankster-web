@@ -22,6 +22,7 @@
         .companylocation{
             color: $tertiary;
             font-weight: bold;
+            font-size: .9em !important;
         }
         .jobname{
             font-size: 1.2em;
@@ -32,17 +33,31 @@
         .product{
             margin: 1% 0;
             color: $tertiary;
+            font-size: .9em;
         }
         .description{
-            margin: 6% 0;
+            display: block;/* or inline-block */
+            text-overflow: ellipsis;
+            word-wrap: break-word;
+            overflow: hidden;
+            max-height: 3.6em;
+            line-height: 1.8em;
             color: $tertiary;
+        }
+
+
+
+        .bottom-div{
+            .child{
+                
+            }
         }
         .ctc{
             margin-bottom: 8%;
 
         }
         .amount{
-            font-size: 1.2em;
+            font-size: 1.1em;
             font-weight: bold;
             color: $darkpink;
         }

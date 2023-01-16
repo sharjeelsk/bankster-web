@@ -103,11 +103,11 @@ function BookmarkedJobs(props) {
                  <div className="row my-2 mx-auto key-features">
                      <div className="m-1">
                          <ArticleIcon />
-                         <span className='key-headline m-2'>{item.job.qualification.ug} in CSE</span>
+                         <span className='key-headline m-2'>{item.job.qualification.ug}</span>
                      </div>
                      <div className="m-1">
                          <DescriptionIcon />
-                         <span className='key-headline m-2'>{item.job.qualification.pg} in Finance</span>
+                         <span className='key-headline m-2'>{item.job.qualification.pg}</span>
                      </div>
                      <div className="m-1">
                          <Inventory2Icon />

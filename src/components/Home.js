@@ -13,6 +13,7 @@ import Footer from './Footer/Footer';
 import axios from 'axios'
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from 'react-responsive-carousel';
+import ReadMoreIcon from '@mui/icons-material/ReadMore';
 function Home(props) {
 
     const [jobData,setJobData]  = React.useState(null)
@@ -34,6 +35,8 @@ function Home(props) {
             <section >
            <h1>Get The <span className="primarycolorwh">Right Job</span> Your Deserve at</h1>
            <h2>BanksterIndia</h2>
+
+
            <div className="row m-auto align-items-center justify-content-center meta-row">
                 <div className="col-3">
                     <h3>{jobData?jobData.totalJobCount:".."}</h3>
@@ -52,14 +55,16 @@ function Home(props) {
                     <p><LocationOnTwoToneIcon className="icon-home" color="primary" /><span className="ml-2 primarycolor">Locations</span></p>
                 </div>
            </div>
+           <div className="my-5">
+           <SearchBar totalLocations={jobData?jobData.totalLocations.map(item=>item._id):[]}/>
+           </div>
 
-            <SearchBar />
 
            </section>
            </div>
 
             {jobData&&<>
-            <h3 className="mt-5 pt-5">Job Locations on Bankster</h3>
+            <h3 className="mt-5 pt-5 mb-5">Job Locations on <span className="primarycolorwh">Bankster</span></h3>
            <Carousel autoPlay
             dynamicHeight={50}
             infiniteLoop
@@ -143,17 +148,22 @@ function Home(props) {
 
            <div className="bankster-jobs">
             <h3><span className="primarycolorwh">Bankster</span> Jobs</h3>
-                <section className="job-card-head row m-auto justify-content-between">
+                <section className="job-card-head">
+                <div className="row m-auto justify-content-between">
                 {
                 jobData&&jobData.banksterJob
                 .map((item,index)=><JobCard history={props.history} {...item} key={index} />)
                 }
+                </div>
+                <div style={{textAlign:"right"}}>
+                <Button endIcon={<ReadMoreIcon />} onClick={()=>props.history.push("/findjobs",{key:"companyName",value:"Banksterindia"})} variant="outlined">View More</Button>
+                </div>
                 </section>
            </div>
  
            <div className="row m-auto popular-role-head">
                 <div className="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 left">
-                    <h4>Popular Products Job on Bankster</h4>
+                    <h4>Popular Products Job on <span className="primarycolorwh">Bankster</span></h4>
                     <p>These are the popular products having high number of jobs.</p>
                 </div>
                 <div className="col-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 right row m-auto justify-content-between">
@@ -161,7 +171,7 @@ function Home(props) {
                         jobData&&jobData.product.map((item,index)=>
                         <div key={index} onClick={()=>props.history.push("/findjobs",{key:"product",value:item._id})} className="shadow single-card col-12 col-sm-12 col-md-5 col-lg-5 col-xl-5 row m-auto align-items-center justify-content-between">
                         <div>
-                        <h4>{item._id}</h4>
+                        <h4>{item._id.length>17?`${item._id.substring(0,17)}..`:item._id}</h4>
                         <p>{item.count} jobs</p>
                         </div>
                         <div style={{textAlign:"right"}}>
@@ -176,12 +186,18 @@ function Home(props) {
 
            <div className="bankster-jobs mt-5">
             <h3><span className="primarycolorwh">Featured</span> Jobs</h3>
-                <section className="job-card-head row m-auto justify-content-between">
+            <section className="job-card-head">
+                <div className="row m-auto justify-content-between">
                 {
                 jobData&&jobData.latestJobs
                 .map((item,index)=><JobCard history={props.history} {...item} key={index} />)
                 }
+                </div>
+                <div style={{textAlign:"right"}}>
+                <Button endIcon={<ReadMoreIcon />} onClick={()=>props.history.push("/findjobs",{key:"latestJobs",value:"Banksterindia"})} variant="outlined">View More</Button>
+                </div>
                 </section>
+
            </div>
 
            <div className="info-div row m-auto align-items-center">
@@ -213,22 +229,34 @@ function Home(props) {
 
            <div className="bankster-jobs">
             <h3><span className="primarycolorwh">Latest</span> Jobs</h3>
-                <section className="job-card-head row m-auto justify-content-between">
+            <section className="job-card-head">
+                <div className="row m-auto justify-content-between">
                 {
                 jobData&&jobData.latestJobs
                 .map((item,index)=><JobCard history={props.history} {...item} key={index} />)
                 }
+                </div>
+                <div style={{textAlign:"right"}}>
+                <Button endIcon={<ReadMoreIcon />} onClick={()=>props.history.push("/findjobs",{key:"latestJobs",value:"Banksterindia"})} variant="outlined">View More</Button>
+                </div>
                 </section>
            </div>
 
            <div className="bankster-jobs mt-5">
             <h3><span className="primarycolorwh">Trending</span> Jobs</h3>
-                <section className="job-card-head row m-auto justify-content-between">
+            <section className="job-card-head">
+                <div className="row m-auto justify-content-between">
                 {
                 jobData&&jobData.trendingJobs
                 .map((item,index)=><TrendingCard history={props.history} {...item} key={index} />)
                 }
+                </div>
+                <div style={{textAlign:"right"}}>
+                <Button endIcon={<ReadMoreIcon />} onClick={()=>props.history.push("/findjobs",{key:"trendingJobs",value:"Banksterindia"})} variant="outlined">View More</Button>
+                </div>
                 </section>
+
+
            </div>
 
            <img className="w-100 my-3" src="/banners/banner1.png" alt="oneplus" />

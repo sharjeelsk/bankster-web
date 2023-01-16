@@ -66,6 +66,18 @@
     .bookmark-div{
         text-align: right;
     }
+
+    .recruiter-info{
+        background-color: $secondary;
+        padding: 2%;
+        h3{
+            font-weight: 600;
+            margin: 0;
+        }
+        img{
+            width: 100%;
+        }
+    }
 }
 .right-section-job{
     padding: 2% !important;

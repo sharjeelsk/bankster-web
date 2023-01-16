@@ -3,7 +3,8 @@ import {Button} from '@mui/material'
 import "./JobCard.scss"
 function JobCard(props) {
   function numberWithCommas(x) {
-    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    let num = x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return num.length>7?`${num.substring(0,10)}..`:num
 }
 const renderImageString = (createdBy)=>{
   if(createdBy){
@@ -56,15 +57,19 @@ const renderNameString = (createdBy)=>{
         <img src={props.createdByAdmin?renderImageString(props.createdByAdmin):renderImageString(props.createdBy)} alt="logo1" />
         </div>
         <div className="col-8">
-            <h5 className='companyname'>{props.createdByAdmin?renderNameString(props.createdByAdmin):renderNameString(props.createdBy)}</h5>
-            <p className="companylocation">{props.jobLocation.city}, {props.jobLocation.state}</p>
+            <h5 className='companyname'>{props.companyName.length>15?`${props.companyName.substring(0,15)} ...`:props.companyName}</h5>
+            <p className="companylocation">{props.jobLocation.city}, {`${props.jobLocation.state.substring(0,2)}..`}</p>
         </div>
     </div>
     <h4 className="jobname">{props.title.length>15?`${props.title.substring(0,15)} ...`:props.title}</h4>
-    <h5 className="product">{props.product}</h5>
-    <p className="description">{props.jobDescription.length>100?`${props.jobDescription.substring(0,100)} ...`:props.jobDescription}</p>
+    <h5 className="product">{`${props.product.substring(0,18)}..`}</h5>
+    <p className="description">{props.jobDescription}</p>
+    
+
+    <div className="bottom-div">
     <p className="ctc"><span className="amount">₹{numberWithCommas(props.ctc.min)} - ₹{numberWithCommas(props.ctc.max)}</span></p>
     <Button onClick={()=>props.history.push(`/JobDetail/${props._id}`)} fullWidth className="mt-auto apply" variant="contained">Apply Now</Button>
+    </div>
 </div>
   )
 }

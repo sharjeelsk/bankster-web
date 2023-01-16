@@ -42,6 +42,7 @@ const [companyImg,setCompanyImg] = React.useState(null)
 const [sort,setSort]=React.useState(-1)
 const [limit,setLimit] = React.useState({req1:20,req2:20,req3:20})
 const [keyword,setKeyword] = React.useState("")
+const [jobData,setJobData]  = React.useState(null)
 console.log(title)
 
 
@@ -70,6 +71,13 @@ React.useEffect(()=>{
     //       props.location.search("")
     //     } 
     //   }
+    axios.get(`${process.env.REACT_APP_DEVELOPMENT}/api/job/getAllJobLocations`)
+    .then(res=>{
+        console.log(res)
+        if(res.data.msg==="success"){
+            setJobData(res.data.result)
+        }
+    })
         if(title!==null){
             axios.post(`${process.env.REACT_APP_DEVELOPMENT}/api/job/searchJobs`,{title:title?title:"",city:location?location:"",salary:salary?salary:"",limit:limit.req1},{headers:{token:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRyaXZlc2hAYmFua3N0ZXIuY29tIiwiX2lkIjoiNjJmM2E3ZjA0ODA4OWE4MDFkM2E3ODA3IiwiaWF0IjoxNjYxMTUyOTUwfQ.yI7xfT8AUAs4NM1S3xsw5xnttnr-cYmHdty0r_itRes"}})
             .then(res=>{
@@ -244,6 +252,8 @@ const checkDisabled = (item)=>{
     return disabled
     
 }
+
+
   return (
     <div>
         <Header id="2" />
@@ -261,7 +271,7 @@ const checkDisabled = (item)=>{
             </div>
             
             <div className='p-0 col-12 col-sm-12 col-md-7 col-lg-7 col-xl-7 find-jobs-content'>
-                <SearchBar fullWidth={true} />
+                <SearchBar totalLocations={jobData!==null?jobData.map(item=>item._id):[]} fullWidth={true} />
                 <div className="mt-4">
                 <span className="ml-3"><b>Sort:</b></span> <Button
                     id="basic-button"

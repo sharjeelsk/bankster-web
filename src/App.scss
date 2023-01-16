@@ -49,7 +49,7 @@ p,span{
 }
 
 .primarycolorwh{
-  color: $primary;
+  color: $primary !important;
   font-family: $primary-font;
 }
 
@@ -70,6 +70,10 @@ p,span{
 
 ::-webkit-scrollbar-thumb:hover{
   background:#5a1e96 !important;
+}
+
+.display-none{
+  display: none;
 }
 
 .display-mobile{

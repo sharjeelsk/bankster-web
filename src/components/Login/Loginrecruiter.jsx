@@ -22,6 +22,7 @@ import {useForm} from 'react-hook-form'
 import axios from 'axios'
 const Login = (props) => {
   const {handleSubmit,register,formState:{errors}}=useForm();
+  const [candidateTotal,setCandidateTotal] = React.useState("...")
   const [error,setError]=React.useState("")
   const [values, setValues] = React.useState({
     email: "",
@@ -72,6 +73,15 @@ const Login = (props) => {
       })
   }
 
+
+  React.useEffect(()=>{
+    axios.get(`${process.env.REACT_APP_DEVELOPMENT}/api/candidate/getAllCandidatesLength`)
+    .then(res=>{
+      console.log(res)
+      setCandidateTotal(res.data.result)
+    })
+  },[])
+
   return (
     <div>
       <section>
@@ -84,12 +94,12 @@ const Login = (props) => {
         <Box display="" mx="" my="" sx="">
           <Grid container spacing={0}>
             <Grid item xs={12} md={6} sm={12} xm={12}>
-              <h1 style={{
+            <h1 style={{
                 marginLeft:'5%'
                 ,fontSize: '3em'
               }}>
-                Get Job to <br />
-                <span  className="primarycolorwh">2440</span> Jobs <br /> Applicants
+                Get Access to <br />
+                <span  className="primarycolorwh">{candidateTotal}</span> Candidate <br /> Applications
               </h1>
               <h5    style={{
                 marginLeft:'5%'
