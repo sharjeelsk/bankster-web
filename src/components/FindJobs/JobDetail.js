@@ -278,6 +278,28 @@ const [companyImg,setCompanyImg] = React.useState(null)
         }
       }
 
+      const renderRecruiterCompanyDescription = (createdBy)=>{
+        if(createdBy){
+            if(Array.isArray(createdBy) && createdBy.length>0){
+                if(createdBy[0].companyDescription.length>0){
+                    return `${createdBy[0].companyDescription}`
+                }else{
+                    return ''
+                }
+                
+            }else if(createdBy.companyDescription){
+                if(createdBy.companyDescription.length>0){
+                    return `${createdBy.companyDescription}`
+                }else{
+                    return ''
+                }
+                
+            }else{
+                return ''
+            }
+        }
+    }
+
 
 const checkDisabled = (item)=>{
     let disabled = false;
@@ -412,7 +434,8 @@ const checkDisabled = (item)=>{
                             </div>
                             <div className="col-8 content-div">
                                 <h3>{singleJob.createdByAdmin?renderRecruiterName(singleJob.createdByAdmin):renderRecruiterName(singleJob.createdBy)}</h3>
-                                <p>{singleJob.createdByAdmin?renderRecruiterCompany(singleJob.createdByAdmin):renderRecruiterCompany(singleJob.createdBy)}</p>
+                                <p style={{margin:0}}>{singleJob.createdByAdmin?renderRecruiterCompany(singleJob.createdByAdmin):renderRecruiterCompany(singleJob.createdBy)}</p>
+                                <p style={{margin:0}}>{singleJob.createdByAdmin?renderRecruiterCompanyDescription(singleJob.createdByAdmin):renderRecruiterCompanyDescription(singleJob.createdBy)}</p>
                             </div>
                         </div>
                         </div>

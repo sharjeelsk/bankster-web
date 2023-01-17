@@ -1,6 +1,7 @@
 import React from 'react'
 import {Button} from '@mui/material'
 import "./JobCard.scss"
+import {renderAgo} from './Functions'
 import LinearProgress from '@mui/material/LinearProgress';
 function TrendingCard(props) {
   function numberWithCommas(x) {
@@ -53,6 +54,7 @@ const renderNameString = (createdBy)=>{
 //Business Development Analyst 28 characers
   return (
     <div onClick={()=>props.history.push(`/jobDetail/${props._id}`)} className="shadow job-card-item col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 trending cp">
+        <p className="timeframe">{renderAgo(props.createdAt)}</p>
     <div className="row m-auto align-items-center">
         <div className="p-0 col-3">
         <img src={props.createdByAdmin?renderImageString(props.createdByAdmin):renderImageString(props.createdBy)} alt="logo1" />
