@@ -32,7 +32,7 @@ function CandidateCard(props) {
     }
     const stringHide = (string,type)=>{
         if(props.hide && type==="fullName"){
-            let finalString = `**** ${string.split(" ")[1]}`
+            let finalString = `**** ${string.includes(" ")?string.split(" ")[1]:""}`
             return finalString.length>15?`${finalString.substring(0,15)} ...`:finalString
         }else if(props.hide && type==="mobileNo"){
             let finalString = `${string.substr(0,2)} ****** ${string.substr(8,10)}`
@@ -63,7 +63,7 @@ function CandidateCard(props) {
                 }):"Featured Education Not Added"}</p>
                 <p className="grey-text"><b>Gender:</b> {props.gender} | <b>DOB:</b> {props.dob?getAge(props.dob):"DOB Missing"}</p>
                 <p className="grey-text">
-                    <b>Years of Experience:</b> {props.yearsOfExperience?props.yearsOfExperience:'Not Added'}<br /><br />
+                    <b>Years of Experience:</b> {props.yearsOfExperience}<br /><br />
                     <b>Current CTC:</b> {props.currentCtc}<br /><br />
                     <b>Product:</b> {props.product} <br /><br />
                     <b>Notice Period:</b> {props.noticePeriod}<br />

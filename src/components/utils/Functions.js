@@ -1,3 +1,12 @@
+import TimeAgo from 'javascript-time-ago'
+
+// English.
+import en from 'javascript-time-ago/locale/en'
+TimeAgo.addDefaultLocale(en)
+
+// Create formatter (English).
+const timeAgo = new TimeAgo('en-US')
+
 export function getAge(dateString) 
 {
     var today = new Date();
@@ -63,4 +72,10 @@ export const renderRating = (singleJob)=>{
     }
     return Math.floor(total/2)
     
+}
+
+export const renderAgo = (createdAt)=>{
+    let formattedDate = new Date(createdAt);
+    let timeago = timeAgo.format(new Date(createdAt))
+    return timeago
 }

@@ -237,7 +237,7 @@ function CandidateHome(props) {
 
             {/* view sections */}
 
-            <section className="row m-auto view-section-head justify-content-around">
+            {dashboardData&&<section className="row m-auto view-section-head justify-content-around">
                 <div className="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 view-section-child row m-auto align-items-center justify-content-around shadow-sm">
                     <div>
                     <p>Total Profile Views</p>
@@ -262,7 +262,7 @@ function CandidateHome(props) {
                     </div>
 
                     <div className="ml-2">
-                    <h2>{dashboardData&&
+                    <h2>{dashboardData!==null&&
                             isNaN(Math.ceil((dashboardData.hiredJobs[0].total/
                             (dashboardData.appliedJobs[0].total))*100))?0:Math.ceil((dashboardData.hiredJobs[0].total/
                             (dashboardData.appliedJobs[0].total))*100)
@@ -270,7 +270,7 @@ function CandidateHome(props) {
                         }%</h2>
                     </div>
                 </div>
-            </section>
+            </section>}
 
             {/* view sections */}
 

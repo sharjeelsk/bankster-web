@@ -27,7 +27,7 @@ import Menu from '@mui/material/Menu';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import MenuItem from '@mui/material/MenuItem';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import {renderRating} from '../utils/Functions'
+import {renderRating,renderAgo} from '../utils/Functions'
 function FindJobs(props) {
 const [display,setDisplay]=React.useState(false)
 const [jobs,setJobs]=React.useState([])
@@ -387,6 +387,9 @@ const checkDisabled = (item)=>{
                         <BookmarkBorderIcon />
                         }
                         </IconButton>
+                    </div>
+                    <div className="col-12 time-frame">
+                    <p className="timeframe">{renderAgo(item.createdAt)}</p>
                     </div>
                 </section>
                     )):

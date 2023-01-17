@@ -69,12 +69,12 @@ function BookmarkedJobs(props) {
             <div className="row my-auto job-head-a">
              {
              jobsApplied.length>0?
-             jobsApplied.map((item,index)=>Object.keys(item.job).length>2&&<Link key={index} className="link" to={`/jobdetail/${item.job._id}`}>
-             <section className={`col-12 shadow-sm job-apply-head row m-auto`} style={{backgroundColor:"white"}}>
+             jobsApplied.map((item,index)=>Object.keys(item.job).length>2&&<Link key={index} className="link col-12" to={`/jobdetail/${item.job._id}`}>
+             <section className={`shadow-sm job-apply-head row m-auto`} style={{backgroundColor:"white"}}>
              <div className='img-div col-12 col-sm-12 col-md-1 col-lg-1 col-xl-1'>
-                 <img src={item.createdByAdmin?renderImageString(item.createdByAdmin):renderImageString(item.createdBy)} alt="logo1" />
+                 <img src={item.createdByAdmin?renderImageString(item.job.createdByAdmin):renderImageString(item.job.createdBy)} alt="logo1" />
              </div>
-             <div className='content-div col-12 col-sm-12 col-md-9 col-lg-9 col-xl-9'>
+             <div className='content-div col-12 col-sm-12 col-md-11 col-lg-11 col-xl-11'>
                  <h3 className="m-0">{item.job.title}</h3>
                  <p className="m-0 companyName">{item.job.companyName}</p>
                  <h4 className="m-0">{item.job.product}</h4>

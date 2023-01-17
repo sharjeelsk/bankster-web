@@ -1,7 +1,10 @@
 import React from 'react'
 import {Button} from '@mui/material'
 import "./JobCard.scss"
+import {renderAgo} from './Functions'
+
 function JobCard(props) {
+
   function numberWithCommas(x) {
     let num = x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     return num.length>7?`${num.substring(0,10)}..`:num
@@ -48,10 +51,13 @@ const renderNameString = (createdBy)=>{
           return ""
       }
   }
-
 }
+
+
+
   return (
     <div className="shadow job-card-item col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 cp">
+    <p className="timeframe">{renderAgo(props.createdAt)}</p>
     <div className="row m-auto align-items-center">
         <div className="p-0 col-3">
         <img src={props.createdByAdmin?renderImageString(props.createdByAdmin):renderImageString(props.createdBy)} alt="logo1" />

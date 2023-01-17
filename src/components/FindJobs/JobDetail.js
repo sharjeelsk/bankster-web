@@ -22,7 +22,7 @@ import Chip from '@mui/material/Chip';
 import SearchIcon from '@mui/icons-material/Search';
 import { Link } from 'react-router-dom'
 import {fetchCandidateInfo} from '../redux/user/userActions'
-import {renderRating} from '../utils/Functions'
+import {renderRating,renderAgo} from '../utils/Functions'
 function JobDetail(props) {
     let params = useParams();
     console.log(props)
@@ -126,7 +126,29 @@ const [companyImg,setCompanyImg] = React.useState(null)
         }
 
     }
-
+    const handleBookmarkAdd2 = (jobId)=>{
+        if(props.user.userInfo.bookmarks.jobs.includes(jobId)){
+            //removeBookmarkJob
+            axios.post(`${process.env.REACT_APP_DEVELOPMENT}/api/candidate/removeBookmarkJob`,{jobId:jobId},{headers:{token:props.user.user}})
+            .then(res=>{
+                console.log(res)
+                props.fetchCandidateInfo(props.user.user)
+            })
+            .catch(err=>{
+                console.log(err)
+            })
+        }else{
+            axios.post(`${process.env.REACT_APP_DEVELOPMENT}/api/candidate/bookmarkJob`,{jobId:jobId},{headers:{token:props.user.user}})
+            .then(res=>{
+                console.log(res)
+                props.fetchCandidateInfo(props.user.user)
+            })
+            .catch(err=>{
+                console.log(err)
+            })
+        }
+    
+    }
     const handleJobApply = (apply)=>{
         if(apply){
             axios.post(`${process.env.REACT_APP_DEVELOPMENT}/api/job/applyJob`,{jobId:singleJob._id},{headers:{token:props.user.user}})
@@ -401,6 +423,9 @@ const checkDisabled = (item)=>{
                             {bookmarked?<BookmarkIcon />:<BookmarkBorderIcon />}
                         </IconButton>
                     </div>
+                    <div className="col-12 time-frame">
+                    <p className="timeframe">{renderAgo(singleJob.createdAt)}</p>
+                    </div>
                 </section>
 
                 }
@@ -413,7 +438,7 @@ const checkDisabled = (item)=>{
                     <div className='img-div col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2'>
                         <img src={item.createdByAdmin?renderImageString(item.createdByAdmin):renderImageString(item.createdBy)} alt="logo1" />
                     </div>
-                    <div className='content-div col-12 col-sm-12 col-md-9 col-lg-9 col-xl-9'>
+                    <div className='content-div col-12 col-sm-12 col-md-8 col-lg-8 col-xl-8'>
                     <Link className="link" to={`/jobdetail/${item._id}`} target="_blank">
                         <h3>{item.title}</h3>
                         {/* <p className="company-name m-0">{item.createdBy.companyName}</p> */}
@@ -462,6 +487,7 @@ const checkDisabled = (item)=>{
                         <div className="keys">
                         {item.tags.map((tag,index)=><Chip key={index} className="m-3" label={tag} />)}
                         </div>
+
                         </Link>
 
 
@@ -482,12 +508,12 @@ const checkDisabled = (item)=>{
                         </div> */}
 
                     </div>
-                    {/* <div className="bookmark-div col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
+                    <div className="bookmark-div col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
                     <IconButton onClick={()=>{
                         if(!props.user.user){
                             props.history.push("/login")
                         }else{
-                            handleBookmarkAdd(item._id)
+                            handleBookmarkAdd2(item._id)
                         }
                         
                         }}>
@@ -496,7 +522,10 @@ const checkDisabled = (item)=>{
                         <BookmarkBorderIcon />
                         }
                         </IconButton>
-                    </div> */}
+                    </div>
+                    <div className="col-12 time-frame">
+                    <p className="timeframe">{renderAgo(item.createdAt)}</p>
+                    </div>
                 </section>
                     )):
                     <h1>Sorry, No Jobs Available</h1>
