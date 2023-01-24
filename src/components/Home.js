@@ -105,7 +105,7 @@ function Home(props) {
                 <div className="row mx-5 justify-content-center">
                     {
                         <div className='partner-section'>
-                        <img src="/logo2.png" alt="logo1" />
+                        <img src="/partnerbanners/logo1.png" alt="logo1" />
                         <img src="/logo2.png" alt="logo1" />
                         <img src="/logo2.png" alt="logo1" />
                         <img src="/logo2.png" alt="logo1" />
