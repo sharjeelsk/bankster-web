@@ -153,9 +153,12 @@ const Login = (props) => {
   const onSubmit = (data)=>{
     let subscription = allPlans.filter(item=>item.name===plan)[0]
     console.log(data,subscription)
+
+    //before assigning any plan to recruiter -- verify if recruiter already exist that means all NO requests of signup
+
     if(paymentMethod==="Offline"){
         props.setLoading(true)
-        axios.post(`${process.env.REACT_APP_DEVELOPMENT}/api/recruiter/signup`,{
+        axios.post(`${process.env.REACT_APP_DEVELOPMENT}/api/recruiter/sendVerificationToken`,{
         "email":data.email,
         "password":values.password,
         "fullName":data.fullName,
@@ -165,6 +168,7 @@ const Login = (props) => {
         "contactEmail":data.contactEmail,
         "contactPhone":data.contactPhone,
         "subscriptionId":subscription._id,
+        plan:subscription,
         "offline":true
       })
       .then(res=>{
@@ -173,9 +177,10 @@ const Login = (props) => {
           props.setLoading(false)
           if(res.data.msg==="success"){
               //setting the user token locally to use it later on any request for recruiter
-          props.setUser(res.data.result)
+          //props.setUser(res.data.result)
           //navigation to recruiter dashboard
-          props.history.push("/recruiterhome")
+          //props.history.push("/recruiterhome")
+          props.history.push("/verificationmail")
           }
           //commetn added
       })
@@ -226,7 +231,25 @@ const Login = (props) => {
       })
     }
     else{
-      openPayModal(subscription,data)
+      axios.post(`${process.env.REACT_APP_DEVELOPMENT}/api/recruiter/verifyOldUser`,{
+       email:data.email,
+       mobileNo:data.mobileNo 
+      })
+      .then(res=>{
+        console.log(res)
+        if(res.data.msg==="success"){
+          openPayModal(subscription,data)
+        }
+      })
+      .catch(err=>{
+        console.log(err)
+        props.setLoading(false)
+        if(err.response){
+          if(err.response.data.length>0){
+            setError(err.response.data)
+          }
+        }
+    })
     }
   }
 
