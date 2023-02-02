@@ -43,10 +43,10 @@ function Subscription(props) {
     const openPayModal = (amount,planId) => {
       console.log(planId)
       const options = {
-        key: 'rzp_test_BbBTgCM0XfV6iH',
+        key: 'rzp_live_R0NDdbIKIMSjU7', //rzp_test_BbBTgCM0XfV6iH
         amount: amount*100, //  = INR 1
-        name: 'Acme shop',
-        description: 'some description',
+        name: 'Bankster India',
+        description: 'Payment',
         image: 'https://cdn.razorpay.com/logos/7K3b6d18wHwKzL_medium.png',
         handler: function(response) {
             console.log(response);
