@@ -2,12 +2,18 @@ import React from 'react'
 import Footer from '../Footer/Footer'
 import Header from '../Header/Header'
 import "./Pages.scss"
-
+import MetaTags from 'react-meta-tags';
 function AboutUs() {
   return (
     <div>
     <Header />
         <div className="page-section">
+        <MetaTags>
+            <title>About Us</title>
+            <meta name="description" content="Let's start Shaping your career with us.." />
+            <meta property="og:title" content="About Us" />
+            <meta property="og:image" content="/banksterlogo.png" />
+        </MetaTags>
         <h1>About Us</h1>
         <h2>Let's start Shaping your career with us.</h2>
         <p>
