@@ -105,32 +105,30 @@ function Home(props) {
                 <div className="row mx-5 justify-content-center">
                     {
                         <div className='partner-section'>
-                        <img src="/partnerbanners/logo1.png" alt="logo1" />
-                        <img src="/logo2.png" alt="logo1" />
-                        <img src="/logo2.png" alt="logo1" />
-                        <img src="/logo2.png" alt="logo1" />
-                        <img src="/logo2.png" alt="logo1" />
-                        <img src="/logo2.png" alt="logo1" />
-                        <img src="/logo2.png" alt="logo1" />
-                        <img src="/logo2.png" alt="logo1" />
-                        <img src="/logo2.png" alt="logo1" />
-                        <img src="/logo2.png" alt="logo1" />
+                        <img src="/partnerbanners/logo2.png" alt="logo1" />
+                        <img src="/partnerbanners/logo3.png" alt="logo1" />
+                        <img src="/partnerbanners/logo4.png" alt="logo1" />
+                        <img src="/partnerbanners/logo5.png" alt="logo1" />
+                        <img src="/partnerbanners/logo6.png" alt="logo1" />
+                        <img src="/partnerbanners/logo7.png" alt="logo1" />
+                        <img src="/partnerbanners/logo8.png" alt="logo1" />
+                        <img src="/partnerbanners/logo9.png" alt="logo1" />
                         </div>
                     }
                 </div>
                 <div className="row mx-5 justify-content-center">
                     {
                         <div className='partner-section'>
+                        <img src="/partnerbanners/logo10.png" alt="logo1" />
+                        <img src="/partnerbanners/logo11.png" alt="logo1" />
+                        <img src="/partnerbanners/logo12.png" alt="logo1" />
+                        {/* <img src="/logo2.png" alt="logo1" />
                         <img src="/logo2.png" alt="logo1" />
                         <img src="/logo2.png" alt="logo1" />
                         <img src="/logo2.png" alt="logo1" />
                         <img src="/logo2.png" alt="logo1" />
                         <img src="/logo2.png" alt="logo1" />
-                        <img src="/logo2.png" alt="logo1" />
-                        <img src="/logo2.png" alt="logo1" />
-                        <img src="/logo2.png" alt="logo1" />
-                        <img src="/logo2.png" alt="logo1" />
-                        <img src="/logo2.png" alt="logo1" />
+                        <img src="/logo2.png" alt="logo1" /> */}
                         </div>
                     }
                 </div>
