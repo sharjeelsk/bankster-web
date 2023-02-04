@@ -95,7 +95,7 @@ function Home(props) {
             </Carousel>
             </>}
 
-            <h3>Our <span className="primarycolorwh">Partners</span></h3>
+            {/* <h3>Our <span className="primarycolorwh">Partners</span></h3>
 
             <Carousel autoPlay
             infiniteLoop
@@ -122,24 +122,10 @@ function Home(props) {
                         <img src="/partnerbanners/logo10.png" alt="logo1" />
                         <img src="/partnerbanners/logo11.png" alt="logo1" />
                         <img src="/partnerbanners/logo12.png" alt="logo1" />
-                        {/* <img src="/logo2.png" alt="logo1" />
-                        <img src="/logo2.png" alt="logo1" />
-                        <img src="/logo2.png" alt="logo1" />
-                        <img src="/logo2.png" alt="logo1" />
-                        <img src="/logo2.png" alt="logo1" />
-                        <img src="/logo2.png" alt="logo1" />
-                        <img src="/logo2.png" alt="logo1" /> */}
                         </div>
                     }
                 </div>
-                {/* <div className="row mx-3">
-                    {
-                        jobData.totalLocations
-                        .slice(0,jobData.totalLocations.length/2)
-                        .map((item,index)=><p className="m-2" key={index}>{item._id}</p>)
-                    }
-                </div> */}
-            </Carousel>
+            </Carousel> */}
 
 
 
