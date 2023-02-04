@@ -298,7 +298,7 @@ function RecruiterHome(props) {
                             <p>Upgrade your plan for more job posting's and resume access</p>
                         </div>
                         <div className="col-4">
-                            <Button variant="contained">Upgrade</Button>
+                            <Button onClick={()=>props.history.push("/SubscriptionR")} variant="contained">Upgrade</Button>
                         </div>
                     </div>
                 </div>
