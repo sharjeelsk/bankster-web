@@ -63,7 +63,7 @@ function Home(props) {
            </section>
            </div>
 
-            {jobData&&<>
+            {/* {jobData&&<>
             <h3 className="mt-5 pt-5 mb-5">Job Locations on <span className="primarycolorwh">Bankster</span></h3>
            <Carousel autoPlay
             dynamicHeight={50}
@@ -85,15 +85,8 @@ function Home(props) {
                         .map((item,index)=><p className="mx-2" key={index}>{item._id} |</p>)
                     }
                 </div>
-                {/* <div className="row mx-3">
-                    {
-                        jobData.totalLocations
-                        .slice(0,jobData.totalLocations.length/2)
-                        .map((item,index)=><p className="m-2" key={index}>{item._id}</p>)
-                    }
-                </div> */}
             </Carousel>
-            </>}
+            </>} */}
 
             {/* <h3>Our <span className="primarycolorwh">Partners</span></h3>
 
