@@ -47,6 +47,7 @@ import FAQ from './components/Pages/FAQ';
 import RefundPolicy from './components/Pages/RefundPolicy';
 import Contact from './components/Pages/Contact'
 import Blogs from './components/Pages/Blogs';
+import VerificationFailed from './components/utils/VerificationFailed';
 
 function App(props) {
   return (
@@ -84,6 +85,7 @@ function App(props) {
       <Route path="/Loginrecruiter" component={Loginrecruiter} />
       <Route path="/SignupRecruiter" component={SignupRecruiter} />
       <Route path="/verificationmail" component={VerificationMail} />
+      <Route path="/verificationfailed" component={VerificationFailed} />
       <Route path="/verificationsuccess/:token/:type" component={LottieComponent} />
 
 
