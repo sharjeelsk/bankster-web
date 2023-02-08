@@ -40,8 +40,8 @@ function Subscription(props) {
       getPlans()
     },[])
 
-    const openPayModal = (amount,planId) => {
-      console.log(planId)
+    const openPayModal = (amount,plan) => {
+      console.log(plan)
       const options = {
         key: 'rzp_live_R0NDdbIKIMSjU7', //rzp_test_BbBTgCM0XfV6iH
         amount: amount*100, //  = INR 1
@@ -50,7 +50,7 @@ function Subscription(props) {
         image: 'https://cdn.razorpay.com/logos/7K3b6d18wHwKzL_medium.png',
         handler: function(response) {
             console.log(response);
-            axios.post(`${process.env.REACT_APP_DEVELOPMENT}/api/candidate/changeCandidatePlan`,{planId,paymentId:response},{headers:{token:props.user.user}})
+            axios.post(`${process.env.REACT_APP_DEVELOPMENT}/api/candidate/changeCandidatePlan`,{planId:plan._id,plan,paymentId:response},{headers:{token:props.user.user}})
             .then(res=>{
               console.log(res);
               getPlans()
@@ -109,12 +109,14 @@ function Subscription(props) {
               plans.length>0?plans.map((item,index)=>
               <div key={index} className={`shadow-sm plan-auth-cont col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 ${item._id===props.user.userInfo.subscription._id?"active-plan":""}`}>
               <h1>{item.name}</h1>
-              <h2>${item.amount}/month</h2>
-              <p><TaskAltIcon /> {item.cvAccess} resume access</p>
-              <p><TaskAltIcon /> {item.jobPostings} job postings</p>
+              <h2>₹{item.amount}/month</h2>
+              {
+                item.features.map((i,ind)=><p key={ind}><TaskAltIcon /> {i}</p>)
+              }
+              
               {
                 item._id===props.user.userInfo.subscription._id?<p className="active-text">Currently Active</p>:
-                <Button onClick={()=>openPayModal(item.amount,item._id)} variant="contained">upgrade</Button>
+                <Button onClick={()=>openPayModal(item.amount,item)} variant="contained">upgrade</Button>
               }
              </div> 
               ):null

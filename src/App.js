@@ -4,6 +4,7 @@ import {connect} from 'react-redux'
 import Home from "./components/Home"
 import FindJobs from './components/FindJobs/FindJobs';
 import SearchCandidates from './components/FindCandidates/SearchCandidates';
+import CandidateInfo from './components/FindCandidates/CandidateInfo'
 import FindCandidates from './components/FindCandidates/FindCandidates';
 
 import CandidateHome from './components/CandidateDashboard/CandidateHome';
@@ -62,6 +63,7 @@ function App(props) {
       <Route path="/searchcandidates" component={SearchCandidates} />
       <Route path="/SearchCandidateHome" component={SearchCandidateHome} />
       <Route path="/findcandidates" component={FindCandidates} />
+      <Route path="/candidate-info/:id" component={CandidateInfo} />
 
       <Route path="/candidatehome" component={CandidateHome} />
       <Route path="/jobsapplied" component={JobsApplied} />

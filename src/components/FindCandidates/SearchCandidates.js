@@ -3,7 +3,7 @@ import "./FindCandidates.scss"
 import Header from '../Header/Header'
 import Footer from '../Footer/Footer'
 import {TextField,Button,Slider} from '@mui/material'
-import CandidateCard from './CandidateCard'
+import CandidateCardHalf from './CandidateCardHalf'
 import axios from 'axios'
 import Chip from '@mui/material/Chip';
 import Autocomplete from '@mui/material/Autocomplete';
@@ -29,6 +29,8 @@ function SearchCandidates(props) {
     const [allFunctionalArea,setAllFuncationalArea]=React.useState([])
     const [allProducts,setAllProducts] = React.useState([])
     const [allIndustry,setAllIndustry] = React.useState([])
+    const [must,setMust] = React.useState([])
+    const [any,setAny] = React.useState([])
     const [formValues,setFormValues]=React.useState({city:"",workMode:"null",minimumExperience:0,maximumExperience:15,minimumSalary:0,maximumSalary:75,industry:[],functionalArea:[],product:[],minimumAge:0,maximumAge:0})
     React.useEffect(()=>{
         //getDegrees
@@ -62,6 +64,18 @@ function SearchCandidates(props) {
         })
     },[])
 
+    const handleCandidateSearch = ()=>{
+        console.log(formValues,must,any)
+        axios.post(`${process.env.REACT_APP_DEVELOPMENT}/api/recruiter/searchCandidate`,{must,mustNot:[],should:any},{headers:{token:props.user.user}})
+        .then(res=>{
+            console.log(res)
+            setCandidates(res.data.result)
+        })
+        .catch(err=>{
+            console.log(err)
+        })
+    }
+
   return (
     <div>
         <Header id="3" />
@@ -73,6 +87,7 @@ function SearchCandidates(props) {
                 multiple
                 id="tags-filled"
                 options={tags}
+                onChange = {(e,val)=>setMust(val)}
                 // defaultValue={[tags[13]]}
                 freeSolo
                 renderTags={(value, getTagProps) =>
@@ -95,6 +110,7 @@ function SearchCandidates(props) {
                 multiple
                 id="tags-filled"
                 options={tags}
+                onChange = {(e,val)=>setAny(val)}
                 // defaultValue={[tags[13]]}
                 freeSolo
                 renderTags={(value, getTagProps) =>
@@ -242,14 +258,14 @@ function SearchCandidates(props) {
 
             <div style={{textAlign:"right"}}>
                 <Button>Cancel</Button>
-                <Button onClick={()=>props.history.push("/findcandidates")} variant="contained">Search Candidate</Button>
+                <Button onClick={()=>handleCandidateSearch()} variant="contained">Search Candidate</Button>
             </div>
             
         </section>
         <section className='col-8 candidates-nearby'>
             <h1>Candidates based in <span className="primarycolorwh">Aurangabad</span></h1>
             {
-                candidates?candidates.map((item,index)=><CandidateCard key={index} {...item} />):null
+                candidates?candidates.map((item,index)=><CandidateCardHalf key={index} {...item} />):null
             }
         </section>
     </div>
