@@ -9,7 +9,6 @@ import {getAge} from '../utils/Functions'
 import {Link} from 'react-router-dom'
 import axios from 'axios'
 function CandidateCard(props) {
-    console.log(props)
     const renderEmployementString = ()=>{
         if(props.fresher){
             return "Fresher"

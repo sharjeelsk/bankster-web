@@ -38,6 +38,8 @@ import VerificationMail from './components/utils/VerificationMail';
 import LottieComponent from './components/utils/Lottie';
 import SearchCandidateHome from './components/FindCandidates/SearchCandidateHome';
 
+import SendJobEmail from './components/FindCandidates/SendJobEmail';
+
 import ScrollToTop from './ScrollToTop';
 
 // pages
@@ -64,6 +66,7 @@ function App(props) {
       <Route path="/SearchCandidateHome" component={SearchCandidateHome} />
       <Route path="/findcandidates" component={FindCandidates} />
       <Route path="/candidate-info/:id" component={CandidateInfo} />
+      <Route path="/sendjobemail" component={SendJobEmail} />
 
       <Route path="/candidatehome" component={CandidateHome} />
       <Route path="/jobsapplied" component={JobsApplied} />

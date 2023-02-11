@@ -14,9 +14,12 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
-
+import Checkbox from '@mui/material/Checkbox';
+import FormGroup from '@mui/material/FormGroup';
+import EmailIcon from '@mui/icons-material/Email';
 function SearchCandidates(props) {
     const [gender, setGender] = React.useState('Female');
+    const [selectedCandidate,setSelectedCandidate] = React.useState([])
 
     const handleChange = (event) => {
         setGender(event.target.value);
@@ -75,6 +78,8 @@ function SearchCandidates(props) {
             console.log(err)
         })
     }
+
+    console.log(selectedCandidate)
 
   return (
     <div>
@@ -264,9 +269,55 @@ function SearchCandidates(props) {
         </section>
         <section className='col-8 candidates-nearby'>
             <h1>Candidates based in <span className="primarycolorwh">Aurangabad</span></h1>
-            {
-                candidates?candidates.map((item,index)=><CandidateCardHalf key={index} {...item} />):null
-            }
+
+            <div className="menu row m-auto align-items-center">
+                <div className="mx-2">
+                <FormGroup>
+                <FormControlLabel 
+                    onChange={(e)=>{
+                        if(e.target.checked){
+                            setSelectedCandidate(candidates.map(i=>({_id:i._id,name:i.fullName,email:i.email})))
+                        }else{
+                            setSelectedCandidate([])
+                        }
+
+                    }}
+                control={<Checkbox />} label="Selected All" />
+                </FormGroup>
+                </div>
+
+                <div className="mx-2">
+                    <Button 
+                    onClick={()=>props.history.push("/sendjobemail",selectedCandidate)}
+                    startIcon={<EmailIcon />}>
+                        Email
+                    </Button>
+                </div>
+            </div>
+
+                {
+                    candidates?candidates.map((item,index)=>
+                    <div className="row m-auto">
+                        <div className="col-1 mt-4">
+                        <Checkbox
+                        checked={selectedCandidate.filter(i=>i._id===item._id).length>0?true:false}
+                        onChange={(e)=>{
+                            if(e.target.checked){
+                                setSelectedCandidate([...selectedCandidate,{_id:item._id,name:item.fullName,email:item.email}])
+                            }else{
+                                setSelectedCandidate(selectedCandidate.filter(i=>i._id!==item._id))
+                            }
+                            
+                        }}
+                        inputProps={{ 'aria-label': 'controlled' }}
+                        />
+                        </div>
+                        <div className="col-11">
+                        <CandidateCardHalf key={index} {...item} />
+                        </div>
+                    </div>):null
+                }
+
         </section>
     </div>
     <Footer />

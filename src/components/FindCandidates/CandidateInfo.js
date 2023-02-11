@@ -17,6 +17,7 @@ import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
 import Box from '@mui/material/Box';
+import moment from 'moment'
 import CandidateCardHalf from './CandidateCardHalf'
 //import { Viewer, Worker } from '@react-pdf-viewer/core';
 //import { defaultLayoutPlugin } from '@react-pdf-viewer/default-layout';
@@ -61,7 +62,7 @@ React.useEffect(()=>{
         }
     })
     
-},[])
+},[param.id])
 const renderEmployementString = ()=>{
     if(candidate.fresher){
         return "Fresher"
@@ -75,37 +76,70 @@ const renderEmployementString = ()=>{
 
 const renderProfile = ()=>{
     return <div>
+
+        <div className="mb-3 white-card">
         <h2>Info</h2>
-        <p>Category: {candidate.category}</p>
-        <p>Date of Birth: {candidate.dob}</p>
-        <p>Marital Status: {candidate.maritalStatus}</p>
-        <p>Fresher: {candidate.fresher}</p>
+        <p><span className="spankey">Category:</span> {candidate.category}</p>
+        <p><span className="spankey">Date of Birth:</span> {moment.parseZone(candidate.dob).local().format("DD/MM/YY")}</p>
+        <p><span className="spankey">Marital Status:</span> {candidate.maritalStatus}</p>
+        <p><span className="spankey">Fresher:</span> {candidate.fresher.toString()}</p>
+        </div>
+
+        <div className="mb-3 white-card">
         <h2>Work Experience</h2>
         {
-            candidate.workExperience.map((i,ind)=><div key={ind}>
-                <p>Company Name: {i.name}</p>
-                <p>Designation: {i.designation}</p>
-                <p>Description: {i.description}</p>
-                <p>Start Date: {i.startDate}</p>
-                <p>End Date: {i.endDate}</p>
-                <p>Current Company: {i.current.toString()}</p>
-            </div>)
+            candidate.workExperience.map((i,ind)=>
+            <>
+            <div key={ind} className="row m-auto">
+            <div className="col-3">
+                <p><b>{i.startDate&&moment.parseZone(i.startDate).local().format("DD/MM/YY")} - {i.endDate&&moment.parseZone(i.endDate).local().format("DD/MM/YY")}</b></p>
+            </div>
+            <div className="col-9">
+                <p><span className="spankey">Company Name:</span> {i.name}</p>
+                <p><span className="spankey">Designation:</span> {i.designation}</p>
+                <p><span className="spankey">Description:</span> {i.description}</p>
+                <p><span className="spankey">Start Date:</span> {i.startDate}</p>
+                <p><span className="spankey">End Date:</span> {i.endDate}</p>
+                <p><span className="spankey">Current Company:</span> {i.current.toString()}</p>
+            </div>
+            </div>
+            <hr />
+            </>
+            )
         }
+        </div>
+
+        <div className="mb-3 white-card">
         <h2>Education</h2>
         {
-            candidate.education.map((i,ind)=><div key={ind}>
-                <p>Name: {i.name}</p>
-                <p>University Name: {i.universityName}</p>
-                <p>Start Date: {i.startDate}</p>
-                <p>End Date: {i.endDate}</p>
-                <p>Featured Education: {i.featuredEducation.toString()}</p>
-                <p>Current Education: {i.current.toString()}</p>
-            </div>)
+            candidate.education.map((i,ind)=>
+            <>
+            <div key={ind} className="row m-auto">
+            <div className="col-3">
+                <p><b>{i.startDate&&moment.parseZone(i.startDate).local().format("DD/MM/YY")} - {i.endDate&&moment.parseZone(i.endDate).local().format("DD/MM/YY")}</b></p>
+            </div>
+            <div className="col-9">
+            <p><span className="spankey">Name:</span> {i.name}</p>
+                <p><span className="spankey">University Name:</span> {i.universityName}</p>
+                <p><span className="spankey">Start Date:</span> {i.startDate}</p>
+                <p><span className="spankey">End Date:</span> {i.endDate}</p>
+                <p><span className="spankey">Featured Education:</span> {i.featuredEducation.toString()}</p>
+                <p><span className="spankey">Current Education:</span> {i.current.toString()}</p>
+            </div>
+            </div>
+            <hr />
+            </>
+            )
         }
+        </div>
+
+        <div className="white-card">
         <h2>Languages</h2>
         {
             candidate.languages.map((i,ind)=><Chip label={i} key={ind} className="m-2" />)
         }
+        </div>
+
         </div>
 }
 const attachedCV = ()=>{
@@ -120,14 +154,16 @@ const attachedCV = ()=>{
             />
             </div>
         </Worker> */}
-<iframe
+{candidate.resume?<iframe
     title="pdfview"
     src={`${process.env.REACT_APP_DEVELOPMENT}/api/pdf/${candidate.resume}`}
     frameBorder="0"
     scrolling="auto"
     height="100%"
     width="100%"
-></iframe>
+></iframe>:
+<h2>Candidate hasn't uploaded CV yet</h2>
+}
         </div>
 }
 
@@ -142,6 +178,7 @@ const attachedCV = ()=>{
             {candidate&&<section className="candidate-info-parent col-12 row m-auto">
 
                 <section className="single-candidate-info-section col-8">
+                <h1>Candidate <span className="primarycolorwh">Profile</span></h1>
                 <div className="candidate-card-half shadow-sm row m-auto">
                     <div className="col-2 img-div">
                     <img src={candidate.profilePicture?`${process.env.REACT_APP_DEVELOPMENT}/api/image/${candidate.profilePicture}`:"/user.png"} alt="avatar" />

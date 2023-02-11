@@ -4,10 +4,15 @@ import "./JobCard.scss"
 import {renderAgo} from './Functions'
 
 function JobCard(props) {
-
+    function convertToLakhsString(num) {
+        const lakhs = num / 100000;
+        return lakhs.toLocaleString('en-IN', { maximumFractionDigits: 2 }) + ' Lacs';
+      }
   function numberWithCommas(x) {
-    let num = x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    return num.length>7?`${num.substring(0,10)}..`:num
+    //let num = x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    let num = x.toString()
+    //return num.length>=5?`${num.substring(0,num.length-5)} lakhs`:num
+    return convertToLakhsString(x)
 }
 const renderImageString = (createdBy)=>{
   if(createdBy){

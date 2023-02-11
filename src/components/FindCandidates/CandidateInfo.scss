@@ -14,6 +14,18 @@
     padding: 0 !important;
 }
 
-.candidate-info-head{
-
+.candidate-info-container{
+    background-color: $secondary;
+    padding: 2% .5%;
+    .white-card{
+        background-color: white !important;
+        padding: 2%;
+        border-radius: 10px;
+        .spankey{
+            color: rgb(167, 167, 167);
+        }
+        p{
+            font-weight:500;
+        }
+    }
 }
