@@ -141,9 +141,19 @@ function SearchCandidates(props) {
         .then(res=>{
             console.log(res)
             setCandidates(res.data.result)
+                    window.scrollTo({
+          top: 0,
+          left: 0,
+          behavior: "smooth"
+        });
         })
         .catch(err=>{
             console.log(err)
+                    window.scrollTo({
+          top: 0,
+          left: 0,
+          behavior: "smooth"
+        });
         })
     }
 
