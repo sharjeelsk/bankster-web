@@ -6,7 +6,15 @@ TimeAgo.addDefaultLocale(en)
 
 // Create formatter (English).
 const timeAgo = new TimeAgo('en-US')
+export function isEmail(emailAdress){
+    let regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
+  if (emailAdress.match(regex)) 
+    return true; 
+
+   else 
+    return false; 
+}
 export function getAge(dateString) 
 {
     var today = new Date();

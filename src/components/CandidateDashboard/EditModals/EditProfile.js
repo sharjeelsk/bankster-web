@@ -37,9 +37,11 @@ function EditProfile(props) {
     const [dob, setDob] = React.useState('');
     const [states,setStates]=React.useState([])
     const [cities,setCities] = React.useState([])
-    const [formValues,setFormValues] = React.useState({state:"",city:"",product:""})
+    const [formValues,setFormValues] = React.useState({state:"",city:"",product:"",industry:"",functionalArea:""})
     const [gender, setGender] = React.useState('Male');
     const [products,setProducts]=React.useState([])
+    const [functionalArea,setFunctionalArea]=React.useState([])
+    const [industry,setIndustry]=React.useState([])
 
     const handleChange = (event) => {
       setGender(event.target.value);
@@ -71,10 +73,26 @@ function EditProfile(props) {
             .catch(function (error) {
               console.log(error);
             });
-            axios.get(`${process.env.REACT_APP_DEVELOPMENT}/api/admin/getAllProducts`,{headers:{token:props.user.user}})
+            axios.get(`${process.env.REACT_APP_DEVELOPMENT}/api/admin/getAllProdIndFunc`,{headers:{token:props.user.user}})
             .then(res=>{
               console.log("products response",res)
-              setProducts(res.data.result)
+              let prod = [];
+              let ind = []
+              let func = []
+              if(res.data.result.length>0){
+                res.data.result.map(item=>{
+                  if(item.type==="product"){
+                    prod.push(item)
+                  }else if(item.type==="functionalarea"){
+                    func.push(item)
+                  }else{
+                    ind.push(item)
+                  }
+                })
+              }
+              setProducts(prod)
+              setFunctionalArea(func)
+              setIndustry(ind)
             })
     },[])
 
@@ -82,7 +100,11 @@ function EditProfile(props) {
     const onSubmit = (data)=>{
         console.log(data)
         //props.setLoading(true)
-        axios.post(`${process.env.REACT_APP_DEVELOPMENT}/api/candidate/editCandidateProfile`,{...data,dob,userLocation:{...formValues,country:"India"},gender,product:formValues.product,noticePeriod:formValues.noticePeriod},{headers:{token:props.user.user}})
+        axios.post(`${process.env.REACT_APP_DEVELOPMENT}/api/candidate/editCandidateProfile`,{...data,dob,userLocation:{...formValues,country:"India"},gender,
+        product:formValues.product,
+        industry:formValues.industry,
+        functionalArea:formValues.functionalArea,
+        noticePeriod:formValues.noticePeriod},{headers:{token:props.user.user}})
         .then(res=>{
             console.log(res)
             //props.setLoading(false)
@@ -260,6 +282,34 @@ console.log(formValues)
                     options={products}
                     getOptionLabel={(option) => option.name}
                     renderInput={(params) => <TextField {...params} label="Select Product"/>}
+                    />
+                    </div>
+
+                    <div className="my-4">
+                    <Autocomplete
+                    fullWidth
+                    onChange={(event, newValue) => {
+                      console.log(newValue)
+                    setFormValues({...formValues,industry:newValue.name});
+                    }}
+                    id="controllable-states-demo"
+                    options={industry}
+                    getOptionLabel={(option) => option.name}
+                    renderInput={(params) => <TextField {...params} label="Select Industry"/>}
+                    />
+                    </div>
+
+                    <div className="my-4">
+                    <Autocomplete
+                    fullWidth
+                    onChange={(event, newValue) => {
+                      console.log(newValue)
+                    setFormValues({...formValues,functionalArea:newValue.name});
+                    }}
+                    id="controllable-states-demo"
+                    options={functionalArea}
+                    getOptionLabel={(option) => option.name}
+                    renderInput={(params) => <TextField {...params} label="Select Functional Area"/>}
                     />
                     </div>
                     

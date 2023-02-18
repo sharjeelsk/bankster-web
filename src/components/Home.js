@@ -33,7 +33,7 @@ function Home(props) {
             <div className='gradient-home'>
             <Header />
             <section >
-           <h1>Get The <span className="primarycolorwh">Right Job</span> Your Deserve at</h1>
+           <h1>Get The <span className="primarycolorwh">Right Job</span> You Deserve at</h1>
            <h2>BanksterIndia</h2>
 
 

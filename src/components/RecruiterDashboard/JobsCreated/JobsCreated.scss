@@ -1,5 +1,8 @@
 @import "../../../App.scss";
-
+.note-text{
+    font-weight: bold;
+    color: #a1a1a1;
+}
 .create-job{
     padding: 2%;
     .job-form{
@@ -10,10 +13,7 @@
             font-weight: 400;
             font-size: 2em;
         }
-        .note-text{
-            font-weight: bold;
-            color: #a1a1a1;
-        }
+
         .slider-info{
             color: $primary;
             font-weight: bold;

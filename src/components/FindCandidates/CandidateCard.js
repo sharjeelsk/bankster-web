@@ -65,6 +65,8 @@ function CandidateCard(props) {
                 <p className="grey-text">
                     <b>Years of Experience:</b> {props.yearsOfExperience}<br /><br />
                     <b>Current CTC:</b> {props.currentCtc}<br /><br />
+                    <b>Industry:</b> {props.industry}<br /><br />
+                    <b>Functional Area:</b> {props.functionalArea}<br /><br />
                     <b>Product:</b> {props.product} <br /><br />
                     <b>Notice Period:</b> {props.noticePeriod}<br />
                 </p>
