@@ -21,7 +21,7 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 function SearchCandidates(props) {
-    const [gender, setGender] = React.useState('Both');
+    const [gender, setGender] = React.useState('All');
     const [dateFilter,setDateFilter] = React.useState("All Resume")
     const [selectedDateFilter,setSelectedDateFilter] = React.useState(null)
     const [selectedCandidate,setSelectedCandidate] = React.useState([])
@@ -136,7 +136,7 @@ function SearchCandidates(props) {
         ug:formValues.ug,
         noticePeriod:formValues.noticePeriod,
         dateFilter:date,
-        gender:gender==="Both"?null:gender
+        gender:gender==="All"?null:gender
         },{headers:{token:props.user.user}})
         .then(res=>{
             console.log(res)
@@ -234,6 +234,14 @@ function SearchCandidates(props) {
             />
             </section>
             <hr />
+
+            <h3>Age</h3>
+            <Slider onChange={(ev,value)=>setFormValues({...formValues,minimumAge:value})} value={formValues.minimumAge} min={18} max={60} defaultValue={18} aria-label="Default" valueLabelDisplay="auto" />
+            <p className="slider-info">Minimum Age Selected is {formValues.minimumAge} Years</p>
+            <Slider onChange={(ev,value)=>setFormValues({...formValues,maximumAge:value})} value={formValues.maximumAge} min={18} max={60} defaultValue={60} aria-label="Default" valueLabelDisplay="auto" />
+            <p className="slider-info">Maximum Age Selected is {formValues.maximumAge} Years</p>
+            <hr />
+
             <h3>Experience</h3>
             <Slider onChange={(ev,value)=>setFormValues({...formValues,minimumExperience:value})} value={formValues.minimumExperience} min={0} max={30} defaultValue={0} aria-label="Default" valueLabelDisplay="auto" />
             <p className="slider-info">Minimum Experience Selected is {formValues.minimumExperience} Years</p>
@@ -248,7 +256,7 @@ function SearchCandidates(props) {
             <p className="slider-info">Maximum Salary Selected is {formValues.maximumSalary} Lacs</p>
             <hr />
 
-            <h3>Location of Candidate</h3>
+            <h3>Search By Location of Candidate</h3>
             <div className="my-4">
                     <Autocomplete
                     fullWidth
@@ -268,7 +276,7 @@ function SearchCandidates(props) {
                     </div>
             <hr />
 
-            <h3>Educational Details</h3>
+            <h3>Search By Educational Details</h3>
             <div className="my-4">
                     <Autocomplete
                     fullWidth
@@ -305,7 +313,7 @@ function SearchCandidates(props) {
                     </div>
             <hr />
 
-            <h3>Industry</h3>
+            <h3>Search By Industry</h3>
             <div className="my-4">
                     <Autocomplete
                     fullWidth
@@ -325,7 +333,7 @@ function SearchCandidates(props) {
                     </div>
             <hr />
 
-            <h3>Functional Area</h3>
+            <h3>Search By Functional Area</h3>
             <div className="my-4">
                     <Autocomplete
                     fullWidth
@@ -345,7 +353,7 @@ function SearchCandidates(props) {
                     </div>
             <hr />
 
-            <h3>Product</h3>
+            <h3>Search By Product</h3>
             <div className="my-4">
                     <Autocomplete
                     fullWidth
@@ -365,16 +373,11 @@ function SearchCandidates(props) {
                     </div>
             <hr />
 
-            <h3>Company</h3>
+            <h3>Search By Company</h3>
             <TextField fullWidth variant="outlined" id="outlined-basic" label="Current Company" />
             <hr />
 
-            <h3>Age</h3>
-            <Slider onChange={(ev,value)=>setFormValues({...formValues,minimumAge:value})} value={formValues.minimumAge} min={18} max={60} defaultValue={18} aria-label="Default" valueLabelDisplay="auto" />
-            <p className="slider-info">Minimum Age Selected is {formValues.minimumAge} Years</p>
-            <Slider onChange={(ev,value)=>setFormValues({...formValues,maximumAge:value})} value={formValues.maximumAge} min={18} max={60} defaultValue={60} aria-label="Default" valueLabelDisplay="auto" />
-            <p className="slider-info">Maximum Age Selected is {formValues.maximumAge} Years</p>
-            <hr />
+
 
             <div className="my-4">
                     <Autocomplete
@@ -400,7 +403,8 @@ function SearchCandidates(props) {
             >
                 <FormControlLabel value="Male" control={<Radio />} label="Male" />
                 <FormControlLabel value="Female" control={<Radio />} label="Female" />
-                <FormControlLabel value="Both" control={<Radio />} label="Both" />
+                <FormControlLabel value="Other" control={<Radio />} label="Other" />
+                <FormControlLabel value="All" control={<Radio />} label="All" />
             </RadioGroup>
             </FormControl>
 

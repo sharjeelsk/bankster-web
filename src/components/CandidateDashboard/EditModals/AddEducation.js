@@ -28,6 +28,7 @@ import { setLoading } from '../../redux/loading/loadingActions';
 import FormGroup from '@mui/material/FormGroup';
 import Checkbox from '@mui/material/Checkbox';
 import Autocomplete from '@mui/material/Autocomplete';
+import { Alert } from '@material-ui/lab';
 const Input = styled('input')({
   display: 'none',
 });
@@ -40,6 +41,7 @@ function AddEducation(props) {
     const [featuredEducation,setFeaturedEducation] = React.useState(false)
     const [allEducation,setAllEducation] = React.useState([])
     const [singleEducation,setSingleEducation] = React.useState(null)
+    const [error,setError]=React.useState("")
     React.useEffect(()=>{
       if(props.keyD==="Edit"){
         setValue("name",props.editData.name)
@@ -66,35 +68,47 @@ function AddEducation(props) {
     const onSubmit = (data)=>{
         console.log(data)
          props.setLoading(true)
+         console.log("inside on submit ------------------------------------------",singleEducation)
         if(singleEducation){
         if(props.keyD==="Edit"){
           axios.post(`${process.env.REACT_APP_DEVELOPMENT}/api/candidate/editEducation`,{obj:{...data,name:singleEducation.name,startDate,endDate:current?"":endDate,current,featuredEducation},oldObj:props.editData},{headers:{token:props.user.user}})
           .then(res=>{
             console.log(res)
+            setError("")
             props.fetchCandidateInfo(props.user.user)
             props.setLoading(false)
             props.setOpen(false)
           })
           .catch(err=>{
             console.log(err)
-            props.setOpen(false)
+            if(err.response){
+              if(typeof(err.response.data) === "string"){
+                setError(err.response.data)
+              }
+            }
             props.setLoading(false)
           })
         }else{
           axios.post(`${process.env.REACT_APP_DEVELOPMENT}/api/candidate/addEducation`,{obj:{...data,name:singleEducation.name,startDate,endDate:current?"":endDate,current,featuredEducation}},{headers:{token:props.user.user}})
           .then(res=>{
             console.log(res)
+            setError("")
             props.fetchCandidateInfo(props.user.user)
             props.setOpen(false)
             props.setLoading(false)
           })
           .catch(err=>{
             console.log(err)
+            if(err.response){
+              if(typeof(err.response.data) === "string"){
+                setError(err.response.data)
+              }
+            }
             props.setLoading(false)
-            props.setOpen(false)
           })
         }
         }
+        props.setLoading(false)
 
 
     }
@@ -186,7 +200,7 @@ function AddEducation(props) {
 
 
 
-
+          {error.length>0&&<Alert className="alert" severity="error">{error}</Alert>}
         </DialogContent>
         <DialogActions>
           <Button onClick={()=>props.setOpen(false)}>Cancel</Button>

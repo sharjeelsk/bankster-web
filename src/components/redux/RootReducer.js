@@ -3,9 +3,9 @@ import socketReducer from './socket/socketReducer'
 import flagReducer from './flags/flagReducer'
 import {combineReducers} from 'redux'
 import { persistReducer } from 'redux-persist'
-import storage from 'redux-persist/lib/storage'
 import loadingReducer from './loading/loadingReducer'
-
+//import storageSession from 'redux-persist/lib/storage/session'
+import storage from 'redux-persist/lib/storage'
 const socketPersistConfig = {
     key: 'socket',
     storage: storage,
@@ -13,7 +13,7 @@ const socketPersistConfig = {
   }
 
 export default combineReducers({
-    banksterUser:userReducer,
+    banksterUser:persistReducer(socketPersistConfig,userReducer),
     flag:flagReducer,
     loading:loadingReducer,
     socket:persistReducer(socketPersistConfig,socketReducer)

@@ -31,7 +31,7 @@ import BookmarkIcon from '@mui/icons-material/Bookmark';
 //import PDFViewer from 'pdf-viewer-reactjs'
 //import '@react-pdf-viewer/core/lib/styles/index.css';
 //import '@react-pdf-viewer/default-layout/lib/styles/index.css';
-
+import RestartAltIcon from '@mui/icons-material/RestartAlt';
 //const defaultLayoutPluginInstance = defaultLayoutPlugin();
 
 function FindCandidates(props) {
@@ -42,6 +42,7 @@ const [value, setValue] = React.useState('1');
 const [similarCandidates,setSimilarCandidates] = React.useState(null)
 const [open,setOpen] = React.useState(false)
 const [open2,setOpen2] = React.useState(false)
+const [limit,setLimit] = React.useState(5)
 
 const handleChange = (event, newValue) => {
   setValue(newValue);
@@ -55,7 +56,7 @@ const getSingleCandidate = ()=>{
     .then(res=>{
         console.log(res)
         setCandidate(res.data.result)
-        axios.post(`${process.env.REACT_APP_DEVELOPMENT}/api/recruiter/similarCandidates`,{product:res.data.result.product,city:"",userId:res.data.result._id},{headers:{token:props.user.user}})
+        axios.post(`${process.env.REACT_APP_DEVELOPMENT}/api/recruiter/similarCandidates`,{limit,product:res.data.result.product,city:"",userId:res.data.result._id},{headers:{token:props.user.user}})
         .then(resc=>{
             console.log(resc)
             setSimilarCandidates(resc.data.result)
@@ -75,7 +76,7 @@ const getSingleCandidate = ()=>{
 React.useEffect(()=>{
     getSingleCandidate()
     
-},[param.id])
+},[param.id,limit])
 const renderEmployementString = ()=>{
     if(candidate.fresher){
         return "Fresher"
@@ -234,6 +235,19 @@ const renderProfile = ()=>{
             </>
             )
         }
+        </div>
+
+        <div className="cv-cont">
+{candidate.resume?<iframe
+    title="pdfview"
+    src={`${process.env.REACT_APP_DEVELOPMENT}/api/pdf/${candidate.resume}`}
+    frameBorder="0"
+    scrolling="auto"
+    height="100%"
+    width="100%"
+></iframe>:
+<h2>Candidate hasn't uploaded CV yet</h2>
+}
         </div>
 
 
@@ -423,8 +437,13 @@ const attachedCV = ()=>{
 
             <h1>Similar <span className="primarycolorwh">Candidates</span></h1>
             {
-                similarCandidates?similarCandidates.map((item,index)=><CandidateCardHalf key={index} {...item} />):null
+                similarCandidates?similarCandidates.map((item,index)=><CandidateCardHalf hide={true} key={index} {...item} />):null
             }
+                    <div style={{textAlign:"center"}}>
+                    <Button onClick={()=>{
+                        setLimit(limit+1)
+                    }} endIcon={<RestartAltIcon />} variant="outlined">Load More</Button>
+                    </div>
             </section>
             </section>}
             </>

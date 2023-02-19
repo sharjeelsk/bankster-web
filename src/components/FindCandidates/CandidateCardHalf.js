@@ -7,6 +7,7 @@ import LocationOnIcon from '@mui/icons-material/LocationOn';
 import DescriptionIcon from '@mui/icons-material/Description';
 import {getAge} from '../utils/Functions'
 import {Link} from 'react-router-dom'
+import moment from 'moment'
 import axios from 'axios'
 function CandidateCard(props) {
     const renderEmployementString = ()=>{
@@ -44,7 +45,7 @@ function CandidateCard(props) {
     }
 
   return (
-    <Link className="link" to={`/candidate-info/${props._id}`}>
+    <Link target="_blank" className="link" to={`/candidate-info/${props._id}`}>
     <div className="candidate-card-half shadow-sm row m-auto">
         <div className="col-2 img-div">
         <img src={props.profilePicture?`${process.env.REACT_APP_DEVELOPMENT}/api/image/${props.profilePicture}`:"/user.png"} alt="avatar" />
@@ -90,6 +91,11 @@ function CandidateCard(props) {
 
             <p>{props.resumeTagline}</p>
             {props.skills.map((item,index)=><Chip key={index} className="mx-2 my-1" label={item} />)}
+
+            <div style={{textAlign:"right"}}>
+                            <p className="grey-text">Last Modified: {moment.parseZone(props.updatedAt).local().format("dddd, MMMM Do YYYY")}</p>
+                            <p className="grey-text">Last Active: {moment.parseZone(props.lastActive).local().format("dddd, MMMM Do YYYY")}</p>
+            </div>
 
         </div>
     </div>
