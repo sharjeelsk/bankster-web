@@ -6,7 +6,10 @@ import CandidateCard from './CandidateCard'
 import { Button } from '@mui/material'
 import {connect} from 'react-redux'
 import ReplayIcon from '@mui/icons-material/Replay';
-
+import Tooltip from '@mui/material/Tooltip';
+import Fab from '@mui/material/Fab';
+import AddIcon from '@mui/icons-material/Add';
+import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 function SearchCandidateHome(props) {
     const [data,setData] = React.useState(null)
     const [limit1,setLimit1] = React.useState(10)
@@ -103,6 +106,14 @@ function SearchCandidateHome(props) {
          }  
          </div>
         </section>}
+        <div  style={{position:"fixed",bottom:"5%",right:"5%",zIndex:5}}>
+                    <Tooltip title="Search Candidates">
+                    <Fab variant="extended" onClick={()=>props.history.push("/searchcandidates")} color="primary" aria-label="add">
+                        <SearchOutlinedIcon sx={{ mr: 1 }} />
+                        Search Candidates
+                    </Fab>
+                    </Tooltip>
+            </div>
         <img className="my-3 width-100" src="/banners/bannerCandidate2.png" alt="oneplus" />
         <Footer />
     </div>

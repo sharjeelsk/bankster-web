@@ -39,6 +39,7 @@ import LottieComponent from './components/utils/Lottie';
 import SearchCandidateHome from './components/FindCandidates/SearchCandidateHome';
 
 import SendJobEmail from './components/FindCandidates/SendJobEmail';
+import SavedSearch from './components/RecruiterDashboard/SavedSearch/SavedSearch';
 
 import ScrollToTop from './ScrollToTop';
 
@@ -83,6 +84,7 @@ function App(props) {
       <Route path="/notificationsR" component={NotificationsR} />
       <Route path="/subscriptionR" component={SubscriptionR} />
       <Route path="/bookmarksr" component={Bookmark} />
+      <Route path="/savedsearch" component={SavedSearch} />
 
       <Route path="/login" component={Login} />
       <Route path="/forgetpassword" component={ForgetPassword} />

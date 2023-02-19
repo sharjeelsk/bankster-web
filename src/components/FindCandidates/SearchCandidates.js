@@ -85,9 +85,19 @@ function SearchCandidates(props) {
         minimumSalary:0,maximumSalary:75,industry:null,functionalArea:null,product:null,minimumAge:18,maximumAge:60,
         noticePeriod:null,
         pg:null,
-        ug:null
+        ug:null,
+        currentCompany:""
     })
     React.useEffect(()=>{
+
+        if(props.location.state){
+            setFormValues({...props.location.state})
+            setMust(props.location.state.must)
+            setAny(props.location.state.should)
+            setMustNot(props.location.state.mustNot)
+            setGender(props.location.state.gender?props.location.state.gender:"All")
+        }
+
         //getDegrees
         axios.get(`${process.env.REACT_APP_DEVELOPMENT}/api/recruiter/getAllCandidateLocations`,{headers:{token:props.user.user}})
         .then(res=>{
@@ -118,7 +128,7 @@ function SearchCandidates(props) {
             //setAllLocations(res.data.result)
         })
     },[])
-
+    console.log(props)
     const handleCandidateSearch = (date)=>{
         console.log(formValues,must,any,gender)
 
@@ -135,7 +145,8 @@ function SearchCandidates(props) {
         pg:formValues.pg,
         ug:formValues.ug,
         noticePeriod:formValues.noticePeriod,
-        dateFilter:date,
+        currentCompany:formValues.currentCompany,
+        dateFilter:date?date:null,
         gender:gender==="All"?null:gender
         },{headers:{token:props.user.user}})
         .then(res=>{
@@ -157,6 +168,42 @@ function SearchCandidates(props) {
         })
     }
 
+    const handleSave = ()=>{
+        axios.post(`${process.env.REACT_APP_DEVELOPMENT}/api/recruiter/saveSearch`,{must,mustNot,should:any,
+            product:formValues.product?formValues.product.name:null,
+            maximumAge:formValues.maximumAge,
+            minimumAge:formValues.minimumAge,
+            minimumSalary:parseInt(formValues.minimumSalary)*100000,
+            maximumSalary:parseInt(formValues.maximumSalary)*100000,
+            minimumExperience:formValues.minimumExperience,
+            maximumExperience:formValues.maximumExperience,
+            // pg:formValues.pg?(formValues.pg.includes("Any")?null:formValues.pg):null,
+            // ug:formValues.ug?(formValues.ug.includes("Any")?null:formValues.ug):null,
+            pg:formValues.pg,
+            ug:formValues.ug,
+            noticePeriod:formValues.noticePeriod,
+            currentCompany:formValues.currentCompany,
+            gender:gender==="All"?null:gender
+            },{headers:{token:props.user.user}})
+            .then(res=>{
+                console.log(res)
+                //setCandidates(res.data.result)
+                        window.scrollTo({
+              top: 0,
+              left: 0,
+              behavior: "smooth"
+            });
+            })
+            .catch(err=>{
+                console.log(err)
+                        window.scrollTo({
+              top: 0,
+              left: 0,
+              behavior: "smooth"
+            });
+            })
+    }
+
 
   return (
     <div>
@@ -170,6 +217,7 @@ function SearchCandidates(props) {
                 id="tags-filled"
                 options={tags}
                 onChange = {(e,val)=>setMust(val)}
+                value={must}
                 // defaultValue={[tags[13]]}
                 freeSolo
                 renderTags={(value, getTagProps) =>
@@ -192,6 +240,7 @@ function SearchCandidates(props) {
                 multiple
                 id="tags-filled"
                 options={tags}
+                value={any}
                 onChange = {(e,val)=>setAny(val)}
                 // defaultValue={[tags[13]]}
                 freeSolo
@@ -215,6 +264,7 @@ function SearchCandidates(props) {
                 multiple
                 id="tags-filled"
                 options={tags}
+                value={mustNot}
                 onChange = {(e,val)=>setMustNot(val)}
                 // defaultValue={[tags[13]]}
                 freeSolo
@@ -260,6 +310,7 @@ function SearchCandidates(props) {
             <div className="my-4">
                     <Autocomplete
                     fullWidth
+                    value={formValues.city}
                     onChange={(event, newValue) => {
                     if(newValue){
                         setFormValues({...formValues,city:newValue});
@@ -280,6 +331,7 @@ function SearchCandidates(props) {
             <div className="my-4">
                     <Autocomplete
                     fullWidth
+                    value={formValues.ug?{name:formValues.ug}:{name:""}}
                     onChange={(event, newValue) => {
                     if(newValue){
                         setFormValues({...formValues,ug:newValue.name});
@@ -297,6 +349,7 @@ function SearchCandidates(props) {
                     <div className="my-4">
                     <Autocomplete
                     fullWidth
+                    value={formValues.pg?{name:formValues.pg}:{name:""}}
                     onChange={(event, newValue) => {
                     if(newValue){
                         setFormValues({...formValues,pg:newValue.name});
@@ -317,6 +370,7 @@ function SearchCandidates(props) {
             <div className="my-4">
                     <Autocomplete
                     fullWidth
+                    value={formValues.industry?{name:formValues.industry}:{name:""}}
                     onChange={(event, newValue) => {
                     if(newValue){
                         setFormValues({...formValues,industry:newValue});
@@ -337,6 +391,7 @@ function SearchCandidates(props) {
             <div className="my-4">
                     <Autocomplete
                     fullWidth
+                    value={formValues.functionalArea?{name:formValues.functionalArea}:{name:""}}
                     onChange={(event, newValue) => {
                     if(newValue){
                         setFormValues({...formValues,functionalArea:newValue});
@@ -357,6 +412,7 @@ function SearchCandidates(props) {
             <div className="my-4">
                     <Autocomplete
                     fullWidth
+                    value={formValues.product?{name:formValues.product}:{name:""}}
                     onChange={(event, newValue) => {
                     if(newValue){
                         setFormValues({...formValues,product:newValue});
@@ -374,7 +430,7 @@ function SearchCandidates(props) {
             <hr />
 
             <h3>Search By Company</h3>
-            <TextField fullWidth variant="outlined" id="outlined-basic" label="Current Company" />
+            <TextField onChange={(e)=>setFormValues({...formValues,currentCompany:e.target.value})} value={formValues.currentCompany} fullWidth variant="outlined" id="outlined-basic" label="Current Company" />
             <hr />
 
 
@@ -382,6 +438,7 @@ function SearchCandidates(props) {
             <div className="my-4">
                     <Autocomplete
                     fullWidth
+                    value={formValues.noticePeriod?formValues.noticePeriod:""}
                     onChange={(event, newValue) => {
                     setFormValues({...formValues,noticePeriod:newValue});
                     }}
@@ -410,6 +467,7 @@ function SearchCandidates(props) {
 
             <div style={{textAlign:"right"}}>
                 <Button>Cancel</Button>
+                <Button onClick={()=>handleSave()}>Save Search</Button>
                 <Button onClick={()=>handleCandidateSearch()} variant="contained">Search Candidate</Button>
             </div>
             

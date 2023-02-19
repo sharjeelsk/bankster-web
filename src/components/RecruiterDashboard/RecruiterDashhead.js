@@ -21,6 +21,8 @@ import PeopleOutlineIcon from '@mui/icons-material/PeopleOutline';
 import GroupIcon from '@mui/icons-material/Group';
 import BookmarksIcon from '@mui/icons-material/Bookmarks';
 import BookmarksOutlinedIcon from '@mui/icons-material/BookmarksOutlined';
+import PlagiarismIcon from '@mui/icons-material/Plagiarism';
+import PlagiarismOutlinedIcon from '@mui/icons-material/PlagiarismOutlined';
 const RecruiterDashhead = (props) => {
     console.log(props);
     let {id,display} = props
@@ -90,6 +92,14 @@ const RecruiterDashhead = (props) => {
             </div>:
             <div className="menu-container" onClick={()=>props.history.push('/bookmarksr')}>
             <p><BookmarksOutlinedIcon /> Bookmarks</p>
+            </div>
+            }
+
+            {id===7?<div className="menu-container-active" onClick={()=>props.history.push('/savedsearch')}>
+                <p><PlagiarismIcon /> Saved Search</p>
+            </div>:
+            <div className="menu-container" onClick={()=>props.history.push('/savedsearch')}>
+            <p><PlagiarismOutlinedIcon /> Saved Search</p>
             </div>
             }
 
