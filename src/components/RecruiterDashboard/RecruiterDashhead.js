@@ -88,10 +88,10 @@ const RecruiterDashhead = (props) => {
 
             
             {id===6?<div className="menu-container-active" onClick={()=>props.history.push('/bookmarksr')}>
-                <p><BookmarksIcon /> Bookmarks</p>
+                <p><BookmarksIcon /> Saved Candidates</p>
             </div>:
             <div className="menu-container" onClick={()=>props.history.push('/bookmarksr')}>
-            <p><BookmarksOutlinedIcon /> Bookmarks</p>
+            <p><BookmarksOutlinedIcon /> Saved Candidates</p>
             </div>
             }
 

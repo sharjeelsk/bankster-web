@@ -91,6 +91,20 @@ function SendJobEmail(props) {
       })
     }
 
+    const saveEmail = ()=>{
+      console.log(formValues,emails)
+      axios.post(`${process.env.REACT_APP_DEVELOPMENT}/api/recruiter/saveEmails`,{...formValues,emails},{headers:{token:props.user.user}})
+      .then(res=>{
+        console.log(res)
+        props.setSnackbar({type:"success",text:"Email Saved Successfully",open:true})
+        props.history.push("/searchcandidates")
+      })
+      .catch(err=>{
+        console.log(err)
+        props.setSnackbar({type:"error",text:"Error in saving mail",open:true})
+      })
+    }
+
   return (
     <div>
         <Header id="3" />
@@ -200,7 +214,7 @@ function SendJobEmail(props) {
                     fullWidth
                     className='my-3'
                   />
-
+                    <Button onClick={()=>saveEmail()}>Save Email</Button>
                     <Button onClick={()=>handleSubmit()} variant="contained">Send Email</Button>
 
               </div>

@@ -300,12 +300,12 @@ function RecruiterJobDetail(props) {
                 {
                     singleJob&&singleJob.jobCandidates.length>0?
                     <>
-                    <SearchBar2 searchText="Search By Job Name..." handleSearchSubmit={handleSearchSubmit} getAllData={getCreatedJobs}  />
+                    <SearchBar2 searchText="Search By Applicants Name..." handleSearchSubmit={handleSearchSubmit} getAllData={getCreatedJobs}  />
                     <div className="mb-5" />
                     {filteredCandidates.length>0?filteredCandidates.map((item,index)=><section className="candidate-single-job shadow-sm" key={index}>
                         <div className="row m-auto">
                             <div className="col-3 col-sm-3 col-md-1 col-lg-1 col-xl-1">
-                            <img src={`${process.env.REACT_APP_DEVELOPMENT}/api/image/${item.user.profilePicture}`} alt="logo1" />
+                            <img src={item.user.profilePicture.length<=0?'/user.png':`${process.env.REACT_APP_DEVELOPMENT}/api/image/${item.user.profilePicture}`} alt="logo1" />
                             </div>
                             <div className="col-9 col-sm-9 col-md-5 col-lg-5 col-xl-5">
                                 <h2>{item.user.fullName}</h2>

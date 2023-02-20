@@ -124,7 +124,7 @@ function JobsCreated(props) {
                 <div className='img-div col-12 col-sm-12 col-md-1 col-lg-1 col-xl-1'>
                     <img src={item.createdByAdmin?renderImageString(item.createdByAdmin):renderImageString(item.createdBy)} alt="logo1" />
                 </div>
-                <div className='content-div col-12 col-sm-12 col-md-9 col-lg-9 col-xl-9'>
+                <div className='content-div col-12 col-sm-12 col-md-7 col-lg-7 col-xl-7'>
                 <Link className="link" to={`/recruiterjobdetail/${item._id}`}>
                     <h3 className="m-0">{item.title}</h3>
                     <p className="m-0 companyName">{item.companyName}</p>
@@ -166,8 +166,9 @@ function JobsCreated(props) {
                         </div>
                     </div>
                     </Link>
-   
-   
+                </div>
+                <div className='application-count col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2'>
+                    <h4>{item.jobCandidates.length} Applied</h4>
                 </div>
                 <div className="bookmark-div col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 mobile-right">
                    <IconButton onClick={()=>props.history.push("/createjob",item)}>

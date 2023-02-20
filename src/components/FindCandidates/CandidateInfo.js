@@ -394,8 +394,8 @@ const attachedCV = ()=>{
                         {candidate.skills.map((item,index)=><Chip key={index} className="mx-2 my-1" label={item} />)}
 
                         <div style={{textAlign:"right"}}>
-                            <p className="grey-text">Last Modified: {moment.parseZone(candidate.updatedAt).local().format("dddd, MMMM Do YYYY")}</p>
-                            <p className="grey-text">Last Active: {moment.parseZone(candidate.lastActive).local().format("dddd, MMMM Do YYYY")}</p>
+                            <p className="grey-text">Last Modified: {moment.parseZone(candidate.updatedAt).local().format("DD/MM/YYYY")}</p>
+                            <p className="grey-text">Last Active: {moment.parseZone(candidate.lastActive).local().format("DD/MM/YYYY")}</p>
                         </div>
 
                     </div>
@@ -428,7 +428,7 @@ const attachedCV = ()=>{
                 {
                     candidate.comments.map((item,index)=>item.recruiter===props.user.userInfo._id&&<div key={index}>
                         <h4>{item.title}</h4>
-                        <p>{moment.parseZone(item.createdAt).local().format("dddd, MMMM Do YYYY")}</p>
+                        <p>{moment.parseZone(item.createdAt).local().format("DD/MM/YYYY")}</p>
                         <hr />
                     </div>)
                 }

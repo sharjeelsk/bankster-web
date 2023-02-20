@@ -4,8 +4,15 @@ import "./JobCard.scss"
 import {renderAgo} from './Functions'
 import LinearProgress from '@mui/material/LinearProgress';
 function TrendingCard(props) {
+    function convertToLakhsString(num) {
+        const lakhs = num / 100000;
+        return lakhs.toLocaleString('en-IN', { maximumFractionDigits: 2 }) + ' Lacs';
+      }
   function numberWithCommas(x) {
-    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    //let num = x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    let num = x.toString()
+    //return num.length>=5?`${num.substring(0,num.length-5)} lakhs`:num
+    return convertToLakhsString(x)
 }
 const renderImageString = (createdBy)=>{
   if(createdBy){

@@ -54,13 +54,13 @@ function Footer() {
                 Get the right job here at BanksterIndia
                 </div>
                 <div className="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
-                banksterindia@gmail.com
+                support@banksterindia.com
                 </div>
                 <div className="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
                     <IconButton onClick={()=> window.open("https://www.facebook.com/banksterindia/", "_blank")}>
                         <FacebookIcon />
                     </IconButton>
-                    <IconButton onClick={()=> window.open("https://www.linkedin.com/in/kaanush-kumar-57563b88/", "_blank")}>
+                    <IconButton onClick={()=> window.open("https://www.linkedin.com/company/banksterindia/mycompany/", "_blank")}>
                         <LinkedInIcon />
                     </IconButton>
                     <IconButton onClick={()=> window.open("https://twitter.com/Bankster_India/", "_blank")}>

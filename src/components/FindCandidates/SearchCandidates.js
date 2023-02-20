@@ -25,6 +25,7 @@ function SearchCandidates(props) {
     const [dateFilter,setDateFilter] = React.useState("All Resume")
     const [selectedDateFilter,setSelectedDateFilter] = React.useState(null)
     const [selectedCandidate,setSelectedCandidate] = React.useState([])
+    const [error,setError] = React.useState(null)
 
     const handleChange = (event) => {
         setGender(event.target.value);
@@ -89,15 +90,8 @@ function SearchCandidates(props) {
         currentCompany:""
     })
     React.useEffect(()=>{
-
-        if(props.location.state){
-            setFormValues({...props.location.state})
-            setMust(props.location.state.must)
-            setAny(props.location.state.should)
-            setMustNot(props.location.state.mustNot)
-            setGender(props.location.state.gender?props.location.state.gender:"All")
-        }
-
+        if(props.user.userInfo){
+            if(props.user.userInfo.availablePlanCredits){
         //getDegrees
         axios.get(`${process.env.REACT_APP_DEVELOPMENT}/api/recruiter/getAllCandidateLocations`,{headers:{token:props.user.user}})
         .then(res=>{
@@ -127,6 +121,22 @@ function SearchCandidates(props) {
             }
             //setAllLocations(res.data.result)
         })
+            }else{
+                setError("Upgrade Plan To Access This Section")
+            }
+        }else{
+            setError("Unauthorized Access")
+        }
+
+        if(props.location.state){
+            setFormValues({...props.location.state})
+            setMust(props.location.state.must)
+            setAny(props.location.state.should)
+            setMustNot(props.location.state.mustNot)
+            setGender(props.location.state.gender?props.location.state.gender:"All")
+        }
+
+
     },[])
     console.log(props)
     const handleCandidateSearch = (date)=>{
@@ -208,6 +218,7 @@ function SearchCandidates(props) {
   return (
     <div>
         <Header id="3" />
+    {error?<div className="error-parent-div"><h1>{error}</h1></div>:
     <div className="row m-auto search-candidates-head">
         <section className="col-4 search-candidates shadow-sm">
             <h1>Search <span className="primarycolorwh">Candidates</span></h1>
@@ -558,7 +569,7 @@ function SearchCandidates(props) {
         </div>
         }
         </section>
-    </div>
+    </div>}
     <Footer />
     </div>
   )

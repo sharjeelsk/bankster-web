@@ -93,8 +93,8 @@ function CandidateCard(props) {
             {props.skills.map((item,index)=><Chip key={index} className="mx-2 my-1" label={item} />)}
 
             <div style={{textAlign:"right"}}>
-                            <p className="grey-text">Last Modified: {moment.parseZone(props.updatedAt).local().format("dddd, MMMM Do YYYY")}</p>
-                            <p className="grey-text">Last Active: {moment.parseZone(props.lastActive).local().format("dddd, MMMM Do YYYY")}</p>
+                            <p className="grey-text">Last Modified: {moment.parseZone(props.updatedAt).local().format("DD/MM/YYYY")}</p>
+                            <p className="grey-text">Last Active: {moment.parseZone(props.lastActive).local().format("DD/MM/YYYY")}</p>
             </div>
 
         </div>
