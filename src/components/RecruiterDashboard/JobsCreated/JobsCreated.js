@@ -167,7 +167,7 @@ function JobsCreated(props) {
                     </div>
                     </Link>
                 </div>
-                <div className='application-count col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2'>
+                <div className='application-count col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 link cp' onClick={()=>props.history.push(`/recruiterjobdetail/${item._id}`,true)}>
                     <h4>{item.jobCandidates.length} Applied</h4>
                 </div>
                 <div className="bookmark-div col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 mobile-right">

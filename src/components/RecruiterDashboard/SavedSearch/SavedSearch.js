@@ -74,6 +74,7 @@ function Bookmark(props) {
 const columns2 = [
     { field: 'id', headerName: 'ID',width:20},
     //{ field: 'brand', headerName: 'Brand Name',valueGetter:(param)=>param.value.name,width:150},
+    { field: 'title', headerName: 'Title',valueGetter:(param)=>param.row.title,width:150},
     { field: 'must', headerName: 'Must',valueGetter:(param)=>param.row.must.map(item=>item),width:150},
     { field: 'mustNot', headerName: 'Exclude',valueGetter:(param)=>param.row.mustNot.map(item=>item),width:200},
     { field: 'should', headerName: 'Any',valueGetter:(param)=>param.row.should.map(item=>item),width:200},

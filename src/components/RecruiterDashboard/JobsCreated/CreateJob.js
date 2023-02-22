@@ -397,6 +397,7 @@ function CreateJob(props) {
                             <IconButton onClick={()=>{
                                 if(!formValues.rolesAndResponsibilities.includes(singleRole)){
                                     setFormValues({...formValues,rolesAndResponsibilities:[...formValues.rolesAndResponsibilities,singleRole]})
+                                    setSingleRole("")
                                 }
                             }} color="primary">
                                 <AddCircleIcon sx={{fontSize:30}} />
@@ -436,6 +437,7 @@ function CreateJob(props) {
                             <IconButton onClick={()=>{
                                 if(!formValues.jobTags.includes(jobTag)){
                                     setFormValues({...formValues,jobTags:[...formValues.jobTags,jobTag]})
+                                    setJobTag("")
                                 }
                             }} color="primary">
                                 <AddCircleIcon sx={{fontSize:30}} />

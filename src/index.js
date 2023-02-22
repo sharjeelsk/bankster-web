@@ -6,7 +6,7 @@ import {Provider} from 'react-redux'
 import {store,Persister} from './components/redux/Store'
 import { createTheme,ThemeProvider } from '@mui/material/styles';
 import { PersistGate } from 'redux-persist/integration/react'
-
+import ReactGA from 'react-ga';
 const theme = createTheme({
   palette: {
     primary: {
@@ -68,7 +68,7 @@ const theme = createTheme({
   }
 });
 
-
+ReactGA.initialize('G-7LB14FK7SE');
 ReactDOM.render(
   <Provider store={store}>
   <PersistGate loading={null} persistor={Persister}>

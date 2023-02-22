@@ -6,10 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
     
-    <meta
-      name="description"
-      content="Web site created using create-react-app"
-    />
+    <meta property="og:title" content="BanksterIndia" />
+    <meta property="og:description" content="Get The Right Job You Deserve at BanksterIndia" />
+    <meta property="og:image" content="/banksterfullAsset.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -43,7 +42,7 @@
   
   <script src="semantic/dist/semantic.min.js"></script>
     <script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
-    <title>Bankster India</title>
+    <title>Bankster India - Get The Right Job You Deserve at BanksterIndia</title>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
@@ -58,5 +57,28 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
+    <script type="module">
+      // Import the functions you need from the SDKs you need
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js";
+      import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-analytics.js";
+      // TODO: Add SDKs for Firebase products that you want to use
+      // https://firebase.google.com/docs/web/setup#available-libraries
+    
+      // Your web app's Firebase configuration
+      // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+      const firebaseConfig = {
+        apiKey: "AIzaSyD50snRWD7_--t2NiN-mJ4zZEY3eBxW74I",
+        authDomain: "banksterindia-43665.firebaseapp.com",
+        projectId: "banksterindia-43665",
+        storageBucket: "banksterindia-43665.appspot.com",
+        messagingSenderId: "110029599340",
+        appId: "1:110029599340:web:e0fa93b2f9e613f585de49",
+        measurementId: "G-7LB14FK7SE"
+      };
+    
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const analytics = getAnalytics(app);
+    </script>
   </body>
 </html>

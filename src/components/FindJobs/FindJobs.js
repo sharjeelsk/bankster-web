@@ -351,7 +351,7 @@ const checkDisabled = (item)=>{
                         </div>
 
                         <div className="keys">
-                        {item.tags.map((tag,index)=><Chip key={index} className="m-3" label={tag} />)}
+                        {item.tags.map((tag,index)=>index<=2&&<Chip key={index} className="m-3" label={tag} />)}
                         </div>
                         </Link>
 

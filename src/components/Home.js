@@ -14,11 +14,14 @@ import axios from 'axios'
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from 'react-responsive-carousel';
 import ReadMoreIcon from '@mui/icons-material/ReadMore';
+import { useLocation } from 'react-router-dom';
+import ReactGA from 'react-ga';
 function Home(props) {
-
+    const location = useLocation();
     const [jobData,setJobData]  = React.useState(null)
 
     React.useEffect(()=>{
+        ReactGA.pageview(location.pathname + location.search);
         axios.get(`${process.env.REACT_APP_DEVELOPMENT}/api/job/allJobData`)
         .then(res=>{
             console.log(res)
@@ -26,7 +29,7 @@ function Home(props) {
                 setJobData({...res.data.result})
             }
         })
-    },[])
+    },[location])
     console.log(jobData)
     return (
         <div className="home-section"> 

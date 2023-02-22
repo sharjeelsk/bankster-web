@@ -43,7 +43,7 @@ function RecruiterJobDetail(props) {
     const [open,setOpen] = React.useState(false)
     const [selectedItem,setSelectedItem] = React.useState(null)
     const [filteredCandidates,setFilteredCandidates] = React.useState([])
-
+    console.log("recruiter job detail props",props)
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -57,6 +57,7 @@ function RecruiterJobDetail(props) {
             if(res.data.msg==="success"){
                 setSingleJob(res.data.result)
                 setFilteredCandidates(res.data.result.jobCandidates)
+                
                 // if(props.user.userInfo.bookmarks.jobs.includes(res.data.result._id)){
                 //     setBookmarked(true)
                 // }
@@ -69,6 +70,9 @@ function RecruiterJobDetail(props) {
 
     React.useEffect(()=>{
         getSingleJob()
+        if(props.location.state){
+            setValue('2')
+        }
     },[])
 
     const handleHire = (candidateObjectId,userId)=>{
@@ -208,7 +212,7 @@ function RecruiterJobDetail(props) {
 
              <TabContext value={value}>
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-          <TabList onChange={handleChange} aria-label="lab API tabs example">
+          <TabList value={value} onChange={handleChange} aria-label="lab API tabs example">
             <Tab label="Job Info" value="1" />
             <Tab label="Applicants" value="2" />
           </TabList>
@@ -307,7 +311,7 @@ function RecruiterJobDetail(props) {
                             <div className="col-3 col-sm-3 col-md-1 col-lg-1 col-xl-1">
                             <img src={item.user.profilePicture.length<=0?'/user.png':`${process.env.REACT_APP_DEVELOPMENT}/api/image/${item.user.profilePicture}`} alt="logo1" />
                             </div>
-                            <div className="col-9 col-sm-9 col-md-5 col-lg-5 col-xl-5">
+                            <div className="col-9 col-sm-9 col-md-7 col-lg-7 col-xl-7">
                                 <h2>{item.user.fullName}</h2>
                                 <p className="bold-text">{renderEmployementString(item.user)}</p>
                                 <p className="bold-text">{item.user.education.length>0?item.user.education.map(i=>{
@@ -319,8 +323,14 @@ function RecruiterJobDetail(props) {
                                 <p className="grey-text">{item.user.yearsOfExperience?item.user.yearsOfExperience:"Not added"} Years of Experience | {item.user.currentCtc?item.user.currentCtc:"Not added"} CTC | {item.user.product?item.user.product:"Not added"} | {item.user.noticePeriod?item.user.noticePeriod:"Not added"}</p>
                                 {/* {item.user.workExperience.length>0&&item.user.workExperience.map((we,ind)=>we.current&&<p key={ind} className="bold-text">{we.name} | {we.designation}</p>)} */}
                                 <p className="bold-text">{item.user.education.length>0?`${item.user.education[0].name}, ${item.user.education[0].universityName}`:""}</p>
+                                <div className="row mt-4 mx-auto sub-info">
+                                    <p className="mx-2"><LocalPhoneIcon sx={{marginRight:.1}} /> <b>{item.user.mobileNo}</b></p>
+                                    <p className="mx-2"><AlternateEmailIcon sx={{marginRight:.1}} /> <b>{item.user.email}</b></p>
+                                    <p className="mx-2"><LocationOnIcon sx={{marginRight:.1}} /> <b>{item.user.userLocation.city}, {item.user.userLocation.state}</b></p>
+                                </div>
+                                <p className="tagline">{item.user.resumeTagline}</p>
                             </div>
-                            <div className="col-10 col-sm-10 col-md-5 col-lg-5 col-xl-5">
+                            <div className="col-10 col-sm-10 col-md-3 col-lg-3 col-xl-3">
                             {item.user.resume.length>0&&<div onClick={()=>{
                                 window.open(`${process.env.REACT_APP_DEVELOPMENT}/api/pdf/${item.user.resume}`, '_blank');
                                 axios.post(`${process.env.REACT_APP_DEVELOPMENT}/api/candidate/increaseProfileCount`,{candidateId:item.user._id},{headers:{token:props.user.user}})
@@ -357,12 +367,7 @@ function RecruiterJobDetail(props) {
                             </IconButton>
                             </div>
                         </div>
-                        <div className="row mt-4 mx-auto sub-info">
-                            <p className="mx-2"><LocalPhoneIcon sx={{marginRight:.1}} /> <b>{item.user.mobileNo}</b></p>
-                            <p className="mx-2"><AlternateEmailIcon sx={{marginRight:.1}} /> <b>{item.user.email}</b></p>
-                            <p className="mx-2"><LocationOnIcon sx={{marginRight:.1}} /> <b>{item.user.userLocation.city}, {item.user.userLocation.state}</b></p>
-                        </div>
-                        <p className="tagline">{item.user.resumeTagline}</p>
+
                         {
                             item.user.skills.map((i,index)=><Chip label={i} key={index} color="primary" className="m-2" />)
                         }

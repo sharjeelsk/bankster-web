@@ -19,6 +19,11 @@ import FormGroup from '@mui/material/FormGroup';
 import EmailIcon from '@mui/icons-material/Email';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
+import Tooltip from '@mui/material/Tooltip';
+import Fab from '@mui/material/Fab';
+import AddIcon from '@mui/icons-material/Add';
+import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
+import GetNameModal from './GetNameModal'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 function SearchCandidates(props) {
     const [gender, setGender] = React.useState('All');
@@ -40,8 +45,10 @@ function SearchCandidates(props) {
     const [allIndustry,setAllIndustry] = React.useState([])
     const [must,setMust] = React.useState([])
     const [any,setAny] = React.useState([])
+    const [pipeline,setPipeline] = React.useState(null)
     const [mustNot,setMustNot] = React.useState([])
     const [anchorEl, setAnchorEl] = React.useState(null);
+    const [open2,setOpen2] = React.useState(false)
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
       setAnchorEl(event.currentTarget);
@@ -139,30 +146,35 @@ function SearchCandidates(props) {
 
     },[])
     console.log(props)
-    const handleCandidateSearch = (date)=>{
+    const handleCandidateSearch = (date,refine)=>{
         console.log(formValues,must,any,gender)
-
-        axios.post(`${process.env.REACT_APP_DEVELOPMENT}/api/recruiter/searchCandidate`,{must,mustNot,should:any,
-        product:formValues.product?formValues.product.name:null,
-        maximumAge:formValues.maximumAge,
-        minimumAge:formValues.minimumAge,
-        minimumSalary:parseInt(formValues.minimumSalary)*100000,
-        maximumSalary:parseInt(formValues.maximumSalary)*100000,
-        minimumExperience:formValues.minimumExperience,
-        maximumExperience:formValues.maximumExperience,
-        // pg:formValues.pg?(formValues.pg.includes("Any")?null:formValues.pg):null,
-        // ug:formValues.ug?(formValues.ug.includes("Any")?null:formValues.ug):null,
-        pg:formValues.pg,
-        ug:formValues.ug,
-        noticePeriod:formValues.noticePeriod,
-        currentCompany:formValues.currentCompany,
-        dateFilter:date?date:null,
-        gender:gender==="All"?null:gender
-        },{headers:{token:props.user.user}})
+        let obj = {
+            must:refine?[]:must,
+            mustNot:refine?[]:mustNot,
+            should:refine?[]:any,
+            product:formValues.product?formValues.product.name:null,
+            maximumAge:formValues.maximumAge,
+            minimumAge:formValues.minimumAge,
+            minimumSalary:parseInt(formValues.minimumSalary)*100000,
+            maximumSalary:parseInt(formValues.maximumSalary)*100000,
+            minimumExperience:formValues.minimumExperience,
+            maximumExperience:formValues.maximumExperience,
+            // pg:formValues.pg?(formValues.pg.includes("Any")?null:formValues.pg):null,
+            // ug:formValues.ug?(formValues.ug.includes("Any")?null:formValues.ug):null,
+            pg:formValues.pg,
+            ug:formValues.ug,
+            noticePeriod:formValues.noticePeriod,
+            currentCompany:formValues.currentCompany,
+            dateFilter:date?date:null,
+            gender:gender==="All"?null:gender,
+            pipeline:(refine&&pipeline)?pipeline:null
+            }
+        axios.post(`${process.env.REACT_APP_DEVELOPMENT}/api/recruiter/searchCandidate`,obj,{headers:{token:props.user.user}})
         .then(res=>{
             console.log(res)
             setCandidates(res.data.result)
-                    window.scrollTo({
+            setPipeline(res.data.pipeline)
+        window.scrollTo({
           top: 0,
           left: 0,
           behavior: "smooth"
@@ -178,8 +190,9 @@ function SearchCandidates(props) {
         })
     }
 
-    const handleSave = ()=>{
-        axios.post(`${process.env.REACT_APP_DEVELOPMENT}/api/recruiter/saveSearch`,{must,mustNot,should:any,
+    const handleSave = (title)=>{
+        axios.post(`${process.env.REACT_APP_DEVELOPMENT}/api/recruiter/saveSearch`,{
+            title,must,mustNot,should:any,
             product:formValues.product?formValues.product.name:null,
             maximumAge:formValues.maximumAge,
             minimumAge:formValues.minimumAge,
@@ -197,6 +210,7 @@ function SearchCandidates(props) {
             },{headers:{token:props.user.user}})
             .then(res=>{
                 console.log(res)
+                setOpen2(false)
                 //setCandidates(res.data.result)
                         window.scrollTo({
               top: 0,
@@ -214,10 +228,22 @@ function SearchCandidates(props) {
             })
     }
 
-
+    const handleSubmit2 = (title)=>{
+        handleSave(title)
+      }
+      console.log(formValues)
   return (
     <div>
         <Header id="3" />
+        <GetNameModal 
+        open={open2}
+        setOpen={setOpen2}
+        title="Job Search Save Title"
+        description="Enter title with which you want to save your search"
+        leftButton="Cancel"
+        rightButton="Submit"
+        handleSubmit = {handleSubmit2}
+        />
     {error?<div className="error-parent-div"><h1>{error}</h1></div>:
     <div className="row m-auto search-candidates-head">
         <section className="col-4 search-candidates shadow-sm">
@@ -381,7 +407,7 @@ function SearchCandidates(props) {
             <div className="my-4">
                     <Autocomplete
                     fullWidth
-                    value={formValues.industry?{name:formValues.industry}:{name:""}}
+                    value={formValues.industry?{name:formValues.industry.name}:{name:""}}
                     onChange={(event, newValue) => {
                     if(newValue){
                         setFormValues({...formValues,industry:newValue});
@@ -402,7 +428,7 @@ function SearchCandidates(props) {
             <div className="my-4">
                     <Autocomplete
                     fullWidth
-                    value={formValues.functionalArea?{name:formValues.functionalArea}:{name:""}}
+                    value={formValues.functionalArea?{name:formValues.functionalArea.name}:{name:""}}
                     onChange={(event, newValue) => {
                     if(newValue){
                         setFormValues({...formValues,functionalArea:newValue});
@@ -423,7 +449,7 @@ function SearchCandidates(props) {
             <div className="my-4">
                     <Autocomplete
                     fullWidth
-                    value={formValues.product?{name:formValues.product}:{name:""}}
+                    value={formValues.product?{name:formValues.product.name}:{name:""}}
                     onChange={(event, newValue) => {
                     if(newValue){
                         setFormValues({...formValues,product:newValue});
@@ -454,7 +480,7 @@ function SearchCandidates(props) {
                     setFormValues({...formValues,noticePeriod:newValue});
                     }}
                     id="controllable-states-demo"
-                    options={['7 Days','30 Days','60 Days','90 Days','Immediate Joiner','Currently Serving Notice Period']}
+                    options={['Any Notice Period','7 Days','30 Days','60 Days','90 Days','Immediate Joiner','Currently Serving Notice Period']}
                     // getOptionLabel={(option) => option.name}
                     renderInput={(params) => <TextField {...params} label="Choose Notice Period"/>}
                     />
@@ -478,8 +504,8 @@ function SearchCandidates(props) {
 
             <div style={{textAlign:"right"}}>
                 <Button>Cancel</Button>
-                <Button onClick={()=>handleSave()}>Save Search</Button>
-                <Button onClick={()=>handleCandidateSearch()} variant="contained">Search Candidate</Button>
+                <Button onClick={()=>setOpen2(true)}>Save Search</Button>
+                <Button onClick={()=>handleCandidateSearch(null,true)} variant="contained">Refine Search</Button>
             </div>
             
         </section>
@@ -569,6 +595,14 @@ function SearchCandidates(props) {
         </div>
         }
         </section>
+        <div  style={{position:"fixed",bottom:"5%",right:"5%",zIndex:5}}>
+                    <Tooltip title="Search Candidates">
+                    <Fab variant="extended" onClick={()=>handleCandidateSearch()} color="primary" aria-label="add">
+                        <SearchOutlinedIcon sx={{ mr: 1 }} />
+                        Search Candidates
+                    </Fab>
+                    </Tooltip>
+            </div>
     </div>}
     <Footer />
     </div>

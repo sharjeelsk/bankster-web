@@ -75,7 +75,7 @@ function CandidateCard(props) {
 
             <div className="my-3">
             <p className='keys'><LocalPhoneIcon /> {stringHide(props.mobileNo,"mobileNo")}</p>
-            <p className='keys'><EmailIcon /> {stringHide(props.email,"email")}</p>
+            <p className='keys' style={{wordWrap:"break-word"}}><EmailIcon /> {stringHide(props.email,"email")}</p>
             <p className='keys'><LocationOnIcon /> {props.userLocation.city} | {props.userLocation.state}</p>
             </div>
             {(props.resume.length>0 && !props.hide)&&<div onClick={()=>{

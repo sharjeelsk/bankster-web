@@ -6,6 +6,7 @@ import axios from 'axios'
 import {connect} from 'react-redux'
 import { setSnackbar } from "../redux/flags/flagActions";
 import { setUser,storeUserType } from "../redux/user/userActions";
+import GetNameModal from './GetNameModal'
 function SendJobEmail(props) {
     const [emails,setEmails] = React.useState([])
     const [formValues,setFormValues]=React.useState({
@@ -33,6 +34,7 @@ function SendJobEmail(props) {
   })
   const [states,setStates]=React.useState([])
   const [cities,setCities] = React.useState([])
+  const [open,setOpen] = React.useState(false)
     console.log(props)
 
     const getCities = (state)=>{
@@ -91,23 +93,38 @@ function SendJobEmail(props) {
       })
     }
 
-    const saveEmail = ()=>{
+    const saveEmail = (title)=>{
       console.log(formValues,emails)
-      axios.post(`${process.env.REACT_APP_DEVELOPMENT}/api/recruiter/saveEmails`,{...formValues,emails},{headers:{token:props.user.user}})
+      axios.post(`${process.env.REACT_APP_DEVELOPMENT}/api/recruiter/saveEmails`,{...formValues,emails,title},{headers:{token:props.user.user}})
       .then(res=>{
         console.log(res)
+        setOpen(false)
         props.setSnackbar({type:"success",text:"Email Saved Successfully",open:true})
         props.history.push("/searchcandidates")
       })
       .catch(err=>{
         console.log(err)
+        setOpen(false)
         props.setSnackbar({type:"error",text:"Error in saving mail",open:true})
       })
+    }
+
+    const handleSubmit2 = (title)=>{
+      saveEmail(title)
     }
 
   return (
     <div>
         <Header id="3" />
+        <GetNameModal 
+        open={open}
+        setOpen={setOpen}
+        title="Job Email Title"
+        description="Enter title with which you want to save your search"
+        leftButton="Cancel"
+        rightButton="Submit"
+        handleSubmit = {handleSubmit2}
+        />
             <section className="jobemail-head">
               <div className="jobemail shadow-sm">
               <h1>Compose Job Email</h1>
@@ -214,7 +231,7 @@ function SendJobEmail(props) {
                     fullWidth
                     className='my-3'
                   />
-                    <Button onClick={()=>saveEmail()}>Save Email</Button>
+                    <Button onClick={()=>setOpen(true)}>Save Email</Button>
                     <Button onClick={()=>handleSubmit()} variant="contained">Send Email</Button>
 
               </div>
