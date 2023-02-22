@@ -392,7 +392,7 @@ const Login = (props) => {
                                 options={allEducation}
                                 fullWidth
                                 className='mb-3'
-                                onChange={(e,value)=>setSingleEducation(value)}
+                                onChange={(e,value)=>setSingleEducation(value.name)}
                                 getOptionLabel={(item)=>item.name}
                                 renderInput={(params) => <TextField  {...params} label="Degree Name" />}
                             />
