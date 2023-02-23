@@ -115,7 +115,7 @@ function SearchCandidateHome(props) {
                     </Fab>
                     </Tooltip>
             </div>
-        {/* <img className="my-3 width-100" src="/banners/bannerCandidate2.png" alt="oneplus" /> */}
+        <img className="my-3 width-100" src="/banner1.png" alt="Banner" />
         <Footer />
     </div>
   )
