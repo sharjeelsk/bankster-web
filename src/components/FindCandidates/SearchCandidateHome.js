@@ -46,13 +46,14 @@ function SearchCandidateHome(props) {
     }
 
     const renderHide = ()=>{
-        if(!props.user.user){
-            return true
-        }else if(props.user.userInfo.subscription!=="635a98177ca2905a363e4dcb" || props.user.userInfo.subscription!=="6379d060497ca6b7d0b6ab56" || props.user.userInfo.subscription!=="6379d0c2497ca6b7d0b6ab58"){
-            return false
-        }else{
-            return true
-        }
+        return true;
+        // if(!props.user.user){
+        //     return true
+        // }else if(props.user.userInfo.subscription!=="635a98177ca2905a363e4dcb" || props.user.userInfo.subscription!=="6379d060497ca6b7d0b6ab56" || props.user.userInfo.subscription!=="6379d0c2497ca6b7d0b6ab58"){
+        //     return false
+        // }else{
+        //     return true
+        // }
     }
 
   return (
@@ -114,7 +115,7 @@ function SearchCandidateHome(props) {
                     </Fab>
                     </Tooltip>
             </div>
-        <img className="my-3 width-100" src="/banners/bannerCandidate2.png" alt="oneplus" />
+        {/* <img className="my-3 width-100" src="/banners/bannerCandidate2.png" alt="oneplus" /> */}
         <Footer />
     </div>
   )

@@ -424,8 +424,6 @@ const Login = (props) => {
                                         <FormControlLabel value={'true'} control={<Radio />} label="I'm Fresher (haven't worked after grad" />
                                     </RadioGroup>
                                     </FormControl>
-
-
                                     </Box>
 
                                     <TextField
@@ -574,7 +572,7 @@ const Login = (props) => {
                     // getOptionLabel={(option) => option.name}
                     renderInput={(params) => <TextField {...params} label="Choose Notice Period"/>}
                     />
-            </div>
+                    </div>
 
             {resume?<div className="resume-child row m-auto">
                             <div className="col-2">

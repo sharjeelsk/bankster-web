@@ -1,0 +1,32 @@
+@import  "../../App.scss";
+
+.sign-up-section{
+    padding: 0 8%;
+    .left-content{
+        padding: 2%;
+        .main-head{
+            font-size: 3em;
+        }
+        img{
+            width: 100%;
+        }
+    }
+    .tagline{
+        font-size: .8em;
+    }
+    h2{
+        font-weight: 400;
+        font-size: 2em;
+    }
+
+    .right-content{
+        background-color: $secondary;
+        padding: 2%;
+        border-radius: 10px;
+        form{
+            background-color: white;
+            padding: 2%;
+            border-radius: 10px;
+        }
+    }
+}

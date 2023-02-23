@@ -7,6 +7,7 @@ import LocationOnIcon from '@mui/icons-material/LocationOn';
 import DescriptionIcon from '@mui/icons-material/Description';
 import {getAge} from '../utils/Functions'
 import axios from 'axios'
+import { Link } from 'react-router-dom';
 function CandidateCard(props) {
     console.log(props)
     const renderEmployementString = ()=>{
@@ -14,7 +15,18 @@ function CandidateCard(props) {
             return "Fresher"
         }else if(props.workExperience.filter(i=>i.current===true).length>0){
             let strobj = props.workExperience.filter(i=>i.current===true)[0]
-            return `${strobj.designation.length>15?`${strobj.designation.substring(0,15)}..`:strobj.designation} | ${strobj.name.length>15?`${strobj.name.substring(0,15)}..`:strobj.name}`
+            if(strobj){
+                console.log("strobj is",strobj)
+                if(strobj.designation){
+                    return `${strobj.designation.length>15?`${strobj.designation.substring(0,15)}..`:strobj.designation} | ${strobj.name.length>15?`${strobj.name.substring(0,15)}..`:strobj.name}`
+                }else{
+                    return ""
+                }
+                
+            }else{
+                return ""
+            }
+            
         }else{
             return "Currently Unemployed"
         }
@@ -25,7 +37,17 @@ function CandidateCard(props) {
             return "Fr***"
         }else if(props.workExperience.filter(i=>i.current===true).length>0){
             let strobj = props.workExperience.filter(i=>i.current===true)[0]
-            return `${strobj.designation.substr(0,strobj.designation.length-3)}*** | ${strobj.name.substr(0,strobj.name.length-3)} ***`
+            if(strobj){
+                if(strobj.designation){
+                    return `${strobj.designation.substr(0,strobj.designation.length-3)}*** | ${strobj.name.substr(0,strobj.name.length-3)} ***`
+                }else{
+                    return ""
+                }   
+                
+            }else{
+                return ""
+            }
+            
         }else{
             return "Currently ****"
         }
@@ -47,7 +69,8 @@ function CandidateCard(props) {
     }
 
   return (
-    <div className="candidate-card shadow-sm row my- mx-auto">
+<Link target="_blank" className="link" to={`/candidate-info/${props._id}`}>
+<div className="candidate-card shadow-sm row my- mx-auto">
         <div className="col-3 img-div">
             <img src={props.profilePicture?`${process.env.REACT_APP_DEVELOPMENT}/api/image/${props.profilePicture}`:"/avatar.png"} alt="avatar" />
         </div>
@@ -99,6 +122,7 @@ function CandidateCard(props) {
 
         </div>
     </div>
+    </Link>
   )
 }
 

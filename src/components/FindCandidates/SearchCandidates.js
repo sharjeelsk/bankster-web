@@ -85,7 +85,7 @@ function SearchCandidates(props) {
         
       setAnchorEl(null);
     };
-    const [formValues,setFormValues]=React.useState({
+    let defaultFormValues = {
         city:"",
         workMode:"null",
         minimumExperience:0,
@@ -95,7 +95,8 @@ function SearchCandidates(props) {
         pg:null,
         ug:null,
         currentCompany:""
-    })
+    }
+    const [formValues,setFormValues]=React.useState(defaultFormValues)
     React.useEffect(()=>{
         if(props.user.userInfo){
             if(props.user.userInfo.availablePlanCredits){
@@ -504,8 +505,20 @@ function SearchCandidates(props) {
 
             <div style={{textAlign:"right"}}>
                 <Button>Cancel</Button>
-                <Button onClick={()=>setOpen2(true)}>Save Search</Button>
-                <Button onClick={()=>handleCandidateSearch(null,true)} variant="contained">Refine Search</Button>
+                <Button color="info" onClick={()=>{
+                    setMust([])
+                    setAny([])
+                    setMustNot([])
+                    setGender("All")
+                    setFormValues(defaultFormValues)
+                    window.scrollTo({
+                        top: 0,
+                        left: 0,
+                        behavior: "smooth"
+                      });
+                    }}>Clear Search</Button>
+                <Button variant="contained" onClick={()=>setOpen2(true)}>Save Search</Button>
+                {/* <Button onClick={()=>handleCandidateSearch(null,true)} variant="contained">Refine Search</Button> */}
             </div>
             
         </section>

@@ -27,6 +27,7 @@ import BookmarkedJobs from './components/CandidateDashboard/BookmarkedJobs/Bookm
 
 import Login from './components/Login/Login';
 import Singup from './components/Singup/Singup';
+import SignUp from './components/Singup/SignUp';
 import Loginrecruiter from './components/Login/Loginrecruiter';
 import SignupRecruiter from './components/Singup/SignupRecruiter';
 
@@ -88,7 +89,7 @@ function App(props) {
 
       <Route path="/login" component={Login} />
       <Route path="/forgetpassword" component={ForgetPassword} />
-      <Route path="/signup" component={Singup} />
+      <Route path="/signup" component={SignUp} />
       <Route path="/Loginrecruiter" component={Loginrecruiter} />
       <Route path="/SignupRecruiter" component={SignupRecruiter} />
       <Route path="/verificationmail" component={VerificationMail} />
