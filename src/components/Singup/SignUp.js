@@ -49,7 +49,7 @@ function SignUp(props) {
     const [allProducts,setAllProducts] = React.useState([])
     const [allIndustry,setAllIndustry] = React.useState([])
     const [singleEducation,setSingleEducation] = React.useState(null)
-    const [dob, setDob] = React.useState(new Date('1980-01-01'));
+    const [dob, setDob] = React.useState(null);
     const [allEducation,setAllEducation] = React.useState([])
     const [resume,setResume] = React.useState(null)
     const [values, setValues] = React.useState({
@@ -75,7 +75,7 @@ function SignUp(props) {
     const onSubmit = (data)=>{
         console.log(data,values.password,formValues,dob)
         if(data.currentCTC==="" || data.email==="" || data.fullName==="" || 
-        data.mobileNo===""  || data.universityName==="" || !singleEducation || formValues.city==="" || formValues.state==="" || !resume
+        data.mobileNo===""  || data.universityName==="" || !singleEducation || formValues.city==="" || formValues.state==="" || !resume || !dob
         // ||  !formValues.functionalArea || !formValues.industry || !formValues.product || data.totalExperience===""
         ){
             setError("Please fill mandatory Fields")
@@ -206,7 +206,7 @@ function SignUp(props) {
         <section className="row m-auto sign-up-section">
 
             <div className="col-4 left-content display-desktop">
-            <h1 className="main-head">Get Access to <span className="primarycolorwh">121</span> Jobs</h1>
+            <h1 className="main-head">Get Access to <span className="primarycolorwh">{jobTotal}</span> Jobs</h1>
             <h5>By Registering On Our Platform </h5>
             <img src="/login.png" alt="" className="logimg"  />
             <p style={{lineHeight:1.8}} className="grey-text">Looking for your dream job? Register on our job site today and receive personalized job recommendations based on your skills and experience. Our advanced matching algorithm ensures you get the best job opportunities that fit your profile. With our user-friendly interface, creating a profile and applying to jobs has never been easier. Join our community of job seekers today and let us help you find your next career move!</p>
