@@ -84,7 +84,7 @@ function CandidateCard(props) {
                         return i.name + ', ' + i.universityName;
                     }
                 }):"Featured Education Not Added"}</p>
-                <p className="grey-text"><b>Gender:</b> {props.gender} | <b>DOB:</b> {props.dob?getAge(props.dob):"DOB Missing"}</p>
+                <p className="grey-text"><b>Gender:</b> {props.gender} | <b>Age:</b> {props.dob?getAge(props.dob):"DOB Missing"}</p>
                 <p className="grey-text">
                     <b>Years of Experience:</b> {props.yearsOfExperience}<br /><br />
                     <b>Current CTC:</b> {props.currentCtc}<br /><br />
