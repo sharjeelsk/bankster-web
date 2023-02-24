@@ -426,7 +426,7 @@ const checkDisabled = (item)=>{
                         jobTags&&jobTags.map((item,index)=><Chip key={index} onClick={()=>findJob(item.type,item.name)} className="m-2" label={item.name} />)
                     }
                 </section>
-                <img className="my-3 width-100" src="/banners/bannerFindJobs1.png" alt="oneplus" />
+                <img className="my-3 width-100" src="/banner1.png" alt="oneplus" />
             </div>
         </section>
         <Footer />
