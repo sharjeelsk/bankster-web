@@ -239,7 +239,7 @@ function Home(props) {
 
            </div>
 
-           <img className="w-100 my-3" src="/banners/banner1.png" alt="oneplus" />
+           <img className="mt-5 banner" src="/banner1.png" alt="oneplus" />
 
                 <Footer />
         </div>
