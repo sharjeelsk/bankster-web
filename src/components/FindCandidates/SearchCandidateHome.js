@@ -15,6 +15,7 @@ function SearchCandidateHome(props) {
     const [data,setData] = React.useState(null)
     const [limit1,setLimit1] = React.useState(10)
     const [error,setError] = React.useState(null)
+    const [candidateTotal,setCandidateTotal] = React.useState("...")
     React.useEffect(()=>{
         axios.post(`${process.env.REACT_APP_DEVELOPMENT}/api/candidate/getCandidateHomeData`,{limit:limit1},{headers:{token:props.user.user}})
         .then(res=>{
@@ -28,6 +29,12 @@ function SearchCandidateHome(props) {
         .catch(err=>{
             console.log(err.response)
             setError(err.response)
+        })
+
+        axios.get(`${process.env.REACT_APP_DEVELOPMENT}/api/candidate/getAllCandidatesLength`)
+        .then(res=>{
+          console.log(res)
+          setCandidateTotal(res.data.result)
         })
 
     },[limit1])
@@ -71,7 +78,7 @@ function SearchCandidateHome(props) {
                 <div className="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 text-cont">
                     <h1>Connect with the Right Candidates for Your Job</h1>
                     <p className="desc">Welcome to our "Find Candidates" section! Our platform is designed to connect you with a diverse pool of talented individuals who are actively seeking new job opportunities. We've curated a database of qualified candidates from a variety of industries and backgrounds, so you can easily find the perfect fit for your organization. Our user-friendly search tools and comprehensive candidate profiles make the hiring process simple and streamlined. Sign up today and take your recruitment efforts to the next level!</p>
-                    <p className="cand-count"><span className="count">255+</span> Candidate Data</p>
+                    <p className="cand-count"><span className="count">{candidateTotal}+</span> Candidate Data</p>
                     <Button onClick={()=>props.history.push("/searchcandidates")} className="mt-3" startIcon={<SearchOutlinedIcon />} variant="outlined">Access Candidate Database</Button>
                 </div>
 
