@@ -4,6 +4,13 @@ import TimeAgo from 'javascript-time-ago'
 import en from 'javascript-time-ago/locale/en'
 TimeAgo.addDefaultLocale(en)
 
+export function limitString(str) {
+    if (str.length > 7) {
+      return str.substring(0, 7) + "...";
+    } else {
+      return str;
+    }
+  }
 // Create formatter (English).
 const timeAgo = new TimeAgo('en-US')
 export function isEmail(emailAdress){
@@ -86,4 +93,63 @@ export const renderAgo = (createdAt)=>{
     let formattedDate = new Date(createdAt);
     let timeago = timeAgo.format(new Date(createdAt))
     return timeago
+}
+
+export const stringHide = (string,type,props)=>{
+    if(props.hide && type==="fullName"){
+        let finalString = `**** ${string.includes(" ")?string.split(" ")[1]:""}`
+        return finalString.length>15?`${finalString.substring(0,15)} ...`:finalString
+    }else if(props.hide && type==="mobileNo"){
+        let finalString = `${string.substr(0,2)} ****** ${string.substr(8,10)}`
+        return finalString.length>15?`${finalString.substring(0,15)} ...`:finalString
+    }else if(props.hide && type==="email"){
+        let finalString = `******* @${string.split("@")[1]}`
+        return finalString.length>15?`${finalString.substring(0,15)} ...`:finalString
+    }
+    else{
+        return string
+    }
+}
+
+export const renderEmployementString = (props)=>{
+    if(props.fresher){
+        return "Fresher"
+    }else if(props.workExperience.filter(i=>i.current===true).length>0){
+        let strobj = props.workExperience.filter(i=>i.current===true)[0]
+        if(strobj){
+            console.log("strobj is",strobj)
+            if(strobj.designation){
+                return `${strobj.designation.length>15?`${strobj.designation.substring(0,15)}..`:strobj.designation} | ${strobj.name.length>15?`${strobj.name.substring(0,15)}..`:strobj.name}`
+            }else{
+                return ""
+            }
+            
+        }else{
+            return ""
+        }
+        
+    }else{
+        return "Currently Unemployed"
+    }
+}
+
+export const renderEmployementStringHide = (props)=>{
+    if(props.fresher){
+        return "Fr***"
+    }else if(props.workExperience.filter(i=>i.current===true).length>0){
+        let strobj = props.workExperience.filter(i=>i.current===true)[0]
+        if(strobj){
+            if(strobj.designation){
+                return `${limitString(strobj.designation.substr(0,strobj.designation.length-3))}*** | ${limitString(strobj.name.substr(0,strobj.name.length-3))} ***`
+            }else{
+                return ""
+            }   
+            
+        }else{
+            return ""
+        }
+        
+    }else{
+        return "Currently ****"
+    }
 }

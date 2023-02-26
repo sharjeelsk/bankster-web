@@ -133,7 +133,7 @@ function SearchCandidates(props) {
                 setError("Upgrade Plan To Access This Section")
             }
         }else{
-            setError("Unauthorized Access")
+            setError("Log In as a recruiter to view this section")
         }
 
         if(props.location.state){

@@ -10,6 +10,7 @@ import Tooltip from '@mui/material/Tooltip';
 import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
+import CandidateCardSmall from './CandidateCardSmall'
 function SearchCandidateHome(props) {
     const [data,setData] = React.useState(null)
     const [limit1,setLimit1] = React.useState(10)
@@ -59,7 +60,84 @@ function SearchCandidateHome(props) {
   return (
     <div>
         <Header id="3" />
-        {data&&<section className="search-candidate-home">
+
+
+        <section className="find-cand-home">
+
+            <section className="row m-auto first-cont">
+            <div className="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 img-cont">
+                    <img src="/fch1.jpg" alt="findcand" />
+                </div>
+                <div className="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 text-cont">
+                    <h1>Connect with the Right Candidates for Your Job</h1>
+                    <p className="desc">Welcome to our "Find Candidates" section! Our platform is designed to connect you with a diverse pool of talented individuals who are actively seeking new job opportunities. We've curated a database of qualified candidates from a variety of industries and backgrounds, so you can easily find the perfect fit for your organization. Our user-friendly search tools and comprehensive candidate profiles make the hiring process simple and streamlined. Sign up today and take your recruitment efforts to the next level!</p>
+                    <p className="cand-count"><span className="count">255+</span> Candidate Data</p>
+                    <Button onClick={()=>props.history.push("/searchcandidates")} className="mt-3" startIcon={<SearchOutlinedIcon />} variant="outlined">Access Candidate Database</Button>
+                </div>
+
+            </section>
+
+        {data&&<section className="small-cand-container">
+            <h1 className="px-3">Featured Candidates</h1>
+            <div className="row m-auto">
+            {
+                data.featuredCandidates.map((item,index)=>
+                <div className="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 small-cand-card-parent">
+                <CandidateCardSmall 
+                    hide={renderHide()}
+                    {...item}
+                />
+                </div>
+                )
+            }
+            </div>
+            <div style={{textAlign:"center"}}>
+        <Button
+        variant="outlined"
+        className="my-4"
+        onClick={()=>setLimit1(limit1+1)}
+        endIcon={<ReplayIcon />}
+        >Load More</Button>
+        </div>
+            </section>}
+
+            {data&&<section className="small-cand-container">
+            <h1 className="px-3">Immediate Joiners</h1>
+            <div className="row m-auto">
+            {
+                data.immediateJoiner.map((item,index)=>
+                <div className="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 small-cand-card-parent">
+                <CandidateCardSmall 
+                    hide={renderHide()}
+                    {...item}
+                />
+                </div>
+                )
+            }
+            </div>
+            </section>}
+
+            {data&&<section className="small-cand-container">
+            <h1 className="px-3">Latest Candidates</h1>
+            <div className="row m-auto">
+            {
+                data.latestCandidate.map((item,index)=>
+                <div className="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 small-cand-card-parent">
+                <CandidateCardSmall 
+                    hide={renderHide()}
+                    {...item}
+                />
+                </div>
+                )
+            }
+            </div>
+            </section>}
+
+        </section>
+
+        
+
+        {/* {data&&<section className="search-candidate-home">
         <h1 className="px-3">Featured Candidates</h1>
         <div className="row m-auto">
          {
@@ -106,7 +184,7 @@ function SearchCandidateHome(props) {
             </div>)
          }  
          </div>
-        </section>}
+        </section>} */}
         <div  style={{position:"fixed",bottom:"5%",right:"5%",zIndex:5}}>
                     <Tooltip title="Search Candidates">
                     <Fab variant="extended" onClick={()=>props.history.push("/searchcandidates")} color="primary" aria-label="add">
