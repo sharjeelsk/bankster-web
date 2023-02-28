@@ -436,7 +436,7 @@ function SignUp(props) {
                         fullWidth
                         className="my-3"
                         label="Current Company"
-                        {...register('currentCompany')}
+                        {...register('currentCompany',{required:true})}
                         id="outlined-start-adornment"
                         InputProps={{
                             startAdornment: (
@@ -449,7 +449,7 @@ function SignUp(props) {
                         fullWidth
                         className="my-3"
                         label="Current CTC"
-                        {...register('currentCTC')}
+                        {...register('currentCTC',{required:true})}
                         id="outlined-start-adornment"
                         InputProps={{
                             startAdornment: (
@@ -504,7 +504,7 @@ function SignUp(props) {
                         fullWidth
                         className="my-3"
                         label="Current Designation"
-                        {...register('currentDesignation')}
+                        {...register('currentDesignation',{required:true})}
                         id="outlined-start-adornment"
                         InputProps={{
                             startAdornment: (
@@ -518,6 +518,7 @@ function SignUp(props) {
                         className="my-3"
                         label="Total Experience"
                         {...register('totalExperience',{
+                            required:true,
                             pattern: /^\d+$/ // only allow digits
                         })}
                         id="outlined-start-adornment"
@@ -560,7 +561,7 @@ function SignUp(props) {
                         fullWidth
                         className="my-3"
                         label="Resume Tagline"
-                        {...register('resumeTagline')}
+                        {...register('resumeTagline',{required:true})}
                         id="outlined-start-adornment"
                         InputProps={{
                             startAdornment: (
