@@ -100,7 +100,7 @@ function SignUp(props) {
             functionalArea:formValues.functionalArea,
             product:formValues.product,
             industry:formValues.industry,
-            currentCtc:parseInt(data.currentCtc),
+            currentCtc:parseInt(data.currentCTC),
             totalExperience:parseInt(data.totalExperience),
             state:formValues.state,
             city:formValues.city,
