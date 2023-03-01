@@ -111,7 +111,8 @@ function SignUp(props) {
             universityName:data.universityName,
             dob,
             resume:res.data.result,
-            resumeTagline:data.resumeTagline
+            resumeTagline:data.resumeTagline,
+            gender
         })
         .then(res=>{
             console.log(res)
