@@ -201,8 +201,8 @@ const renderProfile = ()=>{
                 <p><span className="spankey">University Name:</span> {i.universityName}</p>
                 <p><span className="spankey">Start Date:</span> {i.startDate}</p>
                 <p><span className="spankey">End Date:</span> {i.endDate}</p>
-                <p><span className="spankey">Featured Education:</span> {i.featuredEducation.toString()}</p>
-                <p><span className="spankey">Current Education:</span> {i.current.toString()}</p>
+                <p><span className="spankey">Featured Education:</span> {i.featuredEducation&&i.featuredEducation.toString()}</p>
+                <p><span className="spankey">Current Education:</span> {i.current&&i.current.toString()}</p>
             </div>
             </div>
             <hr />
@@ -226,7 +226,7 @@ const renderProfile = ()=>{
                 <p><span className="spankey">Designation:</span> {i.designation}</p>
                 <p><span className="spankey">Start Date:</span> {i.startDate}</p>
                 <p><span className="spankey">End Date:</span> {i.endDate}</p>
-                <p><span className="spankey">Current Company:</span> {i.current.toString()}</p>
+                <p><span className="spankey">Current Company:</span> {i.current&&i.current.toString()}</p>
                 <p><span className="spankey">Description:</span> {i.description}</p>
 
             </div>
