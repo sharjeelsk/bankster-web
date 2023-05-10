@@ -32,6 +32,9 @@ console.log(props);
 			{props.id==="3"?<Link  className="nav-link active" to="/SearchCandidateHome">Find Candidates</Link>:<Link  className="nav-link"  to="/SearchCandidateHome">Find Candidates</Link>}
 			</li>
 			<li className="nav-item">
+			{props.id==="4"?<Link  className="nav-link active" to="/SignupRecruiter">Register as Recruiter</Link>:<Link  className="nav-link"  to="/SignupRecruiter">Register as Recruiter</Link>}
+			</li>
+			<li className="nav-item">
 			{props.userToken?
 			<Link className="nav-link active" to={props.userType===0?"/candidatehome":"/recruiterhome"}>
 				<Button sx={{fontSize:"1.1rem"}} variant="contained" size="large" className="btn-purple">dashboard</Button>
