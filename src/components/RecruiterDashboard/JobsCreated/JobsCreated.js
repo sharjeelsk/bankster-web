@@ -26,6 +26,7 @@ import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import TwoBDialog from '../../utils/TwoBDialog'
 import { setSnackbar } from "../../redux/flags/flagActions";
 import SearchBar2 from '../../utils/SearchBar2';
+import {moment} from 'moment'
 function JobsCreated(props) {
     const [display,setDisplay]=React.useState(false)
     const [jobs,setJobs]=React.useState([])
@@ -168,6 +169,7 @@ function JobsCreated(props) {
                     </Link>
                 </div>
                 <div className='application-count col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 link cp' onClick={()=>props.history.push(`/recruiterjobdetail/${item._id}`,true)}>
+                    <p className="my-2">{new Date(item.createdAt).toLocaleDateString('en-GB')}</p>
                     <h4>{item.jobCandidates.length} Applied</h4>
                 </div>
                 <div className="bookmark-div col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 mobile-right">

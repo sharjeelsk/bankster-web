@@ -270,7 +270,7 @@ const Login = (props) => {
                 ,fontSize: '3em'
               }}>
                 Get Access to <br />
-                <span  className="primarycolorwh">{candidateTotal}</span> Candidate <br /> Applications
+                <span  className="primarycolorwh"></span> Candidate <br /> Applications
               </h1>
               <h5    style={{
                 marginLeft:'5%'
@@ -449,7 +449,7 @@ const Login = (props) => {
 
 
     <FormControl className="m-2">
-      <FormLabel id="demo-row-radio-buttons-group-label">Select Method</FormLabel>
+      <FormLabel id="demo-row-radio-buttons-group-label">Select Payment Method</FormLabel>
       <RadioGroup
         row
         aria-labelledby="demo-row-radio-buttons-group-label"
@@ -458,7 +458,7 @@ const Login = (props) => {
         onChange={(e)=>setPaymentMethod(e.target.value)}
       >
         
-        <FormControlLabel value="Online" control={<Radio disabled={plan==="Custom"?true:false}  />} label="Online"/>
+        <FormControlLabel value="Online" control={<Radio disabled={(plan==="Custom" || plan==="Free")?true:false}  />} label="Online"/>
         <FormControlLabel value="Offline" control={<Radio disabled={plan==="Free"?true:false} />} label="Offline"/>
 
       </RadioGroup>

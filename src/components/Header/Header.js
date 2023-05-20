@@ -32,7 +32,15 @@ console.log(props);
 			{props.id==="3"?<Link  className="nav-link active" to="/SearchCandidateHome">Find Candidates</Link>:<Link  className="nav-link"  to="/SearchCandidateHome">Find Candidates</Link>}
 			</li>
 			<li className="nav-item">
-			{props.id==="4"?<Link  className="nav-link active" to="/SignupRecruiter">Register as Recruiter</Link>:<Link  className="nav-link"  to="/SignupRecruiter">Register as Recruiter</Link>}
+			{props.id==="4"?<Link  className="nav-link active" to="/SignupRecruiter">
+				<Button variant="outlined">
+				Register / Log In as Recruiter
+				</Button>
+				</Link>:<Link  className="nav-link"  to="/SignupRecruiter">
+					<Button variant="outlined">
+				Register / Log In as Recruiter
+				</Button>
+				</Link>}
 			</li>
 			<li className="nav-item">
 			{props.userToken?
@@ -40,7 +48,7 @@ console.log(props);
 				<Button sx={{fontSize:"1.1rem"}} variant="contained" size="large" className="btn-purple">dashboard</Button>
 				</Link>:
 			<Link  className="nav-link" to="/signup">
-				<Button sx={{fontSize:"1.1rem"}} variant="contained" size="large"  className="btn-purple">SignUp</Button>
+				<Button sx={{fontSize:"1.1rem"}} variant="contained" size="large"  className="btn-purple">Register / Log In as Candidate</Button>
 				</Link>}
 			</li>
 			

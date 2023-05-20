@@ -45,10 +45,10 @@ function Home(props) {
                     <h3>{jobData?jobData.totalJobCount:".."}</h3>
                     <p><WorkTwoToneIcon className="icon-home" color="primary" /><span className="ml-2 primarycolor">Jobs</span></p>
                 </div>
-                <div className="col-3">
+                {/* <div className="col-3">
                     <h3>{jobData?jobData.totalCandidateCount:".."}</h3>
                     <p><PeopleAltTwoToneIcon className="icon-home" color="primary" /><span className="ml-2 primarycolor">Candidates</span></p>
-                </div>
+                </div> */}
                 <div className="col-3">
                     <h3>{jobData?jobData.totalRecruiterCount:".."}</h3>
                     <p><PeopleAltTwoToneIcon className="icon-home" color="primary" /><span className="ml-2 primarycolor">Recruiters</span></p>

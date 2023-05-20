@@ -99,7 +99,7 @@ const Login = (props) => {
                 ,fontSize: '3em'
               }}>
                 Get Access to <br />
-                <span  className="primarycolorwh">{candidateTotal}</span> Candidate <br /> Applications
+                <span  className="primarycolorwh"></span> Candidate <br /> Applications
               </h1>
               <h5    style={{
                 marginLeft:'5%'
