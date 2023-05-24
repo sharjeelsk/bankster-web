@@ -64,25 +64,28 @@ function JobsApplied(props) {
             console.log(err)
         })
     }
-    const renderImageString = (createdBy)=>{
-        if(createdBy && Array.isArray(createdBy)){
-            if(createdBy[0].companyImg.length>0){
-                return `${process.env.REACT_APP_DEVELOPMENT}/api/image/${createdBy[0].companyImg}`
-            }else{
-                return '/job-offer.png'
-            }
-            
-        }else if(createdBy && createdBy.companyImg){
-            if(createdBy.companyImg.length>0){
-                return `${process.env.REACT_APP_DEVELOPMENT}/api/image/${createdBy.companyImg}`
-            }else{
-                return '/job-offer.png'
-            }
-            
-        }else{
-            return '/job-offer.png'
-        }
-    }
+const renderImageString = (createdBy)=>{
+  if(createdBy){
+      if(Array.isArray(createdBy) && createdBy.length>0){
+          if(createdBy[0].companyImg.length>0){
+              return `${process.env.REACT_APP_DEVELOPMENT}/api/image/${createdBy[0].companyImg}`
+          }else{
+              return '/job-offer.png'
+          }
+          
+      }else if(createdBy.companyImg){
+          if(createdBy.companyImg.length>0){
+              return `${process.env.REACT_APP_DEVELOPMENT}/api/image/${createdBy.companyImg}`
+          }else{
+              return '/job-offer.png'
+          }
+          
+      }else{
+          return '/job-offer.png'
+      }
+  }
+
+}
 
     return (
         <>

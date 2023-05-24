@@ -74,24 +74,27 @@ function JobsCreated(props) {
         })
     }
     const renderImageString = (createdBy)=>{
-        if(Array.isArray(createdBy)){
-            if(createdBy[0].companyImg.length>0){
-                return `${process.env.REACT_APP_DEVELOPMENT}/api/image/${createdBy[0].companyImg}`
+        if(createdBy){
+            if(Array.isArray(createdBy) && createdBy.length>0){
+                if(createdBy[0].companyImg.length>0){
+                    return `${process.env.REACT_APP_DEVELOPMENT}/api/image/${createdBy[0].companyImg}`
+                }else{
+                    return '/job-offer.png'
+                }
+                
+            }else if(createdBy.companyImg){
+                if(createdBy.companyImg.length>0){
+                    return `${process.env.REACT_APP_DEVELOPMENT}/api/image/${createdBy.companyImg}`
+                }else{
+                    return '/job-offer.png'
+                }
+                
             }else{
                 return '/job-offer.png'
             }
-            
-        }else if(createdBy.companyImg){
-            if(createdBy.companyImg.length>0){
-                return `${process.env.REACT_APP_DEVELOPMENT}/api/image/${createdBy.companyImg}`
-            }else{
-                return '/job-offer.png'
-            }
-            
-        }else{
-            return '/job-offer.png'
         }
-    }
+      
+      }
     return (
         <>
             <TwoBDialog 
