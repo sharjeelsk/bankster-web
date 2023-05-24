@@ -235,7 +235,7 @@ function SearchCandidates(props) {
       console.log(formValues)
   return (
     <div>
-        <Header id="3" />
+        <Header id="1" />
         <GetNameModal 
         open={open2}
         setOpen={setOpen2}
