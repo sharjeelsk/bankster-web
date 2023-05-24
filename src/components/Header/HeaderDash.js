@@ -20,7 +20,34 @@ console.log(props);
 	<button className="navbar-toggler custom-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive">
 		<span className="navbar-toggler-icon" ></span>
 	</button>
+
+{(props.userInfo&&props.userInfo.companyName)?<>
 	<div className="collapse navbar-collapse" id="navbarResponsive">
+		<ul className="navbar-nav ml-auto" id="nav">
+			<li className="nav-item">
+			{props.id==="1"?<Link  className="nav-link active" to="/searchcandidates">Search Candidates</Link>:<Link  className="nav-link"  to="/searchcandidates">Search Candidates</Link>}
+			</li>
+			<li className="nav-item">
+			{props.id==="2"?<Link  className="nav-link active" to="/createjob">Post a Job</Link>:<Link  className="nav-link"  to="/createjob">Post a Job</Link>}
+			</li>
+			<li className="nav-item">
+			{props.id==="3"?<Link  className="nav-link active" to="/SearchCandidateHome">Quick Candidates</Link>:<Link  className="nav-link"  to="/SearchCandidateHome">Quick Candidates</Link>}
+			</li>
+			<li className="nav-item">
+			{props.userToken?
+			<Link className="nav-link active" to={props.userType===0?"/candidatehome":"/recruiterhome"}>
+				<Button sx={{fontSize:"1.1rem"}} variant="contained" size="large" className="btn-purple">dashboard</Button>
+				</Link>:
+			<Link  className="nav-link"  to="/signup">
+				<Button sx={{fontSize:"1.1rem"}} variant="contained" size="large"  className="btn-purple">SignUp</Button>
+				</Link>}
+			</li>
+			
+			
+		</ul>
+	</div>
+</>:
+<div className="collapse navbar-collapse" id="navbarResponsive">
 		<ul className="navbar-nav ml-auto" id="nav">
 			<li className="nav-item">
 			{props.id==="1"?<Link  className="nav-link active" to="/">Home</Link>:<Link  className="nav-link"  to="/">Home</Link>}
@@ -44,6 +71,7 @@ console.log(props);
 			
 		</ul>
 	</div>
+	}
 </div>
 </nav>
 </div>
@@ -52,7 +80,8 @@ console.log(props);
 }
 const mapStateToProps =({banksterUser})=>{
 	return {
-		userToken:banksterUser.user
+		userToken:banksterUser.user,
+		userInfo:banksterUser.userInfo
 	}
 	}
 export default connect(mapStateToProps)(HeaderDash);
