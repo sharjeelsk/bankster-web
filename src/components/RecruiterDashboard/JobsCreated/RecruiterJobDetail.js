@@ -309,7 +309,11 @@ function RecruiterJobDetail(props) {
                     <>
                     <SearchBar2 searchText="Search By Applicants Name..." handleSearchSubmit={handleSearchSubmit} getAllData={getCreatedJobs}  />
                     <div className="mb-5" />
-                    {filteredCandidates.length>0?filteredCandidates.map((item,index)=><section className="candidate-single-job shadow-sm" key={index}>
+                    {filteredCandidates.length>0?filteredCandidates.map((item,index)=>!item.user?
+                    <>
+                    <h3>{index+1} Sorry, this applicant with status "{item.status}" doesn't exist in our system</h3>
+                    </>
+                    :<section className="candidate-single-job shadow-sm" key={index}>
                         <div className="row m-auto">
                             <div className="col-3 col-sm-3 col-md-1 col-lg-1 col-xl-1">
                             <img src={item.user.profilePicture.length<=0?'/user.png':`${process.env.REACT_APP_DEVELOPMENT}/api/image/${item.user.profilePicture}`} alt="logo1" />
