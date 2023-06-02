@@ -22,6 +22,7 @@ import Chip from '@mui/material/Chip';
 import SearchIcon from '@mui/icons-material/Search';
 import { Link } from 'react-router-dom'
 import {fetchCandidateInfo} from '../redux/user/userActions'
+import { Helmet } from 'react-helmet';
 import {renderRating,renderAgo} from '../utils/Functions'
 function JobDetail(props) {
     let params = useParams();
@@ -33,6 +34,7 @@ function JobDetail(props) {
     const [flag,setFlag] = React.useState(false)
     const [similarJobs,setSimilarJobs]=React.useState([])
     const [jobTags,setJobTags] = React.useState(null)
+    const [title,setTitle] = React.useState('')
 const [companyImg,setCompanyImg] = React.useState(null)
     React.useEffect(()=>{
         axios.post(`${process.env.REACT_APP_DEVELOPMENT}/api/job/singleJob`,{jobId:params.id})
@@ -40,6 +42,7 @@ const [companyImg,setCompanyImg] = React.useState(null)
             console.log("sinleJob",res)
             if(res.data.msg==="success"){
                 setSingleJob(res.data.result)
+                setTitle(res.data.result.title)
                 if(props.user.userInfo){
                     if(props.user.userInfo.bookmarks.jobs.includes(res.data.result._id)){
                         setBookmarked(true)
@@ -317,6 +320,11 @@ const checkDisabled = (item)=>{
 
   return (
 <div>
+<Helmet>
+        <title>{title}</title>
+        <meta property="og:title" content={title} />
+        <meta name="twitter:title" content={title} />
+      </Helmet>
         <Header id="2" />
         <section className="row m-auto find-jobs-head">
             <div className="p-0 col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
