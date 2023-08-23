@@ -73,7 +73,7 @@ function SignUp(props) {
         event.preventDefault();
     };
     const onSubmit = (data)=>{
-        console.log(data,values.password,formValues,dob)
+        console.log(data,values.password,formValues,dob,resume)
         if(data.currentCTC==="" || data.email==="" || data.fullName==="" || 
         data.mobileNo===""  || data.universityName==="" || !singleEducation || formValues.city==="" || formValues.state==="" || !resume || !dob
         // ||  !formValues.functionalArea || !formValues.industry || !formValues.product || data.totalExperience===""
@@ -85,6 +85,7 @@ function SignUp(props) {
 
         //props.setLoading(true)
         const formdata = new FormData();
+
         if(!Array.isArray(resume)){
           formdata.append('file',resume)
         axios.post(`${process.env.REACT_APP_DEVELOPMENT}/upload-resume`,formdata,{headers:{Accept:'application/json','Content-Type':"multipart/form-data"}})
@@ -325,7 +326,7 @@ function SignUp(props) {
                     label="Mobile Number"
                     {...register('mobileNo',{required:true,maxLength:10})}
                     // name="numberformat"
-                    // type="number"
+                    type="number"
                     id="outlined-start-adornment"
                     InputProps={{
                         startAdornment: (
@@ -437,7 +438,7 @@ function SignUp(props) {
                         fullWidth
                         className="my-3"
                         label="Current Company"
-                        {...register('currentCompany',{required:true})}
+                        {...register('currentCompany')}
                         id="outlined-start-adornment"
                         InputProps={{
                             startAdornment: (
@@ -450,7 +451,7 @@ function SignUp(props) {
                         fullWidth
                         className="my-3"
                         label="Current CTC"
-                        {...register('currentCTC',{required:true})}
+                        {...register('currentCTC')}
                         id="outlined-start-adornment"
                         InputProps={{
                             startAdornment: (
@@ -505,7 +506,7 @@ function SignUp(props) {
                         fullWidth
                         className="my-3"
                         label="Current Designation"
-                        {...register('currentDesignation',{required:true})}
+                        {...register('currentDesignation')}
                         id="outlined-start-adornment"
                         InputProps={{
                             startAdornment: (
@@ -519,7 +520,6 @@ function SignUp(props) {
                         className="my-3"
                         label="Total Experience"
                         {...register('totalExperience',{
-                            required:true,
                             pattern: /^\d+$/ // only allow digits
                         })}
                         id="outlined-start-adornment"
