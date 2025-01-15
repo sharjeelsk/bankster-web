@@ -9,7 +9,7 @@ import TwitterIcon from '@mui/icons-material/Twitter';
 function Footer() {
   return (
     <div className="footer">
-        <section className="shadow row m-auto newsletter align-items-center">
+        {/* <section className="shadow row m-auto newsletter align-items-center">
             <div className="col-12 col-sm-12 col-md-5 col-lg-5 col-xl-5">
             <h3>Never Miss any update from <span className="primarycolorwh">Bankster</span></h3>
             </div>
@@ -21,7 +21,7 @@ function Footer() {
                     <Button fullWidth variant="contained">Subscribe</Button>
                     </div>
             </div>
-        </section>
+        </section> */}
         <section className="footer-main row m-auto">
             <div className="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 logo">
                 <img src="/banksterfullAsset.png" alt="banksterlogo" />
@@ -34,7 +34,7 @@ function Footer() {
                 <Link className="link" to="/terms">Terms and Conditions</Link>
                 </div>
                 <div className="col-4">
-                <Link className="link" to="/blogs">Blogs</Link>
+                {/* <Link className="link" to="/blogs">Blogs</Link> */}
                 <Link className="link" to="/refundpolicy">Refund Policy</Link>
                 <Link className="link" to="/contactus">Contact Us</Link>
                 <Link className="link" to="/findjobs">Find Jobs</Link>
@@ -66,7 +66,7 @@ function Footer() {
                     <IconButton onClick={()=> window.open("https://twitter.com/Bankster_India/", "_blank")}>
                         <TwitterIcon />
                     </IconButton>
-                    <IconButton onClick={()=> window.open("https://www.instagram.com/bankingjob/", "_blank")}>
+                    <IconButton onClick={()=> window.open("https://www.instagram.com/banksterindia.in/", "_blank")}>
                         <InstagramIcon />
                     </IconButton>
                 </div>

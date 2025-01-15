@@ -95,7 +95,7 @@ function Bookmark(props) {
     return (
         <>
 
-            <HeaderDash />
+            <HeaderDash image={props?.user?.userInfo?.profilePicture?`${process.env.REACT_APP_DEVELOPMENT}/api/image/${props?.user?.userInfo?.profilePicture}`:"/user.png"}/>
         
         <div className="row">
             <div className="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 p-0">
@@ -126,7 +126,7 @@ function Bookmark(props) {
             <h1>Saved Profiles</h1>
 
             {
-                candidates.length>0?candidates.map((item,index)=>
+                candidates?.length>0?candidates?.map((item,index)=>
                 <section className="candidate-single-job shadow-sm" key={index}>
                         <div className="row m-auto">
                             <div className="col-3 col-sm-1 col-md-1 col-lg-1 col-xl-1">
@@ -170,14 +170,14 @@ function Bookmark(props) {
 
                             <div className="col-1 bookmark-div" style={{textAlign:"right"}}>
                             <IconButton onClick={()=>{
-                                if(props.user.userInfo.bookmarks.candidates.includes(item._id)){
+                                if(props?.user?.userInfo?.bookmarks?.candidates?.includes(item._id)){
                                     handleBookmarkAdd(item._id,true)
                                 }else{
                                     handleBookmarkAdd(item._id,false)
                                 }
                                 }}>
                                 {
-                                props.user.userInfo.bookmarks.candidates.includes(item._id)?<BookmarkIcon />:<BookmarkBorderIcon />
+                                props?.user?.userInfo?.bookmarks?.candidates?.includes(item._id)?<BookmarkIcon />:<BookmarkBorderIcon />
                                 }
                             </IconButton>
                             </div>

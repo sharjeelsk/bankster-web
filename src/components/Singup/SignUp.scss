@@ -1,32 +1,94 @@
-@import  "../../App.scss";
+@import "../../App.scss";
 
-.sign-up-section{
+.resume-class {
+    border: 2px solid #c8c8c8;
+    border-radius: 8px;
+    padding: 8px;
+    width: 375px;
+    height: 80px;
+    border-width: thin;
+    margin: auto !important;
+}
+
+#upload-resume-button {
+    margin-top: 18px !important;
+}
+
+.react-tel-input .form-control {
+    padding: 26px;
+    width: 350px;
+    margin: 24px;
+}
+
+.sign-up-section {
     padding: 0 8%;
-    .left-content{
+
+    .left-content {
         padding: 2%;
-        .main-head{
+
+        .main-head {
             font-size: 3em;
         }
-        img{
+
+        img {
             width: 100%;
         }
     }
-    .tagline{
+
+    .tagline {
         font-size: .8em;
     }
-    h2{
-        font-weight: 400;
-        font-size: 2em;
+
+    h2 {
+        font-weight: 410;
+        font-size: 1.5em;
+        margin: 0px;
+
     }
 
-    .right-content{
+    .right-content {
         background-color: $secondary;
         padding: 2%;
         border-radius: 10px;
-        form{
+
+        form {
             background-color: white;
             padding: 2%;
             border-radius: 10px;
         }
+    }
+}
+
+.recruiter-mobile-number .form-control {
+    width: 260px;
+}
+
+@media screen and (min-width: 1025px) {
+    .col-xl-8 {
+        max-height: 800px;
+    }
+}
+
+/* Responsive styles for mobile devices (screens up to 767px) */
+@media screen and (max-width: 767px) {
+    .react-tel-input .form-control {
+        width: 264px;
+    }
+
+    .resume-class {
+        position: inherit;
+        right: 2px;
+        width: 290px;
+    }
+}
+
+/* Responsive styles for tablet devices (screens from 768px to 1024px) */
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+    .react-tel-input .form-control {
+        width: 157px;
+    }
+
+    .resume-class {
+        width: 182px;
     }
 }

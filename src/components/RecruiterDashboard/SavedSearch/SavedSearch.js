@@ -37,7 +37,7 @@ function Bookmark(props) {
     return (
         <>
 
-            <HeaderDash />
+            <HeaderDash image={props?.user?.userInfo?.profilePicture?`${process.env.REACT_APP_DEVELOPMENT}/api/image/${props?.user?.userInfo?.profilePicture}`:"/user.png"} />
         
         <div className="row">
             <div className="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 p-0">

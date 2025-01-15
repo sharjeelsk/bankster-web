@@ -107,7 +107,7 @@ function Subscription(props) {
             <section className='row m-auto'>
             {
               plans.length>0?plans.map((item,index)=>
-              <div key={index} className={`shadow-sm plan-auth-cont col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 ${item._id===props.user.userInfo.subscription._id?"active-plan":""}`}>
+              <div key={index} className={`shadow-sm plan-auth-cont col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 ${item._id===props?.user?.userInfo?.subscription?._id?"active-plan":""}`}>
               <h1>{item.name}</h1>
               <h2>₹{item.amount}/month</h2>
               {
@@ -115,7 +115,7 @@ function Subscription(props) {
               }
               
               {
-                item._id===props.user.userInfo.subscription._id?<p className="active-text">Currently Active</p>:
+                item._id===props?.user?.userInfo?.subscription?._id?<p className="active-text">Currently Active</p>:
                 <Button onClick={()=>openPayModal(item.amount,item)} variant="contained">upgrade</Button>
               }
              </div> 
@@ -123,7 +123,7 @@ function Subscription(props) {
              }
             </section>
 
-            {props.user.userInfo.paymentHistory.length>0 && plans.length>0?<>
+            {props?.user?.userInfo?.paymentHistory?.length>0 && plans.length>0?<>
             <h2>Payment History</h2>
             <table className="ui celled table">
             <thead>
@@ -136,7 +136,7 @@ function Subscription(props) {
 
 
             {
-              props.user.userInfo.paymentHistory.map((item,index)=><tr key={index}>
+              props?.user?.userInfo?.paymentHistory?.map((item,index)=><tr key={index}>
               <td>{renderPlanName(item.subscriptionId)}</td>
               <td>{item.paymentId.razorpay_payment_id}</td>
               <td>{moment(item.createdAt).format('dddd, MMMM Do YYYY, h:mm a')}</td>

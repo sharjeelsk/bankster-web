@@ -81,7 +81,7 @@ function Notifications(props) {
              </IconButton>
              </span>
 
-            {props.user.userInfo.notifications.length>0?<>
+            {props?.user?.userInfo?.notifications?.length>0?<>
                 <h1>Notifications</h1>
             {render&&<IconButton onClick={()=>setRender(false)}>
                 <ArrowBackIcon />
@@ -89,7 +89,7 @@ function Notifications(props) {
             <section className="notification-head row m-auto justify-content-around">
             <section className={`notification-container col-12 col-sm-12 col-md-7 col-lg-7 col-xl-7 p-0 ${render?'display-false':'display-true'}`}>
                 {
-                    props.user.userInfo.notifications.map((item,index)=><div onClick={()=>handleInfo(item._id,item.schema)} key={index} className="row m-auto notification-parent align-items-center">
+                    props?.user?.userInfo?.notifications?.map((item,index)=><div onClick={()=>handleInfo(item._id,item.schema)} key={index} className="row m-auto notification-parent align-items-center">
                     <div className="col-2">
                         <img src="/logo4.png" alt="logo1" />
                     </div>

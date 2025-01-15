@@ -26,7 +26,6 @@ import JobDetail from './components/FindJobs/JobDetail';
 import BookmarkedJobs from './components/CandidateDashboard/BookmarkedJobs/BookmarkedJobs';
 
 import Login from './components/Login/Login';
-import Singup from './components/Singup/Singup';
 import SignUp from './components/Singup/SignUp';
 import Loginrecruiter from './components/Login/Loginrecruiter';
 import SignupRecruiter from './components/Singup/SignupRecruiter';

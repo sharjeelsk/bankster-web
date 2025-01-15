@@ -11,7 +11,8 @@ const LottieComponent = (props) => {
         setTimeout(() => {
             if(params.token){
                 props.setUser(params.token)
-                if(params.type==="candidate"){
+                console.log("============================================================================================1111",params.type)
+                if(params.type === "candidate"){
                     props.history.push("/candidatehome")
 
                 }else{

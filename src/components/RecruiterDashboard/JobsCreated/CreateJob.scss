@@ -1,0 +1,54 @@
+.mb-3 {
+    margin-bottom: 0px !important;
+}
+
+.mt-2 {
+    margin-top: 0px !important;
+}
+
+h3,
+h4 {
+    margin: 0px !important;
+}
+
+.my-3 {
+    margin-bottom: 0.8rem !important;
+}
+
+.my-3 {
+    margin-top: 0.8rem !important;
+}
+
+
+
+
+.Job-Requirements {
+    margin-bottom: 7px !important;
+}
+
+
+
+/* Parent div */
+.parent-div {
+    display: flex; 
+    justify-content: space-between; 
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+/* Child divs */
+.child-div {
+    display: flex;  
+    gap: 0px; 
+    // margin: 5px;
+}
+
+/* Dropdown styling */
+.dropdown {
+    padding: 8px;
+    font-size: 16px;
+    width: 50px; 
+}
+.slider-info{
+    margin-top: inherit;
+}
