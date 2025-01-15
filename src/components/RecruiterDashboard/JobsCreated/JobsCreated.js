@@ -59,7 +59,10 @@ function JobsCreated(props) {
             if(res.data.msg==="success"){
                 props.setSnackbar({type:"success",text:"Job Deleted Successfully",open:true})
             }
-        })
+        });
+        setOpen();
+        getCreatedJobs();
+        
     }
     const handleSearchSubmit = (text)=>{
         axios.post(`${process.env.REACT_APP_DEVELOPMENT}/api/job/searchCreatedJobs`,{recruiterId:props.user.userInfo._id,title:text},{headers:{token:props.user.user}})
@@ -106,7 +109,7 @@ function JobsCreated(props) {
             rightButton="Delete"
             handleSubmit = {deleteJob}
             />
-            <HeaderDash />
+            <HeaderDash image={props?.user?.userInfo?.profilePicture?`${process.env.REACT_APP_DEVELOPMENT}/api/image/${props?.user?.userInfo?.profilePicture}`:"/user.png"}/>
         
         <div className="row">
             <div className="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 p-0">

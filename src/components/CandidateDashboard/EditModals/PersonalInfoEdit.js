@@ -33,7 +33,6 @@ const Input = styled('input')({
   display: 'none',
 });
 function PersonalInfoEdit(props) {
-    console.log("kename",props)
     const {register,handleSubmit,formState:{errors},setValue}=useForm()
     const [singleLanguage,setSingleLanguage]=React.useState("")
     const [languages,setLanguages]=React.useState([])
@@ -46,8 +45,6 @@ function PersonalInfoEdit(props) {
     const handleCategoryChange = (event) => {
       setCategory(event.target.value);
     };
-
-    console.log("selected date is",dob)
 
     const handleDateChange = (newValue) => {
       
@@ -73,10 +70,8 @@ function PersonalInfoEdit(props) {
       }
     },[props.keyD])
 
-    console.log("Modal languages",languages)
 
     const onSubmit = (data)=>{
-        console.log(data)
         let obj = {}
         if(props.keyD==="languages" && languages.length>0){
         obj = {languages}
@@ -91,7 +86,6 @@ function PersonalInfoEdit(props) {
         props.setLoading(true)
         axios.post(`${process.env.REACT_APP_DEVELOPMENT}/api/candidate/editCandidateProfile`,{...obj},{headers:{token:props.user.user}})
         .then(res=>{
-          console.log(res)
           props.fetchCandidateInfo(props.user.user)
           props.setOpen(false)
           props.setLoading(false)
@@ -102,7 +96,6 @@ function PersonalInfoEdit(props) {
           props.setOpen(false)
           props.setLoading(false)
         })
-        console.log(obj)
 
     }
 

@@ -26,7 +26,6 @@ const CandidateDashhead = (props) => {
     React.useEffect(()=>{
         axios.get(`${process.env.REACT_APP_DEVELOPMENT}/api/candidate/getCandidateDashNumbers`,{headers:{token:props.user.user}})
         .then(res=>{
-            console.log("dashdata",res)
             if(res.data.result.length>0){
                 setDashboardData(res.data.result[0])
                 if(props.setDashboardData){
@@ -36,7 +35,6 @@ const CandidateDashhead = (props) => {
             
         })
     },[])
-    console.log(props,dashboardData);
 
     return (
         

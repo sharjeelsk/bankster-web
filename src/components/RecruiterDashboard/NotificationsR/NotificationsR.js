@@ -23,7 +23,7 @@ function Notifications(props) {
     const [activeObj,setActiveObj] = React.useState(null)
     const [open,setOpen] = React.useState(false)
     React.useEffect(()=>{
-        props.fetchRecruiterInfo(props.user.user)
+        props.fetchRecruiterInfo(props?.user?.user)
     },[])
 
     const handleInfo = (id,schema)=>{
@@ -83,17 +83,17 @@ function Notifications(props) {
 
     const handleDelete =()=>{
         console.log(activeObj)
-        axios.post(`${process.env.REACT_APP_DEVELOPMENT}/api/recruiter/deleteNotification`,{object:activeObj},{headers:{token:props.user.user}})
+        axios.post(`${process.env.REACT_APP_DEVELOPMENT}/api/recruiter/deleteNotification`,{object:activeObj},{headers:{token:props?.user?.user}})
         .then(res=>{
             console.log(res)
             setOpen(false)
-            props.fetchRecruiterInfo(props.user.user)
+            props.fetchRecruiterInfo(props?.user?.user)
         })
     }
 
     return (
         <>
-        <HeaderDash />
+        <HeaderDash image={props?.user?.userInfo?.profilePicture?`${process.env.REACT_APP_DEVELOPMENT}/api/image/${props?.user?.userInfo?.profilePicture}`:"/user.png"} />
         <div className="row">
             <div className="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 p-0">
             <RecruiterDashhead id={3} display={display} />
@@ -115,7 +115,7 @@ function Notifications(props) {
              </IconButton>
              </span>
 
-            {props.user.userInfo.notifications.length>0?<>
+            {props?.user?.userInfo?.notifications?.length>0?<>
                 <h1>Notifications</h1>
             {render&&
             <div className="mobile-visible">
@@ -127,7 +127,7 @@ function Notifications(props) {
             <section className="notification-head row m-auto justify-content-around">
             <section className={`notification-container col-12 col-sm-12 col-md-7 col-lg-7 col-xl-7 p-0 ${render?'display-false':'display-true'}`}>
                 {
-                    props.user.userInfo.notifications.map((item,index)=><div onClick={()=>{
+                    props?.user?.userInfo?.notifications?.map((item,index)=><div onClick={()=>{
                         setActiveObj(item)
                         handleInfo(item._id,item.schema)}} key={index} className={`row m-auto notification-parent align-items-center ${activeObj&&(activeObj.createdAt===item.createdAt&&"active-noti")}`}>
                     <div className="col-2">

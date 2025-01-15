@@ -24,13 +24,13 @@ import BookmarksOutlinedIcon from '@mui/icons-material/BookmarksOutlined';
 import PlagiarismIcon from '@mui/icons-material/Plagiarism';
 import PlagiarismOutlinedIcon from '@mui/icons-material/PlagiarismOutlined';
 const RecruiterDashhead = (props) => {
-    console.log(props);
+   
     let {id,display} = props
     const [dashboardData,setDashboardData] = React.useState(null)
     React.useEffect(()=>{
         axios.get(`${process.env.REACT_APP_DEVELOPMENT}/api/recruiter/getRecruiterDashNumbers`,{headers:{token:props.user.user}})
         .then(res=>{
-            console.log("dashdata",res)
+         
             if(res.data.result.length>0){
                 setDashboardData(res.data.result[0])
                 if(props.setDashboardData){
@@ -40,7 +40,7 @@ const RecruiterDashhead = (props) => {
             
         })
     },[])
-    console.log(props,dashboardData);
+   
     return (
         
             

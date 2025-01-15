@@ -52,14 +52,11 @@ function RecruiterHome(props) {
     const [keyName,setKeyName]=React.useState("")
     const [editData,setEditData]=React.useState(null) //edit data to pass to the edit respective edit component
     const [dashboardData,setDashboardData]=React.useState(null)
-    console.log(key,keyName)
-    console.log("recruiterhome-dashboarddata",dashboardData)
     let userInfo = props.user.userInfo
 
     React.useEffect(()=>{
         axios.get(`${process.env.REACT_APP_DEVELOPMENT}/api/recruiter/getRecruiterProfile`,{headers:{token:props.user.user}})
         .then(res=>{
-            console.log(res)
             if(res.data.msg==="success"){
                 props.storeUserInfo(res.data.result)
             }
@@ -73,7 +70,6 @@ function RecruiterHome(props) {
 
     const upload2 = (e)=>{
         //company gstin
-        console.log(e.target.files[0])
         const formdata = new FormData();
         if(!Array.isArray(e.target.files[0])){
           formdata.append('file',e.target.files[0])
@@ -83,12 +79,10 @@ function RecruiterHome(props) {
             formdata.append('img',userInfo.gstin)
           }
           //props.setLoading(true)
-          console.log(formdata)
         axios.post(`${process.env.REACT_APP_DEVELOPMENT}/upload-recruiter-data`,formdata,{headers:{Accept:'application/json','Content-Type':"multipart/form-data",token:props.user.user}})
         .then(res=>{
             //props.setLoading(false)
             //props.getUserInfo(props.user.user)
-            console.log(res)
             props.setSnackbar({type:"success",text:"GSTIN Updated Successfully",open:true})
             setFlag(!flag)
           
@@ -103,7 +97,6 @@ function RecruiterHome(props) {
 
     const upload4 = (e)=>{
         //company pan
-        console.log(e.target.files[0])
         const formdata = new FormData();
         if(!Array.isArray(e.target.files[0])){
           formdata.append('file',e.target.files[0])
@@ -117,7 +110,7 @@ function RecruiterHome(props) {
         .then(res=>{
             //props.setLoading(false)
             //props.getUserInfo(props.user.user)
-            console.log(res)
+    
             props.setSnackbar({type:"success",text:"Pan Changed Successfully",open:true})
             setFlag(!flag)
           
@@ -127,12 +120,12 @@ function RecruiterHome(props) {
         })
     }
     }
-
+// console.log("================================1234567890",props.user.userInfo.profilePicture+"22222222222222222222222"?`${process.env.REACT_APP_DEVELOPMENT}/api/image/${props.user.userInfo.profilePicture}"pspspspsppspspspspsppspspsps"`:"/user.png")
 
     return (
         <>
 
-            <HeaderDash />
+            <HeaderDash image={props?.user?.userInfo?.profilePicture?`${process.env.REACT_APP_DEVELOPMENT}/api/image/${props?.user?.userInfo?.profilePicture}`:"/user.png"} />
         
         <div className="row">
             <div className="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 p-0">
@@ -330,7 +323,7 @@ function RecruiterHome(props) {
                 <p className="grey-text">{userInfo.companyDescription}</p>
                 <div className="row m-auto">
                     <div className="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 key-holders">
-                        <p><LocationOnIcon /> {userInfo.companyLocation.city}, {userInfo.companyLocation.state}</p>
+                        <p><LocationOnIcon /> {userInfo?.companyLocation?.city}, {userInfo?.companyLocation?.state}</p>
                     </div>
                     <div className="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 key-holders">
                         <Link to={{ pathname: userInfo.companyUrl }} target="_blank"><p><LinkIcon /> {userInfo.companyUrl}</p></Link>
@@ -338,7 +331,7 @@ function RecruiterHome(props) {
                 </div>
                 <div className="mt-4" />
                 {
-                    userInfo.companyTags.map((item,index)=><Chip key={index} color="primary" className="m-2" label={item} />)
+                    userInfo?.companyTags?.map((item,index)=><Chip key={index} color="primary" className="m-2" label={item} />)
                 }
                 </div>
                 <div className="col-12 col-sm-12 col-md-1 col-lg-1 col-xl-1 mobile-right">
@@ -368,7 +361,7 @@ function RecruiterHome(props) {
                     </div>
 
                     <div className="ml-2">
-                        <h2>{userInfo.bookmarks.candidates.length}</h2>
+                        <h2>{userInfo?.bookmarks?.candidates?.length}</h2>
                     </div>
                 </div>
                 <div className="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 view-section-child row m-auto align-items-center justify-content-around shadow-sm">
@@ -512,7 +505,7 @@ function RecruiterHome(props) {
                                 <IconButton onClick={()=>{
                                     axios.post(`${process.env.REACT_APP_DEVELOPMENT}/api/recruiter/removeEmployment`,{obj:item},{headers:{token:props.user.user}})
                                     .then(res=>{
-                                        console.log(res)
+                                     
                                         setFlag(!flag)
                                     })
                                     .catch(err=>{

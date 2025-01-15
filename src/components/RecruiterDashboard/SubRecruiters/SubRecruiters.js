@@ -30,7 +30,7 @@ function SubRecruiters(props) {
 
     return (
         <>
-         <HeaderDash />
+         <HeaderDash image={props?.user?.userInfo?.profilePicture?`${process.env.REACT_APP_DEVELOPMENT}/api/image/${props?.user?.userInfo?.profilePicture}`:"/user.png"}/>
         <div className="row">
             <div className="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 p-0">
             <RecruiterDashhead id={5} display={display} />
@@ -43,7 +43,7 @@ function SubRecruiters(props) {
              </IconButton>
              </span>
 
-            {props.user.userInfo.subRecruiter?
+            {props?.user?.userInfo?.subRecruiter?
              <div className="col-12 no-jobs">
              <h1>You don't have access to this section, contact head recruiter</h1>
             </div>:

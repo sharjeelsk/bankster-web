@@ -51,7 +51,7 @@ function Subscription(props) {
         image: 'https://cdn.razorpay.com/logos/7K3b6d18wHwKzL_medium.png',
         handler: function(response) {
             console.log(response);
-            axios.post(`${process.env.REACT_APP_DEVELOPMENT}/api/recruiter/changeRecruiterPlan`,{plan,paymentId:response,availablePlanCreditsId:props.user.userInfo.availablePlanCredits._id},{headers:{token:props.user.user}})
+            axios.post(`${process.env.REACT_APP_DEVELOPMENT}/api/recruiter/changeRecruiterPlan`,{plan,paymentId:response,availablePlanCreditsId:props?.user?.userInfo?.availablePlanCredits?._id},{headers:{token:props?.user?.user}})
             .then(res=>{
               console.log(res);
               getPlans()
@@ -99,7 +99,7 @@ function Subscription(props) {
     ];
     return (
         <>
-         <HeaderDash />
+         <HeaderDash image={props?.user?.userInfo?.profilePicture?`${process.env.REACT_APP_DEVELOPMENT}/api/image/${props?.user?.userInfo?.profilePicture}`:"/user.png"}/>
         <div className="row">
             <div className="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 p-0">
             <RecruiterDashhead id={4} display={display} />
@@ -112,22 +112,22 @@ function Subscription(props) {
              </IconButton>
              </span>
 
-             {props.user.userInfo.subRecruiter?
+             {props?.user?.userInfo?.subRecruiter?
              <div className="col-12 no-jobs">
              <h1>You don't have access to this section, contact head recruiter</h1>
             </div>
              :<>
              <h1>Current Subscription</h1>
-             <p><TaskAltIcon /> <b>{props.user.userInfo.availablePlanCredits.cvAccess} resume access left</b></p>
-              <p><TaskAltIcon /> <b>{props.user.userInfo.availablePlanCredits.jobPostings} job postings left</b></p>
-              <p><TaskAltIcon /> <b>{props.user.userInfo.availablePlanCredits.subRecruiters} Sub Recruiters left</b></p>
+             <p><TaskAltIcon /> <b>{props?.user?.userInfo?.availablePlanCredits?.cvAccess} resume access left</b></p>
+              <p><TaskAltIcon /> <b>{props?.user?.userInfo?.availablePlanCredits?.jobPostings} job postings left</b></p>
+              <p><TaskAltIcon /> <b>{props?.user?.userInfo?.availablePlanCredits?.subRecruiters} Sub Recruiters left</b></p>
 
             <h1>Subscriptions</h1>
 
             <section className='row m-auto'>
             {
               plans.length>0?plans.map((item,index)=>!item.custom&&
-              <div key={index} className={`shadow-sm plan-auth-cont col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 ${item._id===props.user.userInfo.subscription._id?"active-plan":""}`}>
+              <div key={index} className={`shadow-sm plan-auth-cont col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 ${item._id===props?.user?.userInfo?.subscription?._id?"active-plan":""}`}>
               <h1>{item.name}</h1>
               <h2>₹{item.amount}/month</h2>
               {
@@ -137,7 +137,7 @@ function Subscription(props) {
               {/* <p><TaskAltIcon /> {item.jobPostings} job postings</p>
               <p><TaskAltIcon /> {item.subRecruiters} Sub Recruiters</p> */}
               {
-                item._id===props.user.userInfo.subscription._id?<p className="active-text">Currently Active</p>:
+                item._id===props?.user?.userInfo?.subscription?._id?<p className="active-text">Currently Active</p>:
                 <Button onClick={()=>openPayModal(item.amount,item)} variant="contained">upgrade</Button>
               }
              </div> 
@@ -148,7 +148,7 @@ function Subscription(props) {
             
           {plans.length>0&&<div style={{ height: '40vh', width: '100%' }}>
                 <DataGrid
-                    rows={props.user.userInfo.paymentHistory.map((item,index)=>({...item,id:index+1}))}
+                    rows={props?.user?.userInfo?.paymentHistory?.map((item,index)=>({...item,id:index+1}))}
                     columns={columns2}
                     autoPageSize
                 />

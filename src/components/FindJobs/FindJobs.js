@@ -136,7 +136,7 @@ const getAllJobs = ()=>{
 
 
 const handleBookmarkAdd = (jobId)=>{
-    if(props.user.userInfo.bookmarks.jobs.includes(jobId)){
+    if(props?.user?.userInfo?.bookmarks?.jobs?.includes(jobId)){
         //removeBookmarkJob
         axios.post(`${process.env.REACT_APP_DEVELOPMENT}/api/candidate/removeBookmarkJob`,{jobId:jobId},{headers:{token:props.user.user}})
         .then(res=>{
@@ -185,7 +185,7 @@ const handleJobApply = (apply,singleJob)=>{
 const renderApplied = (singleJob)=>{
     let apply;
     singleJob.jobCandidates.map(item=>{
-        if(item.user===props.user.userInfo._id){
+        if(item?.user===props?.user?.userInfo?._id){
             apply=true
         }else{
             apply=false
@@ -243,7 +243,7 @@ const checkDisabled = (item)=>{
     let disabled = false;
     if(props.user.user){
         item.jobCandidates.map(item=>{
-            if(item.user===props.user.userInfo._id){
+            if(item?.user===props?.user?.userInfo?._id){
                 disabled = true
             }
         })
@@ -252,8 +252,6 @@ const checkDisabled = (item)=>{
     return disabled
     
 }
-
-
   return (
     <div>
         <Header id="2" />
@@ -298,17 +296,17 @@ const checkDisabled = (item)=>{
                 <span className="ml-3"><b>View:</b></span><Button className="ml-auto" onClick={()=>getAllJobs()}>All Jobs</Button>
                 </div>
                 {
-                    jobs.length>0?jobs.map((item,index)=>(
+                    jobs.length > 0 ? jobs.map((item,index)=>(
                         <section key={index} className="shadow-sm single-job row m-auto">
                     <div className='img-div col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2'>
-                        <img src={item.createdByAdmin?renderImageString(item.createdByAdmin):renderImageString(item.createdBy)} alt="logo1" />
+                        <img src={item?.createdByAdmin?renderImageString(item?.createdByAdmin):renderImageString(item?.createdBy)} alt="logo1" />
                     </div>
                     <div className='content-div col-12 col-sm-12 col-md-9 col-lg-9 col-xl-9'>
-                    <Link className="link" to={`/jobdetail/${item._id}`}>
-                        <h3>{item.title}</h3>
+                    <Link className="link" to={`/jobdetail/${item?._id}`}>
+                        <h3>{item?.title}</h3>
                         {/* <p className="company-name m-0">{item.createdBy?item.createdBy.companyName:item.createdByAdmin.companyName}</p> */}
-                        <p className="company-name m-0">{item.companyName}</p>
-                        <h4 className="m-0">{item.product}</h4>
+                        <p className="company-name m-0">{item?.companyName}</p>
+                        <h4 className="m-0">{item?.product}</h4>
                             <div className='row m-auto align-items-center'>
                                 <div>
                                 <Rating name="read-only" value={renderRating(item)} readOnly />
@@ -320,39 +318,36 @@ const checkDisabled = (item)=>{
                         <div className="row my-2 mx-auto key-features">
                             <div className="m-1">
                                 <WorkIcon />
-                                <span className='key-headline m-2'>{item.experience.min} - {item.experience.max} Yrs</span>
+                                <span className='key-headline m-2'>{item?.experience.min} - {item?.experience.max} Yrs</span>
                             </div>
                             <div className="m-1">
                                 <CurrencyRupeeIcon />
-                                <span className='key-headline m-2'>{item.ctc.min} - {item.ctc.max} P.A</span>
+                                <span className='key-headline m-2'>{item?.ctc.min} - {item?.ctc.max} P.A</span>
                             </div>
                             <div className="m-1">
                                 <FmdGoodIcon />
-                                <span className='key-headline m-2'>{item.jobLocation.city} | {item.jobLocation.state} | {item.jobLocation.country}</span>
+                                <span className='key-headline m-2'>{item?.jobLocation.city} | {item?.jobLocation.state} | {item?.jobLocation.country}</span>
                             </div>
                         </div>
                         <div className="row my-2 mx-auto key-features">
                             <div className="m-1">
                                 <ArticleIcon />
-                                <span className='key-headline m-2'>{item.qualification.ug}</span>
+                                <span className='key-headline m-2'>{item?.qualification.ug}</span>
                             </div>
                             <div className="m-1">
                                 <DescriptionIcon />
-                                <span className='key-headline m-2'>{item.qualification.pg}</span>
+                                <span className='key-headline m-2'>{item?.qualification.pg}</span>
                             </div>
                             <div className="m-1">
                                 <Inventory2Icon />
-                                <span className='key-headline m-2'>{item.industry}</span>
+                                <span className='key-headline m-2'>{item?.industry}</span>
                             </div>
                         </div>
 
                         <div className="description">
-                        {item.jobDescription.length>180?`${item.jobDescription.substring(0,180)} ...`:item.jobDescription}
+                        {item?.jobDescription.length>180?`${item?.jobDescription.substring(0,50)} ...`:item?.jobDescription}
                         </div>
 
-                        <div className="keys">
-                        {item.tags.map((tag,index)=>index<=2&&<Chip key={index} className="m-3" label={tag} />)}
-                        </div>
                         </Link>
 
                         <div className="button-div">
@@ -377,26 +372,26 @@ const checkDisabled = (item)=>{
                         if(!props.user.user){
                             props.history.push("/login")
                         }else{
-                            handleBookmarkAdd(item._id)
+                            handleBookmarkAdd(item?._id)
                         }
                         
                         }}>
                     {/* <BookmarkIcon /> */}
                         {
-                        props.user.user?props.user.userInfo.bookmarks.jobs.includes(item._id)?<BookmarkIcon />:<BookmarkBorderIcon />:
+                         props?.user?.userInfo ? props.user.userInfo.bookmarks.jobs.includes(item?._id)?<BookmarkIcon />:<BookmarkBorderIcon />:
                         <BookmarkBorderIcon />
                         }
                         </IconButton>
                     </div>
                     <div className="col-12 time-frame">
-                    <p className="timeframe">{renderAgo(item.createdAt)}</p>
+                    <p className="timeframe">{renderAgo(item?.createdAt)}</p>
                     </div>
                 </section>
                     )):
                     <h1>Sorry, No Jobs Available for "{keyword}"</h1>
                 }
                 {
-                    jobs.length>0?
+                    jobs.length > 10 ?
                     <div style={{textAlign:"center"}}>
                     <Button onClick={()=>{
                         setLimit({req1:limit.req1+20,req2:limit.req2+20,req3:limit.req3+20})
